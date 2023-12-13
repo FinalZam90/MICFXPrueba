@@ -1,0 +1,112 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+	<div class="breadcrumb-title pe-3">Administración</div>
+	<div class="ps-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb mb-0 p-0">
+				<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+			</ol>
+		</nav>
+	</div>
+</div>
+<!--end breadcrumb-->
+<div class="row">
+	<div class="col-12 col-lg-3 d-flex">
+		<div class="card w-100">
+			<div class="card-header py-3">
+				<h5 class="mb-0">Filtrar</h5>
+			</div>
+			<div class="card-body">
+				<form class="row g-3">
+					<div class="col-12">
+						<label class="form-label">Sucursal</label>
+						<select class="form-select" id="sucur" name="seleccion">
+							<option class="Sin Filtro De Sucursal" id="0">Sin Filtro De Sucursal</option>
+							<option *ngFor="let sucu of llenarSucus" class="{{sucu.DES_SUCUR}}" id="{{sucu.CVE_SUCUR}}">{{sucu.DES_SUCUR}}</option>
+							<!--<option>Teotihuacan</option>-->
+						</select>
+					</div>
+					<div class="col-12">
+						<label class="form-label">Grupo</label>
+						<select class="form-select" id="grusu">
+							<option class="Sin Filtro De Grupo" id="0">Sin Filtro De Grupo</option>
+							<option *ngFor="let grusu of llenarGrusu" class="{{grusu.DES_GRUSU}}" id="{{grusu.CVE_GRUSU}}">{{grusu.DES_GRUSU}}</option>
+							<!--<option>Asistente de admnistración</option>-->
+						</select>
+					</div>
+					<div class="col-12">
+						<div class="d-grid">
+							<button class="btn btn-light" (click) = "GetByParams()">Buscar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-9 d-flex">
+		<div class="card w-100">
+			<div class="card-header py-3">
+				<div class="row g-3">
+					<div class="col-lg-4 col-md-6 me-auto">
+						<form [formGroup]="formGet">
+							<div class="ms-auto position-relative">
+								<div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-search"></i>
+								</div>
+								<input class="form-control ps-5" id = "P" type="text" formControlName="NOM_USUAR" placeholder="Buscar Usuario">
+							</div>
+						</form>
+						
+					</div>
+					<div class="col-lg-4 col-md-6 me-auto">
+						<a routerLink ="Formulario/?"><button class="btn btn-light"> Nuevo  <i class="lni lni-plus"></i></button></a>
+					</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table align-middle">
+						<thead class="table-light">
+							<tr>
+								<th>Clave</th>
+								<th>Ente</th>
+								<th>Nombre</th>
+								<th>Sucursal</th>
+								<th>Grupo</th>
+								<th>Cargo</th>
+								<th>Seguridad</th>
+								<th>Caducidad</th>
+								<th>Bloqueado</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let usu of usuar">
+								<td>{{usu.CVE_USUAR}}</td>
+								<td>{{usu.NUM_ENTE}}</td>
+								<td>{{usu.NOM_USUAR}}</td>
+								<td>{{usu.Sucur[0].DES_SUCUR}}</td>
+								<td>{{usu.Grusu[0].DES_GRUSU}}</td>
+								<td>{{usu.DES_CARUS}}</td>
+								<td>Nivel {{usu.NUM_NIVEL}}</td>
+								<td>{{usu.NUM_DIAVA}} días</td>
+								<td>
+									<div class="badge rounded-pill bg-light w-100" *ngIf ="usu.BAN_DATO3 == false">No</div>
+									<div class="badge rounded-pill bg-light w-100" *ngIf ="usu.BAN_DATO3 == true">Si</div>
+								</td>
+								<td>
+									<div class="d-flex order-actions">	    
+										<a routerLink ="Formulario/{{usu.CVE_USUAR}}" href="javascript:;" class="ms-4 text-white bg-light border-0"><i class='bx bxs-edit' ></i></a>
+									</div>
+								</td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</div>

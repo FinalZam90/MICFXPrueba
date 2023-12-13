@@ -1,0 +1,95 @@
+<!--breadcrumb-->
+<div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+	<div class="breadcrumb-title pe-3">Administración</div>
+	<div class="ps-3">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb mb-0 p-0">
+				<li class="breadcrumb-item"><a href="javascript:;"><i class="bx bx-home-alt"></i></a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Auditoría</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="ms-auto">
+		
+	</div>
+</div>
+<!--end breadcrumb-->
+<div class="row">
+	<div class="col-12 col-lg-3 d-flex">
+		<div class="card w-100">
+			<div class="card-header py-3">
+				<h5 class="mb-0">Filtrar</h5>
+			</div>
+			<div class="card-body">
+				<form class="row g-3">
+					<div class="col-12">
+						<label class="form-label">Origen de Acceso</label>
+						<select class="form-select" id="sel">
+							<option>WEB</option>
+							<option>RDP</option>
+							<option>APK</option>
+						</select>
+					</div>
+					
+					<div class="col-12">
+						<label class="form-label">Fecha</label>
+						<input type="date" class="form-control" id="fecha1">
+					</div>
+					<div class="col-12">
+						<div class="d-grid">
+							<button class="btn btn-light" type="submit" (click)="GetByParam()">Buscar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-12 col-lg-9 d-flex">
+		<div class="card w-100">
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table align-middle">
+						<thead class="table-light">
+							<tr>
+								<th>Usuario</th>
+								<th>Fecha</th>
+								<th>Hora</th>
+								<th>Pantalla</th>
+								<th>Mensaje</th>
+								<th>IP</th>
+								<th>Ubicación</th>
+								<th>Acceso</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor = "let mov1 of mov">
+								<td>{{mov1.Cve_Usuar}}</td>
+								<td>{{mov1.Fec_Movim}}</td>
+								<td>{{mov1.Num_Hora2}}</td>
+								<td>{{mov1.Des_Panta}}</td>
+								<td>{{mov1.Message.message}}</td>
+								<td>{{mov1.Ip}}</td>
+								<td>Ecatepec, Estado de México</td>
+								<td>{{mov1.Cve_Oracs}}</td>
+								<!--
+									<td>gfg</td>
+									<td>25/08/2023</td>
+									<td>17:16</td>
+									<td>Inicio de sesión</td>
+									<td>Acceso E</td>
+									<td>123.123.123.123</td>
+									<td>Ecatepec, Estado de México</td>
+									<td>WEB</td>	
+								-->			
+							</tr>				
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!--end row-->

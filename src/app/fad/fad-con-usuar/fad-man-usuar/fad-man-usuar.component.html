@@ -1,0 +1,176 @@
+<h6 class="mb-0 text-uppercase">Usuario</h6>
+<hr/>
+<div class="text-center" *ngIf="show">
+    <div class="spinner-border" role="status">
+        <span class="sr-only"></span>
+      </div>
+</div>
+
+<div class="card" *ngIf="FormShow">
+    <div class="card-body">
+        <div class="p-4 border rounded">
+            <form class="row g-3" [formGroup]="formPost" (ngSubmit)="Form()">               
+                 <div class="col-md-2">
+                    <label for="validationDefault01" class="form-label">Id</label>
+                    <input type="text" *ngIf="Id != '?'" class="form-control" id="ID1" [(ngModel)]="usuar.Cve_Usuar" formControlName="CVE_USUAR" disabled>
+                    <input type="text" *ngIf="Id == '?'" class="form-control" id="ID1" [(ngModel)]="usuar.Cve_Usuar" formControlName="CVE_USUAR" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="validationDefault01" class="form-label">No. Ente</label>
+                    <input type="number" *ngIf="Id != '?'" (keyup)="CambioEnte($event.target.value)" (change) ="CambioEnte($event.target.value)" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Ente.Num_Ente" formControlName="NUM_ENTE"  disabled>
+                    <input type="number" *ngIf="Id == '?'" (keyup)="CambioEnte($event.target.value)" (change) ="CambioEnte($event.target.value)" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Ente.Num_Ente" formControlName="NUM_ENTE"  required>
+                </div>
+                <div class="col-md-8">
+                    <label for="validationDefault01" class="form-label">Nombre</label>
+                    <select formNameControl="NOM_ENTE" *ngIf="Id != '?'" [ngModel]="EnteSelect" (ngModelChange)="CambioEnte($event, 0)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-control"  disabled>
+                        
+                        <option [ngValue]="ente" *ngFor ="let ente of usuar.Ente.Entes">{{ente.Nom_Com}}</option>
+                        
+                        <!--<option value="2">Pauline de la Fuente</option>-->
+                        
+                    </select>
+                    <select formNameControl="NOM_ENTE" *ngIf="Id == '?'" [ngModel]="EnteSelect" (ngModelChange)="CambioEnte($event, 0)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" required>
+                        
+                        <option [ngValue]="ente" *ngFor ="let ente of usuar.Ente.Entes">{{ente.Nom_Com}}</option>
+                        
+                        <!--<option value="2">Pauline de la Fuente</option>-->
+                        
+                    </select>
+                    
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Departamento</label>
+                    <select formControlName="DES_DEPTO" [ngModel]="DeptoSelect" (ngModelChange)="CambioDepto($event)" name="sel2" [ngModelOptions]="{standalone: true}" class="form-select" required>
+                       
+                        <option [ngValue]="depto" *ngFor ="let depto of usuar.Depto1.Deptos">{{depto.Des_Depto}}</option>
+                        <!--<option value="2">Pauline de la Fuente</option>-->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Sucursal</label>
+                    <select formControlName="DES_SUCUR" [ngModel]="SucurSelect" (ngModelChange)="CambioSucur($event)" name="sel3" [ngModelOptions]="{standalone: true}" class="form-select" required>
+                        
+                        <option *ngFor ="let sucur of usuar.Sucur.Sucurs" [ngValue]="sucur">{{sucur.Des_Sucur}}</option>
+                        <!--<option value="2">Pauline de la Fuente</option>-->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Grupo</label>
+                    <select formControlName="DES_GRUSU" [ngModel]="GrusuSelect" (ngModelChange)="CambioGrusu($event)" name="sel4" [ngModelOptions]="{standalone: true}" class="form-select" required>
+                        
+                        <option *ngFor="let grusu of usuar.Grusu.Grusus" [ngValue]="grusu">{{grusu.Des_Grusu}}</option>
+                        <!--<option value="2">Pauline de la Fuente</option>-->
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Cargo</label>
+                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Des_Cargo" formControlName="CARGO"  required>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Num_Tel" formControlName="TELEFONO"  required>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Caducidad de contraseña (días)</label>
+                    <input type="text" class="form-control" id="validationDefault01" placeholder="Ejemplo: 90" [(ngModel)]="usuar.Pass_Cad" formControlName="PASSTiemp"  required>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Pass_1" formControlName="PASS1"  required>
+                </div>
+                <div class="col-md-4">
+                    <label for="validationDefault01" class="form-label">Verificación Contraseña</label>
+                    <input type="password" class="form-control" id="validationDefault01" [(ngModel)]="usuar.Pass_2" formControlName="PASS2"  required>
+                </div>
+               
+                <div class="col-md-2">
+                    <label for="validationDefault01" class="form-label">Seguridad</label>
+                    <div class="form-check form-switch" >
+                        <input class="form-check-input" type="checkbox" id="Bloq1" (change) = "CambioBloq($event.target)">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Bloqueado</label>
+                    </div>
+                    <div class="form-check form-switch" >
+                        <input class="form-check-input" type="checkbox" id="Inac1" (change) = "CambioInac($event.target)">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Inactivo</label>
+                    </div>                 
+                </div>
+                <div class="col-md-2">
+                    <label for="validationDefault01" class="form-label">Nivel de Seguridad</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Niv1" (change) = "CambioNivel(1)">
+                        <label class="form-check-label" for="flexRadioDefault1">Nivel 1</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Niv2" (change) = "CambioNivel(2)">
+                        <label class="form-check-label" for="flexRadioDefault2">Nivel 2</label>
+                    </div> 
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="Niv3" (change) = "CambioNivel(3)">
+                        <label class="form-check-label" for="flexRadioDefault3">Nivel 3</label>
+                    </div>              
+                </div>
+                <div class="col-md-6">
+                    <label for="validationDefault01" class="form-label">Path del usuario</label>
+                    <input type="text" class="form-control" id="validationDefault01" disabled [(ngModel)]="usuar.Path" required>
+                </div>
+
+                
+               
+                <div class="col-12">
+                    <div class="row row-cols-auto g-3">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary px-5">Guardar</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-secondary px-5">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+
+
+<!--MODAL!!!!-->
+
+<!--
+<div *ngIf="mostrar">
+<div class="modal fade" id="exampleScrollableModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Guardar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Estás seguro de querer guardar estos datos</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+-->
+<div *ngIf="mostrar">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">{{msg.tabla}}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="Regresar()"></button>
+          </div>
+          <div class="modal-body">
+            {{msg.message}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="Regresar()" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" (click)="Regresar()">Otra opción</button>
+          </div>
+        </div>  
+    </div>
+</div>
