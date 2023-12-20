@@ -80,6 +80,10 @@
 							<a class="nav-link" href="#identificaciones"> <strong>Identificaciones</strong>
 							</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#referencias"> <strong>Referencias</strong>
+							</a>
+						</li>
 					</ul>
 
 					<div class="tab-content">
@@ -243,7 +247,7 @@
 								</div>
 							</form>
 
-						</div>
+						</div><!--pre-registro-->
 
 						<div id="generales" class="tab-pane" role="tabpanel" aria-labelledby="generales">
 							<h3>Información General del Cliente</h3>
@@ -446,7 +450,7 @@
 									<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 								</div>
 							</form>
-						</div>
+						</div><!--generales-->
 
 						<div id="direcciones" class="tab-pane" role="tabpanel" aria-labelledby="direcciones">
 							<h3>Direcciones</h3>
@@ -622,7 +626,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><!--direcciones-->
 
 						<div id="identificaciones" class="tab-pane" role="tabpanel" aria-labelledby="identificaciones">
 							<h3>Identificaciones</h3>
@@ -673,7 +677,7 @@
 								<div class="card-body">
 									<div class="d-flex align-items-center">
 										<div>
-											<h5 class="mb-0">Identificaciones Registradas</h5>
+											<h5 class="mb-0">Verificación de datos</h5>
 										</div>
 										<div class="font-22 ms-auto"><i class="bx bx-dots-horizontal-rounded"></i>
 										</div>
@@ -705,6 +709,7 @@
 														<div class="file-select">
 															<input type="file" aria-label="Archivo">
 														</div>
+
 													</td>
 													<td class="text-center"><img src="" alt=""></td>
 												</tr>
@@ -713,7 +718,60 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><!--identificaciones-->
+
+						<div id="referencias" class="tab-pane" role="tabpanel" aria-labelledby="referencias">
+							<h3>Referencias</h3>
+
+							<form class="row">
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Nombre(s)</label>
+									<input type="text" class="form-control" required>
+								</div><!--Nombre(s)-->
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Apellido(s)</label>
+									<input type="text" class="form-control" required>
+								</div><!--Apellido(s)-->
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Teléfono</label>
+									<input type="tel" class="form-control" required>
+								</div><!--Telefono-->
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Dirección</label>
+									<input type="text" class="form-control" required>
+								</div><!--Direccion-->
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Años de conocerlo/a</label>
+									<input type="number" class="form-control" min="1" required>
+								</div><!--Años-->
+
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Tipo ID:</label>
+									<div class="input-group">
+
+										<mat-select class="form-control">
+											<mat-option>No aplica </mat-option>
+											<mat-option>Bueno</mat-option>
+											<mat-option>Regular</mat-option>
+											<mat-option>Malo</mat-option>
+											<mat-option>No sé</mat-option>
+										</mat-select>
+									</div>
+								</div>
+
+								<div class="col-md-6 mb-3">
+									<textarea></textarea>
+								</div>
+
+
+
+							</form>
+						</div><!--referencias-->
 					</div>
 
 				</div>
