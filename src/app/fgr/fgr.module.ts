@@ -24,7 +24,6 @@ import { FgrManClienComponent } from "./fgr-man-clien/fgr-man-clien.component";
   imports: [
     CommonModule,
     FgrRoutingModule,
-    FormModule,
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,

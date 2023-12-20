@@ -1,4 +1,52 @@
-.was-validated .form-control:valid, .form-control.is-valid {
-    background-repeat: no-repeat;
-    background-position: right;
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.tab-content {
+  height: auto !important;
+}
+
+.form-control {
+  color: white !important;
+}
+
+.row span {
+  color: white;
+}
+
+
+.file-select {
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
   }
+
+  &::before {
+    content: 'Seleccionar';
+    display: flex;
+    color: white;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.15);
+
+    /* texto por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  input[type="file"] {
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+  }
+
+}
