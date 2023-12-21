@@ -16,7 +16,6 @@
   color: white;
 }
 
-
 .file-select {
   cursor: pointer;
   position: relative;
@@ -50,4 +49,9 @@
     display: inline-block;
   }
 
+}
+
+textarea {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
 }
