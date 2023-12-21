@@ -54,10 +54,13 @@
 	</div>
 </div>
 <!--end breadcrumb-->
+
 <div class="row">
+
 	<div class="col-xl-12 mx-auto">
 		<h6 class="mb-0">{{'Mantenimiento de Clientes' | uppercase}}</h6>
 		<hr />
+
 		<div class="card">
 			<div class="card-body">
 
@@ -84,11 +87,11 @@
 							<a class="nav-link" href="#referencias"> <strong>Referencias</strong>
 							</a>
 						</li>
-					</ul>
+					</ul><!--nav-->
 
 					<div class="tab-content">
 
-						<div id="pre-registro" class="tab-pane" role="tabpanel" aria-labelledby="pre-registro">
+						<section id="pre-registro" class="tab-pane" role="tabpanel" aria-labelledby="pre-registro">
 
 							<h3>Captura de datos</h3>
 
@@ -103,44 +106,45 @@
 
 								<div class="col-md-6"></div>
 
-								<label for="validationDefault01" class="form-label">Nombre(s)</label>
+								<label for="nombre" class="form-label">Nombre(s)</label>
 
 								<div class="col-md-6">
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.Nom_Ente1" formControlName="NOM1_ENTE" required>
+									<input type="text" class="form-control" id="nombre" [(ngModel)]="ente.Nom_Ente1"
+										formControlName="NOM1_ENTE" required>
 								</div><!--Nombre1-->
 
 								<div class="col-md-6">
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.Nom_Ente2" formControlName="NOM2_ENTE" required>
+									<input type="text" class="form-control" id="nombre2" [(ngModel)]="ente.Nom_Ente2"
+										formControlName="NOM2_ENTE" required>
 								</div><!--Nombre2-->
 
 								<div class="col-md-6">
-									<label for="validationDefault01" class="form-label">Apellido Paterno</label>
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.Ape_Ente1" formControlName="APE1_ENTE" required>
+									<label for="apellidoP" class="form-label">Apellido Paterno</label>
+									<input type="text" class="form-control" id="apellidoP" [(ngModel)]="ente.Ape_Ente1"
+										formControlName="APE1_ENTE" required>
 								</div><!--Apellido paterno-->
 
 								<div class="col-md-6">
-									<label for="validationDefault01" class="form-label">Apellido Materno</label>
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.Ape_Ente2" formControlName="APE2_ENTE" required>
+									<label for="apellidoM" class="form-label">Apellido Materno</label>
+									<input type="text" class="form-control" id="apellidoM" [(ngModel)]="ente.Ape_Ente2"
+										formControlName="APE2_ENTE" required>
 								</div><!--Apellido materno-->
 
 								<div class="col-md-4">
-									<label class="form-label">Fecha de Nacimiento:</label>
-									<input type="date" class="form-control" [(ngModel)]="ente.Fec_Na2"
+									<label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
+									<input id="nacimiento" type="date" class="form-control" [(ngModel)]="ente.Fec_Na2"
 										formControlName="FEC_NAC" required>
 								</div><!--Fecha Nacimiento-->
 
 								<div class="col-md-4">
-									<label class="form-label">Género</label>
+									<label for="genero" class="form-label">Género</label>
+
 									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+										<label class="input-group-text" for="genero">Opción</label>
 										<select formNameControl="TIP_SEX" [ngModel]="TipSexSelect"
 											(ngModelChange)="CambioSexGen($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
+											[ngModelOptions]="{standalone: true}" class="form-select" id="genero"
+											required>
 											<option [ngValue]="Gen" *ngFor="let Gen of ente.SexGen.SexGenArray">
 												{{Gen.Des_TipSex}}</option>
 										</select>
@@ -148,11 +152,12 @@
 								</div><!--Género-->
 
 								<div class="col-md-4">
-									<label class="form-label">Nacionalidad (Pueden ser hasta 5)</label>
+									<label for="nacionalidad" class="form-label">Nacionalidad (Pueden ser hasta
+										5)</label>
 									<div class="input-group mb-3">
-										<select class="multiple-select" data-placeholder="Choose anything" multiple
-											formNameControl="DES_NAC" [ngModel]="PaisSelect"
-											(onSelect)="CambioPais($event)" name="sel1"
+										<select id="nacionalidad" class="multiple-select"
+											data-placeholder="Choose anything" multiple formNameControl="DES_NAC"
+											[ngModel]="PaisSelect" (onSelect)="CambioPais($event)" name="sel1"
 											[ngModelOptions]="{standalone: true}">
 											<option [ngValue]="pais" (onChange)="Prueba($event)"
 												*ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
@@ -161,9 +166,11 @@
 								</div>
 
 								<div class="col-md-4">
-									<label class="form-label">Nacionalidad (Pueden ser hasta 5)</label>
+									<label for="nacionalidad" class="form-label">Nacionalidad (Pueden ser hasta
+										5)</label>
 									<div class="input-group mb-3">
-										<mat-select multiple class="form-control" placeholder="Ingresa">
+										<mat-select id="nacionalidad" multiple class="form-control"
+											placeholder="Ingresa">
 											<mat-option (onSelectionChange)="PaisSelec($event)"
 												*ngFor="let pais of ente.Pais.Paises" [value]="pais"
 												disabled="{{pais.DisableSelect}}">
@@ -187,13 +194,13 @@
 								</div>
 								-->
 								<div class="col-md-4">
-									<label class="form-label">Lugar de Nacimiento</label>
+									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
 									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+										<label class="input-group-text" for="nacimientoL">Opción</label>
 										<select formNameControl="DES_LUGNA" [ngModel]="LugnaSelect"
 											(ngModelChange)="CambioLugna($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
+											[ngModelOptions]="{standalone: true}" class="form-select" id="nacimientoL"
+											required>
 											<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">
 												{{lug.Des_Lugna}}</option>
 											<!--<option value="1">AQUÍ OTRA</option>
@@ -202,23 +209,23 @@
 									</div>
 								</div>
 								<div class="col-md-4">
-									<label for="validationDefault01" class="form-label">RFC</label>
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.RFC" formControlName="RFC" required>
+									<label for="rfc" class="form-label">RFC</label>
+									<input type="text" class="form-control" id="rfc" [(ngModel)]="ente.RFC"
+										formControlName="RFC" required>
 								</div>
 								<div class="col-md-4">
-									<label for="validationDefault01" class="form-label">CURP</label>
-									<input type="text" class="form-control" id="validationDefault01"
-										[(ngModel)]="ente.CURP" formControlName="CURP" required>
+									<label for="curp" class="form-label">CURP</label>
+									<input type="text" class="form-control" id="curp" [(ngModel)]="ente.CURP"
+										formControlName="CURP" required>
 								</div>
 								<div class="col-md-4">
-									<label class="form-label">Sucursal</label>
+									<label for="sucursal" class="form-label">Sucursal</label>
 									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+										<label class="input-group-text" for="sucursal">Opción</label>
 										<select formNameControl="DES_SUCUR" [ngModel]="SucurSelect"
 											(ngModelChange)="CambioSucur($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
+											[ngModelOptions]="{standalone: true}" class="form-select" id="sucursal"
+											required>
 											<option [ngValue]="suc" *ngFor="let suc of ente.Sucur.Sucurs">
 												{{suc.Des_Sucur}}</option>
 											<!--<option value="1">VERACRUZ</option>
@@ -227,13 +234,13 @@
 									</div>
 								</div>
 								<div class="col-md-4">
-									<label class="form-label">Tipo de Cliente</label>
+									<label for="tcliente" class="form-label">Tipo de Cliente</label>
 									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+										<label class="input-group-text" for="tcliente">Opción</label>
 										<select formNameControl="DES_TIPCL" [ngModel]="ClienSelect"
 											(ngModelChange)="CambioCl($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
+											[ngModelOptions]="{standalone: true}" class="form-select" id="tcliente"
+											required>
 											<option [ngValue]="cl" *ngFor="let cl of ente.TipCl.TipCls">{{cl.Des_TipCl}}
 											</option>
 											<!--<option value="1">Persona física</option>
@@ -247,212 +254,373 @@
 								</div>
 							</form>
 
-						</div><!--pre-registro-->
+						</section><!--pre-registro-->
 
-						<div id="generales" class="tab-pane" role="tabpanel" aria-labelledby="generales">
-							<h3>Información General del Cliente</h3>
+						<section id="generales" class="tab-pane" role="tabpanel" aria-labelledby="generales">
 
-							<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
-								(ngSubmit)="Form2()">
-								<div class="col-md-4">
-									<label class="form-label">Estado civil</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="EDO_CIV" [ngModel]="EdoCivSelect"
-											(ngModelChange)="CambioEdoCi($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
-											<option [ngValue]="ci" *ngFor="let ci of ente.EdoCi.EdoCivs">
-												{{ci.Tip_EdoCi}}</option>
-											<!--<option value="1">Casado</option>
-										<option value="2">ETC</option>-->
-										</select>
+							<div class="mb-5">
+								<h3>Información General del Cliente</h3>
+
+								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
+									(ngSubmit)="Form2()">
+
+									<div class="col-md-4">
+										<label for="ec" class="form-label">Estado civil</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="ec">Opción</label>
+											<select formNameControl="EDO_CIV" [ngModel]="EdoCivSelect"
+												(ngModelChange)="CambioEdoCi($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="ec"
+												required>
+												<option [ngValue]="ci" *ngFor="let ci of ente.EdoCi.EdoCivs">
+													{{ci.Tip_EdoCi}}</option>
+												<!--<option value="1">Casado</option>
+											<option value="2">ETC</option>-->
+											</select>
+										</div>
+									</div><!--Estado Civil-->
+
+									<div class="col-md-4">
+										<label for="dependiente" class="form-label">Número de dependientes</label>
+										<input id="dependiente" type="number" class="form-control" placeholder="0"
+											[(ngModel)]="ente.NumDependientes" formControlName="NUM_DECLI" required>
+									</div><!--Dependientes-->
+
+									<div class="col-md-4">
+										<label for="estudios" class="form-label">Nivel de estudios</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="estudios">Opción</label>
+											<select formNameControl="NIV_ES" [ngModel]="NivesSelect"
+												(ngModelChange)="CambioNives($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="estudios"
+												required>
+												<option [ngValue]="niv" *ngFor="let niv of ente.Nives.Estus">
+													{{niv.Des_Nives}}</option>
+												<!--<option value="1">Primaria</option>
+											<option value="2">Secundaria</option>-->
+											</select>
+										</div>
+									</div><!--Nivel de estudios-->
+
+									<div class="col-md-4">
+										<label for="correo" class="form-label">Correo electrónico</label>
+										<input id="correo" type="text" class="form-control"
+											placeholder="correo@dominio.com" [(ngModel)]="ente.Email"
+											formControlName="EMAIL" required>
+									</div><!--Correo-->
+
+									<div class="col-md-4">
+										<label for="telP" class="form-label">Teléfono particular</label>
+										<input id="telP" type="text" class="form-control" placeholder="55"
+											[(ngModel)]="ente.Tel_1" formControlName="TEL1" required>
+									</div><!--Teléfono Particular-->
+
+									<div class="col-md-4">
+										<label for="telc" class="form-label">Teléfono celular</label>
+										<input id="telc" type="text" class="form-control" placeholder="55"
+											[(ngModel)]="ente.Tel_2" formControlName="TEL2" required>
+									</div><!--Teléfono celular-->
+
+									<div class="col-md-4">
+										<label for="teln" class="form-label">Teléfono de negocio</label>
+										<input id="teln" type="text" class="form-control" placeholder="55"
+											[(ngModel)]="ente.Tel_3" formControlName="TEL3" required>
+									</div><!--Teléfono negocio-->
+								</form>
+							</div><!--Información General del Cliente-->
+
+							<div class="mb-5">
+								<h3>Información Económica</h3>
+								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
+									(ngSubmit)="Form2()">
+
+									<div class="col-md-4">
+										<label for="ingreso" class="form-label">Nivel de Ingreso</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="ingreso">Opción</label>
+											<select formNameControl="NIV_ING" [ngModel]="IngSelect"
+												(ngModelChange)="CambioIng($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="ingreso"
+												required>
+												<option [ngValue]="ing" *ngFor="let ing of ente.Ingr.Ingres">
+													{{ing.Des_Nivel}}</option>
+												<!--<option value="1">Primaria</option>
+											<option value="2">Secundaria</option>-->
+											</select>
+										</div>
 									</div>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Número de dependientes</label>
-									<input type="number" class="form-control" placeholder="0"
-										[(ngModel)]="ente.NumDependientes" formControlName="NUM_DECLI" required>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Nivel de estudios</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="NIV_ES" [ngModel]="NivesSelect"
-											(ngModelChange)="CambioNives($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
-											<option [ngValue]="niv" *ngFor="let niv of ente.Nives.Estus">
-												{{niv.Des_Nives}}</option>
-											<!--<option value="1">Primaria</option>
-										<option value="2">Secundaria</option>-->
-										</select>
+
+									<div class="col-md-4">
+										<label for="act" class="form-label">Fec. Inicio Act. Económica:</label>
+										<input id="act" type="date" class="form-control" [(ngModel)]="ente.Fec_Inicio"
+											formControlName="FEC_INICIO" required>
 									</div>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Correo electrónico</label>
-									<input type="text" class="form-control" placeholder="correo@dominio.com"
-										[(ngModel)]="ente.Email" formControlName="EMAIL" required>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Teléfono particular</label>
-									<input type="text" class="form-control" placeholder="55" [(ngModel)]="ente.Tel_1"
-										formControlName="TEL1" required>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Teléfono celular</label>
-									<input type="text" class="form-control" placeholder="55" [(ngModel)]="ente.Tel_2"
-										formControlName="TEL2" required>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Teléfono de negocio</label>
-									<input type="text" class="form-control" placeholder="55" [(ngModel)]="ente.Tel_3"
-										formControlName="TEL3" required>
-								</div>
-							</form>
 
-							<br>
-							<br>
-
-							<h3>Información Económica</h3>
-							<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
-								(ngSubmit)="Form2()">
-
-								<div class="col-md-4">
-									<label class="form-label">Nivel de Ingreso</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="NIV_ING" [ngModel]="IngSelect"
-											(ngModelChange)="CambioIng($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
-											<option [ngValue]="ing" *ngFor="let ing of ente.Ingr.Ingres">
-												{{ing.Des_Nivel}}</option>
-											<!--<option value="1">Primaria</option>
-										<option value="2">Secundaria</option>-->
-										</select>
+									<div class="col-md-4">
+										<label for="grupo" class="form-label">Grupo Económico</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="grupo">Opción</label>
+											<mat-select id="grupo" multiple class="form-control" placeholder="Ingresa">
+												<mat-option (onSelectionChange)="GrusoSelec($event)"
+													*ngFor="let gpo of ente.Gruso.Grusos" [value]="gpo">
+													{{ gpo.Des_Gruso }}
+												</mat-option>
+											</mat-select>
+											<!--
+											<select formNameControl="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="grupo" required>
+												<option [ngValue]="gpo" *ngFor ="let gpo of ente.Gruso.Grusos">{{gpo.Des_Gruso}}</option>
+												<option value="1">Primaria</option>
+												<option value="2">Secundaria</option>
+											</select>
+											-->
+										</div>
 									</div>
-								</div>
-
-								<div class="col-md-4">
-									<label class="form-label">Fec. Inicio Act. Económica:</label>
-									<input type="date" class="form-control" [(ngModel)]="ente.Fec_Inicio"
-										formControlName="FEC_INICIO" required>
-								</div>
-
-								<div class="col-md-4">
-									<label class="form-label">Grupo Económico</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<mat-select multiple class="form-control" placeholder="Ingresa">
-											<mat-option (onSelectionChange)="GrusoSelec($event)"
-												*ngFor="let gpo of ente.Gruso.Grusos" [value]="gpo">
-												{{ gpo.Des_Gruso }}
-											</mat-option>
-										</mat-select>
-										<!--
-										<select formNameControl="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="inputGroupSelect01" required>
-											<option [ngValue]="gpo" *ngFor ="let gpo of ente.Gruso.Grusos">{{gpo.Des_Gruso}}</option>
-											<option value="1">Primaria</option>
-											<option value="2">Secundaria</option>
-										</select>
-										-->
+									<!--
+									<div class="col-md-4">
+										<label class="form-label">Actividad Económica Finafin</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+											<select class="form-select" id="inputGroupSelect01">
+												<option selected>1</option>
+												<option value="1">dos</option>
+												<option value="2">tres</option>
+											</select>
+										</div>
 									</div>
-								</div>
-								<!--
-								<div class="col-md-4">
-									<label class="form-label">Actividad Económica Finafin</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select class="form-select" id="inputGroupSelect01">
-											<option selected>1</option>
-											<option value="1">dos</option>
-											<option value="2">tres</option>
-										</select>
+									-->
+									<div class="col-md-4">
+										<label for="cnbyv" class="form-label">Actividad Económica CNByV</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="cnbyv">Opción</label>
+											<select formNameControl="CNB" [ngModel]="AegenSelect"
+												(ngModelChange)="CambioCNB($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="cnbyv"
+												required>
+												<option [ngValue]="aeg" *ngFor="let aeg of ente.Aegen.Aegens">
+													{{aeg.Des_Aegen}}</option>
+												<!--<option value="1">Primaria</option>
+											<option value="2">Secundaria</option>-->
+											</select>
+										</div>
 									</div>
-								</div>
-								-->
-								<div class="col-md-4">
-									<label class="form-label">Actividad Económica CNByV</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="CNB" [ngModel]="AegenSelect"
-											(ngModelChange)="CambioCNB($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select"
-											id="inputGroupSelect01" required>
-											<option [ngValue]="aeg" *ngFor="let aeg of ente.Aegen.Aegens">
-												{{aeg.Des_Aegen}}</option>
-											<!--<option value="1">Primaria</option>
-										<option value="2">Secundaria</option>-->
-										</select>
+
+									<div class="col-sm-4 d-flex flex-column justify-content-center">
+										<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 									</div>
-								</div>
+								</form>
+							</div><!--Información Económica-->
 
-								<div class="col-sm-4 d-flex flex-column justify-content-center">
-									<button type="submit" class="btn btn-light px-5">Guardar datos</button>
-								</div>
-							</form>
+							<div class="mb-5">
+								<h3>Formas de Percepción de Ingreso</h3>
 
-							<br>
-							<br>
+								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
+									(ngSubmit)="Form2()">
+
+									<div class="col-md-4">
+
+										<div class="mb-3">
+											<label for="recursos" class="form-label">Fuente Recursos</label>
+
+											<div class="input-group mb-3">
+												<label class="input-group-text" for="recursos">Opción</label>
+
+												<select class="form-select" id="recursos" required>
+													<option>Bonos y otras compensaciones</option>
+												</select>
+											</div>
+
+										</div><!--Fuente recursos-->
+
+										<div class="mb-3 row">
+
+											<div class="col-md-6">
+												<label for="per1" class="form-label">Periodicidad</label>
+
+												<div class="input-group">
+													<label class="input-group-text" for="per1">Opción</label>
+													<select class="form-select" id="per1" required>
+														<option>Ninguno</option>
+													</select>
+												</div>
+											</div>
+											<!--Periocidad1-->
+
+											<div class="col-md-6 d-flex align-items-end">
+												<div class="d-flex gap-2 align-items-center">
+													<label for="signo" class="form-label">$</label>
+													<input id="signo" type="number" class="form-control" required>
+												</div>
+											</div><!--$-->
+
+										</div><!--Periodicidad1-->
+
+										<div class="mb-3 row">
+
+											<div class="col-md-6">
+												<label for="per1" class="form-label">Periodicidad</label>
+
+												<div class="input-group">
+													<label class="input-group-text" for="per1">Opción</label>
+													<select class="form-select" id="per1" required>
+														<option>Ninguno</option>
+													</select>
+												</div>
+											</div>
+											<!--Periocidad1-->
+
+											<div class="col-md-6 d-flex align-items-end">
+												<div class="d-flex gap-2 align-items-center">
+													<label for="signo" class="form-label">$</label>
+													<input id="signo" type="number" class="form-control" required>
+												</div>
+											</div><!--$-->
+
+										</div><!--Periodicidad2-->
+
+									</div>
+
+									<div class="col-md-2"></div>
+									
+
+									<div class="col-md-5 d-flex flex-column justify-content-center">
+
+										<div class="mb-3 d-flex gap-2 align-items-center">
+											<label for="gasto" class="form-label col-md-3">Gasto Mensual</label>
+											<input id="gasto" type="number" class="form-control" required>
+										</div><!--Gasto Mensual-->
+
+										<div class="mb-3 d-flex gap-2 align-items-center">
+											<label for="utilidad" class="form-label col-md-3">Utilidad</label>
+											<input id="utilidad" type="number" class="form-control" required>
+										</div><!--Utilidad-->
+
+										<div class="mb-3 d-flex gap-2 align-items-center">
+											<label for="prepago" class="form-label col-md-3">Ptje Prepago</label>
+											<input id="prepago" type="number" class="form-control" required>
+										</div><!--Prepago-->
+
+										<div class="mb-3 d-flex gap-2 align-items-center">
+											<label for="liquidacion" class="form-label col-md-3">Ptje Liquidación
+												Anticipada</label>
+											<input id="liquidacion" type="number" class="form-control" required>
+										</div><!--Liquidacion-->
+
+									</div>
+
+
+								</form>
+							</div><!--Formas de Percepción de Ingreso-->
 
 							<hr>
-							<h3>Conocimiento del Cliente</h3>
-							<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
-								(ngSubmit)="Form2()">
 
-								<div class="col-md-4">
-									<label class="form-label">Se identifica como:</label>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Proveedor de
-											Recursos</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Propietario Real</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Cuenta de tercero</label>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Promotor indica:</label>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Poco solvente</label>
-									</div>
-									<br>
-									<label class="form-label">Otros datos:</label>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Capacidades
-											diferentes</label>
-									</div>
-									<div class="form-check">
-										<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-										<label class="form-check-label" for="flexCheckDefault">Activo</label>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<label class="form-label">Rol en Hogar</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select class="form-select" id="inputGroupSelect01">
-											<option selected>1</option>
-											<option value="1">2</option>
-											<option value="2">3</option>
-										</select>
-									</div>
-								</div>
-								<div class="col-sm-4">
-									<button type="submit" class="btn btn-light px-5">Guardar datos</button>
-								</div>
-							</form>
-						</div><!--generales-->
+							<div class="mb-5">
 
-						<div id="direcciones" class="tab-pane" role="tabpanel" aria-labelledby="direcciones">
+
+
+								<h3>Conocimiento del Cliente</h3>
+								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
+									(ngSubmit)="Form2()">
+
+									<div class="col-md-4">
+										<label class="form-label">Se identifica como:</label>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Proveedor de
+												Recursos</label>
+										</div>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Propietario
+												Real</label>
+										</div>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Cuenta de
+												tercero</label>
+										</div>
+
+										<br>
+
+										<label class="form-label">Promotor indica:</label>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Poco solvente</label>
+										</div>
+
+
+									</div>
+
+									<div class="col-md-4">
+
+										<label class="form-label">Otros datos:</label>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Capacidades
+												diferentes</label>
+										</div>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value=""
+												id="flexCheckDefault">
+											<label class="form-check-label" for="flexCheckDefault">Activo</label>
+										</div>
+
+										<br>
+
+										<label class="form-label">Datos Fondeadores:</label>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="">
+											<label class="form-check-label" for="">Lengua Indígena</label>
+										</div>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="" id="">
+											<label class="form-check-label" for="">Redes Sociales</label>
+										</div>
+
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" value="" id="">
+											<label class="form-check-label" for="">Uso Internet</label>
+										</div>
+
+
+									</div>
+
+
+									<div class="col-md-3">
+
+										<label class="form-label">Rol en Hogar</label>
+										<div class="input-group mb-3">
+											<label class="input-group-text" for="inputGroupSelect01">Opción</label>
+											<select class="form-select" id="inputGroupSelect01">
+												<option selected>1</option>
+												<option value="1">2</option>
+												<option value="2">3</option>
+											</select>
+										</div>
+
+										<br>
+										<button type="submit" class="btn btn-light px-5">Guardar datos</button>
+
+									</div>
+
+								</form>
+							</div><!--Conocimiento del Cliente-->
+
+						</section><!--generales-->
+
+						<section id="direcciones" class="tab-pane" role="tabpanel" aria-labelledby="direcciones">
 							<h3>Direcciones</h3>
 							<form class="row g-3" novalidate [formGroup]="formPost3" (ngSubmit)="Form3()">
 								<div class="col-md-4">
@@ -626,9 +794,10 @@
 									</div>
 								</div>
 							</div>
-						</div><!--direcciones-->
+						</section><!--direcciones-->
 
-						<div id="identificaciones" class="tab-pane" role="tabpanel" aria-labelledby="identificaciones">
+						<section id="identificaciones" class="tab-pane" role="tabpanel"
+							aria-labelledby="identificaciones">
 							<h3>Identificaciones</h3>
 
 							<form class="row">
@@ -718,9 +887,9 @@
 									</div>
 								</div>
 							</div>
-						</div><!--identificaciones-->
+						</section><!--identificaciones-->
 
-						<div id="referencias" class="tab-pane" role="tabpanel" aria-labelledby="referencias">
+						<section id="referencias" class="tab-pane" role="tabpanel" aria-labelledby="referencias">
 							<h3>Referencias</h3>
 
 							<form class="row">
@@ -805,19 +974,20 @@
 													<td></td>
 													<td></td>
 													<td></td>
-													<td class="text-center"><button><i class="bx bx-pencil"></i></button></td>
+													<td class="text-center"><button><i
+																class="bx bx-pencil"></i></button></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
 							</div>
-						</div><!--referencias-->
-					</div>
+						</section><!--referencias-->
+					</div><!--tab-content-->
 
-				</div>
-				<br />
-				<div>
+				</div><!--smartwizard-->
+
+				<div class="my-4">
 					<!-- <label>Theme:</label>
 						<select id="theme_selector">
 							<option value="default">Default</option>
@@ -846,10 +1016,10 @@
 					<button class="btn btn-secondary" id="prev-btn" type="button">Anterior</button>
 					<button class="btn btn-secondary ms-2" id="next-btn" type="button">Siguiente</button>
 					<!--<button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>-->
-				</div>
-				<br />
-			</div>
-		</div>
+				</div><!--botones-->
+
+			</div><!--card-body-->
+		</div><!--card-->
 	</div>
 </div>
 <!--Si es persona moral
