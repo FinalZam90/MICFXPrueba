@@ -1,3 +1,4 @@
+//**** ESTILOS GENERALES*****************//
 .was-validated .form-control:valid,
 .form-control.is-valid {
   background-repeat: no-repeat;
@@ -8,14 +9,21 @@
   height: auto !important;
 }
 
+.row span,
 .form-control {
   color: white !important;
 }
 
-.row span {
-  color: white;
+//**** PESTAÑA GENERALES*****************//
+.box {
+  height: 260px;
 }
 
+legend {
+  text-align: right;
+}
+
+//**** PESTAÑA IDENTIFICACIONES*****************//
 .file-select {
   cursor: pointer;
   position: relative;
