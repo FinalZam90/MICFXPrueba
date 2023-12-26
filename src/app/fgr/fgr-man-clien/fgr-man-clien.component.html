@@ -544,6 +544,11 @@
 
 									<div class="col-md-5">
 
+										<div class="mb-3 d-flex align-items-center gap-1">
+											<label>Umbral</label>
+											<p class="input-group-text my-0">3,000.00</p>
+										</div><!--Umbral-->
+
 										<div class="mb-3">
 											<label for="monetario" class="form-label">Instr. Monetario</label>
 
@@ -576,11 +581,6 @@
 
 										</div><!--Aplicación Recursos-->
 
-										<div class="mb-3 d-flex align-items-center gap-1">
-											<label>Umbral</label>
-											<p class="input-group-text my-0">3,000.00</p>
-										</div><!--Umbral-->
-
 										<div class="mb-3">
 											<label for="envio" class="form-label">Canal de envio</label>
 
@@ -600,15 +600,17 @@
 									</div><!--col1-->
 
 									<div class="col-md-6 d-flex justify-content-center align-items-center">
+
 										<div class="col-md-10">
+
 											<fieldset>
 												<label for="est1" class="form-label">Lugar de Operación</label>
 												<div class="mb-3">
 
 													<div class="input-group ">
 														<label class="input-group-text d-flex align-items-center">
-															<i class="bx bx-search"></i>
-															<label for="est1">Edo.</label>
+
+															<label for="est1">Estado</label>
 														</label>
 
 														<select formNameControl="CVE_ESTDO" [ngModel]="EstadoSelect"
@@ -629,8 +631,8 @@
 													<div class="input-group">
 														<label class="input-group-text d-flex align-items-center"
 															for="mun1">
-															<i class="bx bx-search"></i>
-															<label for="mun1">Mpio.</label>
+
+															<label for="mun1">Municipio</label>
 														</label>
 
 														<select formNameControl="CVE_MUNIC" [ngModel]="MunicSelect"
@@ -653,8 +655,8 @@
 
 													<div class="input-group ">
 														<label class="input-group-text d-flex align-items-center">
-															<i class="bx bx-search"></i>
-															<label for="est2">Edo.</label>
+
+															<label for="est2">Estado</label>
 														</label>
 
 														<select formNameControl="CVE_ESTDO" [ngModel]="EstadoSelect"
@@ -675,8 +677,8 @@
 													<div class="input-group">
 														<label class="input-group-text d-flex align-items-center"
 															for="mun2">
-															<i class="bx bx-search"></i>
-															<label for="mun2">Mpio.</label>
+
+															<label for="mun2">Municipio</label>
 														</label>
 
 														<select formNameControl="CVE_MUNIC" [ngModel]="MunicSelect"
@@ -691,12 +693,18 @@
 													</div>
 												</div><!--municipio-->
 											</fieldset>
+
+											<div class="d-flex flex-column justify-content-center">
+												<button type="submit" class="btn btn-light px-5">Guardar Datos</button>
+											</div>
 										</div>
+
+
 
 									</div><!--col2-->
 
 								</form>
-							</div><!--Forma de Pago de Crédito-->
+							</div><!--Forma de Pago de Crédito-->			
 
 							<hr>
 
