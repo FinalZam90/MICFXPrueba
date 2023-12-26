@@ -19,8 +19,20 @@
   height: 260px;
 }
 
+@media(min-width: 992px) {
+
+  .box {
+    justify-content: center!important;
+  }
+
+}
+
 legend {
   text-align: right;
+}
+
+button[type="submit"] {
+  width: 100%;
 }
 
 //**** PESTAÑA IDENTIFICACIONES*****************//

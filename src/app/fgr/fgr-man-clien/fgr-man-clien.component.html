@@ -98,45 +98,45 @@
 							<form class="row g-3 needs-validation" novalidate [formGroup]="formPost"
 								(ngSubmit)="Form()">
 
-								<div class="col-md-6">
+								<div class="col-md-12 col-lg-6">
 									<input class="form-control mb-3" type="text" placeholder="Número de Cliente"
 										aria-label="Disabled input example" disabled readonly
 										[(ngModel)]="ente.Num_Ente" [ngModelOptions]="{standalone: true}">
 								</div><!--Clave-->
 
-								<div class="col-md-6"></div>
+								<div class="col-md-12 col-lg-6"></div>
 
 								<label for="nombre" class="form-label">Nombre(s)</label>
 
-								<div class="col-md-6">
+								<div class="col-md-12 col-lg-6">
 									<input type="text" class="form-control" id="nombre" [(ngModel)]="ente.Nom_Ente1"
 										formControlName="NOM1_ENTE" required>
 								</div><!--Nombre1-->
 
-								<div class="col-md-6">
+								<div class="col-md-12 col-lg-6">
 									<input type="text" class="form-control" id="nombre2" [(ngModel)]="ente.Nom_Ente2"
 										formControlName="NOM2_ENTE" required>
 								</div><!--Nombre2-->
 
-								<div class="col-md-6">
+								<div class="col-md-12  col-lg-6">
 									<label for="apellidoP" class="form-label">Apellido Paterno</label>
 									<input type="text" class="form-control" id="apellidoP" [(ngModel)]="ente.Ape_Ente1"
 										formControlName="APE1_ENTE" required>
 								</div><!--Apellido paterno-->
 
-								<div class="col-md-6">
+								<div class="col-md-12 col-lg-6">
 									<label for="apellidoM" class="form-label">Apellido Materno</label>
 									<input type="text" class="form-control" id="apellidoM" [(ngModel)]="ente.Ape_Ente2"
 										formControlName="APE2_ENTE" required>
 								</div><!--Apellido materno-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
 									<input id="nacimiento" type="date" class="form-control" [(ngModel)]="ente.Fec_Na2"
 										formControlName="FEC_NAC" required>
 								</div><!--Fecha Nacimiento-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="genero" class="form-label">Género</label>
 
 									<div class="input-group mb-3">
@@ -153,7 +153,7 @@
 									</div>
 								</div><!--Género-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacionalidad" class="form-label">Nacionalidad (Pueden ser hasta
 										5)</label>
 									<div class="input-group mb-3">
@@ -167,7 +167,7 @@
 									</div>
 								</div><!--Nacionalidad-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacionalidad" class="form-label">Nacionalidad (Pueden ser hasta
 										5)</label>
 									<div class="input-group mb-3">
@@ -195,7 +195,7 @@
 									</div>
 								</div>
 								-->
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="nacimientoL">
@@ -213,19 +213,19 @@
 									</div>
 								</div><!--Lugar de Nacimiento-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="rfc" class="form-label">RFC</label>
 									<input type="text" class="form-control" id="rfc" [(ngModel)]="ente.RFC"
 										formControlName="RFC" required>
 								</div><!--RFC-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="curp" class="form-label">CURP</label>
 									<input type="text" class="form-control" id="curp" [(ngModel)]="ente.CURP"
 										formControlName="CURP" required>
 								</div><!--CURP-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="sucursal" class="form-label">Sucursal</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="sucursal">
@@ -243,7 +243,7 @@
 									</div>
 								</div><!--Sucursal-->
 
-								<div class="col-md-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="tcliente" class="form-label">Tipo de Cliente</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="tcliente">
@@ -262,7 +262,7 @@
 									</div>
 								</div><!--Tipo cliente-->
 
-								<div class="col-sm-4">
+								<div class="col-md-12 col-lg-6 col-xl-4">
 									<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 								</div><!--Submit-->
 							</form><!--Captura Datos-->
@@ -277,7 +277,7 @@
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="ec" class="form-label">Estado civil</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="ec">
@@ -295,13 +295,13 @@
 										</div>
 									</div><!--Estado Civil-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="dependiente" class="form-label">Número de dependientes</label>
 										<input id="dependiente" type="number" class="form-control" placeholder="0"
 											[(ngModel)]="ente.NumDependientes" formControlName="NUM_DECLI" required>
 									</div><!--Dependientes-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="estudios" class="form-label">Nivel de estudios</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="estudios">
@@ -319,26 +319,26 @@
 										</div>
 									</div><!--Nivel de estudios-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="correo" class="form-label">Correo electrónico</label>
 										<input id="correo" type="text" class="form-control"
 											placeholder="correo@dominio.com" [(ngModel)]="ente.Email"
 											formControlName="EMAIL" required>
 									</div><!--Correo-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="telP" class="form-label">Teléfono particular</label>
 										<input id="telP" type="text" class="form-control" placeholder="55"
 											[(ngModel)]="ente.Tel_1" formControlName="TEL1" required>
 									</div><!--Teléfono Particular-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="telc" class="form-label">Teléfono celular</label>
 										<input id="telc" type="text" class="form-control" placeholder="55"
 											[(ngModel)]="ente.Tel_2" formControlName="TEL2" required>
 									</div><!--Teléfono celular-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="teln" class="form-label">Teléfono de negocio</label>
 										<input id="teln" type="text" class="form-control" placeholder="55"
 											[(ngModel)]="ente.Tel_3" formControlName="TEL3" required>
@@ -351,7 +351,7 @@
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="ingreso" class="form-label">Nivel de Ingreso</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="ingreso">
@@ -369,13 +369,13 @@
 										</div>
 									</div><!--Nivel de ingreso-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="act" class="form-label">Fec. Inicio Act. Económica:</label>
 										<input id="act" type="date" class="form-control" [(ngModel)]="ente.Fec_Inicio"
 											formControlName="FEC_INICIO" required>
 									</div><!--Inicio Act. Económica-->
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="grupo" class="form-label">Grupo Económico</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="grupo">
@@ -409,7 +409,7 @@
 										</div>
 									</div>
 									-->
-									<div class="col-md-4">
+									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="cnbyv" class="form-label">Actividad Económica CNByV</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="cnbyv">
@@ -427,7 +427,7 @@
 										</div>
 									</div><!--Actividad Económica CNByV-->
 
-									<div class="col-sm-4 d-flex flex-column justify-content-center">
+									<div class="col-sm-12 col-lg-6 col-xl-4 d-flex flex-column justify-content-center">
 										<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 									</div>
 								</form>
@@ -441,7 +441,7 @@
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
-									<div class="col-md-5">
+									<div class="col-sm-12 col-xl-5">
 
 										<div class="mb-3">
 											<label for="recursos" class="form-label">Fuente Recursos</label>
@@ -506,27 +506,28 @@
 
 									</div><!--col1-->
 
-									<div class="col-md-6 d-flex justify-content-center align-items-center box">
-										<div class="col-md-9 ">
+									<div class="col-sm-12 col-xl-6 d-flex justify-content-start align-items-center box">
+
+										<div class="col-sm-12 col-md-9 ">
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
-												<label for="gasto" class="form-label col-md-4">Gasto Mensual</label>
+												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto Mensual</label>
 												<input id="gasto" type="number" class="form-control" required>
 											</div><!--Gasto Mensual-->
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
-												<label class="form-label col-md-4">Utilidad</label>
+												<label class="form-label col-sm-6 col-md-4">Utilidad</label>
 												<label class="input-group-text">0.00</label>
 
 											</div><!--Utilidad-->
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
-												<label class="form-label col-md-4">Ptje Prepago</label>
+												<label class="form-label col-sm-6 col-md-4">Ptje Prepago</label>
 												<label class="input-group-text">0.00</label>
 											</div><!--Prepago-->
 
 											<div class="d-flex gap-2 align-items-center">
-												<label class="form-label col-md-4">Ptje Liquidación Anticipada</label>
+												<label class="form-label col-sm-6 col-md-4">Ptje Liquidación Anticipada</label>
 												<label class="input-group-text">0.00</label>
 											</div><!--Liquidacion-->
 
@@ -542,7 +543,7 @@
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
-									<div class="col-md-5">
+									<div class="col-sm-12 col-xxl-5">
 
 										<div class="mb-3 d-flex align-items-center gap-1">
 											<label>Umbral</label>
@@ -599,9 +600,9 @@
 
 									</div><!--col1-->
 
-									<div class="col-md-6 d-flex justify-content-center align-items-center">
+									<div class="col-sm-12 col-xxl-6 d-flex justify-content-center align-items-center">
 
-										<div class="col-md-10">
+										<div class="col-sm-12 col-xxl-10">
 
 											<fieldset>
 												<label for="est1" class="form-label">Lugar de Operación</label>
@@ -609,7 +610,6 @@
 
 													<div class="input-group ">
 														<label class="input-group-text d-flex align-items-center">
-
 															<label for="est1">Estado</label>
 														</label>
 
@@ -714,7 +714,7 @@
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-md-6 col-lg-4">
 										<label class="form-label">Se identifica como:</label>
 
 										<div class="form-check">
@@ -751,7 +751,7 @@
 
 									</div>
 
-									<div class="col-md-4">
+									<div class="col-sm-12 col-md-6 col-lg-4">
 
 										<label class="form-label">Otros datos:</label>
 
@@ -790,7 +790,7 @@
 
 									</div>
 
-									<div class="col-md-3">
+									<div class="col-sm-12 col-md-6 col-lg-3">
 
 										<label class="form-label">Rol en Hogar</label>
 										<div class="input-group mb-3">
@@ -817,13 +817,13 @@
 							<h3>Direcciones</h3>
 							<form class="row g-3" novalidate [formGroup]="formPost3" (ngSubmit)="Form3()">
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="cp" class="form-label">Código Postal</label>
 									<input type="text" class="form-control" id="cp" [(ngModel)]="direc.Cve_CP"
 										formControlName="CP" required>
 								</div><!--Codigo Postal-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="pais1" class="form-label">País</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="pais1">
@@ -840,7 +840,7 @@
 									</div>
 								</div><!--País-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="edo" class="form-label">Estado</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="edo">
@@ -856,7 +856,7 @@
 									</div>
 								</div><!--Estado-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="munic" class="form-label">Municipio</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="munic">
@@ -873,7 +873,7 @@
 									</div>
 								</div><!--Municipio-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="localidad" class="form-label">Localidad</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="localidad">
@@ -890,7 +890,7 @@
 									</div>
 								</div><!--localidad-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="localcnb" class="form-label">Localidad CNByV</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="localcnb">
@@ -907,43 +907,43 @@
 									</div>
 								</div><!--localidad cnbyv-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="ciudad" class="form-label">Ciudad</label>
 									<input type="text" class="form-control" id="ciudad" [(ngModel)]="direc.Des_Ciuda"
 										formControlName="CIUDAD" required>
 								</div><!--ciudad-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="colonia" class="form-label">Colonia</label>
 									<input type="text" class="form-control" id="colonia" [(ngModel)]="direc.Nom_Colon"
 										formControlName="COLONIA" required>
 								</div><!--colonia-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="calle" class="form-label">Calle</label>
 									<input type="text" class="form-control" id="calle" [(ngModel)]="direc.Des_Calle"
 										formControlName="CALLE" required>
 								</div><!--calle-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="nExterior" class="form-label">Número exterior</label>
 									<input type="text" class="form-control" id="nExterior" [(ngModel)]="direc.Num_Ext"
 										formControlName="NUM_EXT" required>
 								</div><!--Numero ext-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="nInterior" class="form-label">Número interior</label>
 									<input type="text" class="form-control" id="nInterior" [(ngModel)]="direc.Num_Int"
 										formControlName="NUM_INT" required>
 								</div><!--numero interior-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="apostal1" class="form-label">Apartado Postal</label>
 									<input type="text" class="form-control" id="apostal1" [(ngModel)]="direc.Num_Appos"
 										formControlName="APPOS" required>
 								</div><!--Apartado postal-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="vivienda" class="form-label">Vivienda</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="vivienda">
@@ -960,25 +960,25 @@
 									</div>
 								</div><!--vivienda-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="residenciaA" class="form-label">Años de residencia</label>
 									<input type="text" class="form-control" id="residenciaA"
 										[(ngModel)]="direc.Num_Resen" formControlName="AÑRES" required>
 								</div><!--años residencia-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="calles" class="form-label">Referencia entre calles</label>
 									<input type="text" class="form-control" id="calles" [(ngModel)]="direc.Num_Cpent"
 										formControlName="REFERENCIAS" required>
 								</div><!--ref calles-->
 
-								<div class="col-md-4">
+								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="coordenadas" class="form-label">Coordenadas</label>
 									<input type="text" class="form-control" id="coordenadas" placeholder="lat" readonly>
 									<input type="text" class="form-control mt-1" placeholder="long" readonly>
 								</div><!--coordenadas-->
 
-								<div class="col-sm-4 d-flex flex-column justify-content-center">
+								<div class="col-sm-12 col-lg-4 d-flex flex-column justify-content-center">
 									<button type="submit" class="btn btn-light px-5">Agregar Dirección</button>
 								</div><!--submit-->
 							</form>
@@ -1023,7 +1023,7 @@
 
 							<form class="row">
 
-								<div class="col-md-6 mb-3">
+								<div class="col-sm-12 col-lg-6 mb-3">
 									<label for="credencial" class="form-label">Tipo ID:</label>
 									<div id="credencial" class="input-group">
 										<mat-select multiple class="form-control" placeholder="Seleccione">
@@ -1035,28 +1035,28 @@
 								</div><!--credencial-->
 
 
-								<div class="col-md-6 mb-3">
+								<div class="col-sm-12 col-lg-6 mb-3">
 									<label for="Vencimiento" class="form-label">Año Vencimiento</label>
 									<input id="vencimiento" type="number" class="form-control" required>
 								</div><!--año vencimiento-->
 
-								<div class="col-md-6 mb-3">
+								<div class="col-sm-12 col-lg-6 mb-3">
 									<label for="alta" class="form-label">Fecha Alta:</label>
 									<input id="alta" type="date" class="form-control" required>
 								</div><!--fecha alta-->
 
-								<div class="col-md-6 mb-3">
+								<div class="col-sm-12 col-lg-6 mb-3">
 									<label for="identifi" class="form-label">N° de Identificación:</label>
 									<input id="identifi" type="number" class="form-control" required>
 								</div><!--identificacion-->
 
-								<div class="col-md-6 mb-3">
+								<div class="col-sm-12 col-lg-6 mb-3">
 									<label for="folio" class="form-label">Folio/Cve Identificación:</label>
 									<input id="folio" type="text" class="form-control" [(ngModel)]="ente.RFC"
 										formControlName="RFC" required>
 								</div><!--folio-->
 
-								<div class="col-sm-4 mt-3 d-flex flex-column justify-content-center">
+								<div class="col-sm-12 col-lg-4 mt-3 d-flex flex-column justify-content-center">
 									<button type="submit" class="btn btn-light px-5">Guardar Datos</button>
 								</div><!--submit-->
 							</form>
@@ -1115,27 +1115,27 @@
 
 							<form class="row">
 
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Nombre Completo</label>
 									<input type="text" class="form-control" required>
 								</div><!--Nombre(s)-->
 
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Teléfono</label>
 									<input type="tel" class="form-control" required>
 								</div><!--Telefono-->
 
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Dirección</label>
 									<input type="text" class="form-control" required>
 								</div><!--Direccion-->
 
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Años de conocerlo/a</label>
 									<input type="number" class="form-control" min="1" required>
 								</div><!--Años-->
 
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Pregunta (1)</label>
 									<div class="input-group">
 
@@ -1148,7 +1148,7 @@
 										</mat-select>
 									</div>
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Pregunta (1)</label>
 									<div class="input-group">
 
@@ -1161,7 +1161,7 @@
 										</mat-select>
 									</div>
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Pregunta (1)</label>
 									<div class="input-group">
 
@@ -1174,7 +1174,7 @@
 										</mat-select>
 									</div>
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Pregunta (1)</label>
 									<div class="input-group">
 
@@ -1187,7 +1187,7 @@
 										</mat-select>
 									</div>
 								</div>
-								<div class="col-md-4 mb-3">
+								<div class="col-sm-12 col-md-4 mb-3">
 									<label class="form-label">Pregunta (1)</label>
 									<div class="input-group">
 
@@ -1204,7 +1204,7 @@
 								<hr>
 
 
-								<div class="col-md-12 d-flex gap-2 align-items-center">
+								<div class="col-sm-12 d-flex gap-2 align-items-center">
 
 									<label for="recomienda" class="form-label">Recomienda</label>
 									<div class="form-check">
@@ -1214,7 +1214,7 @@
 
 								<hr>
 
-								<div class="col-md-12 mb-3">
+								<div class="col-sm-12 mb-3">
 									<label class="form-label">Comentarios</label>
 									<textarea></textarea>
 								</div>
@@ -1222,8 +1222,8 @@
 
 								<hr>
 
-								<div class="col-md-12 d-flex justify-content-center">
-									<div class="col-md-4 d-flex flex-column justify-content-center">
+								<div class="col-sm-12 d-flex justify-content-center">
+									<div class="col-sm-12 col-lg-4 d-flex flex-column justify-content-center">
 										<button type="submit" class="btn btn-light px-5">Guardar Datos</button>
 									</div>
 								</div>
