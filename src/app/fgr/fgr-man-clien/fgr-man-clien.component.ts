@@ -50,11 +50,30 @@ import { arrayMax } from 'highcharts';
 })
 export class FgrManClienComponent implements OnInit {
 
-  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private fb: FormBuilder, private route: ActivatedRoute, private location: Location) {
+
+
+    this.formPost = this.fb.group({
+      //PASO 1
+      NOM1_ENTE: [''],
+      NOM2_ENTE: [''],
+      APE1_ENTE: [''],
+      APE2_ENTE: [''],
+      FEC_NAC: [''],    
+      TIP_SEX: this.fb.array<SexGenModel>([]),
+      DES_SUCUR: this.fb.array<SucurModel>([]),
+      DES_LUGNA: this.fb.array<LugnaModel>([]),    
+      DES_TIPCL: this.fb.array<TipClModel>([]),
+      DES_NAC: this.fb.array<PaisModel>([]),
+      RFC: [''],
+      CURP: ['']
+    })
+
+    /*
     this.formPost = new FormGroup(
       {
         //PASO 1
-        NOM1_ENTE: new FormControl(''),
+        NOM1_ENTE: new FormControl('', []),
         NOM2_ENTE: new FormControl(''),
         APE1_ENTE: new FormControl(''),
         APE2_ENTE: new FormControl(''),
@@ -68,7 +87,7 @@ export class FgrManClienComponent implements OnInit {
         CURP: new FormControl('')
         // PASO 2
 
-      });
+      });*/
 
     this.formPost2 = new FormGroup(
       {
@@ -82,7 +101,14 @@ export class FgrManClienComponent implements OnInit {
         NIV_ING: new FormControl(new Array<IngreModel>()),
         GPO_ECO: new FormControl(new Array<GrusoModel>()),
         CNB: new FormControl(new Array<AegenModel>()),
-        FEC_INICIO: new FormControl('')
+        FEC_INICIO: new FormControl(''),
+
+        //Nuevos por conectar
+        FUE_REC: new FormControl(new Array()),
+        PER1: new FormControl(new Array()),
+        PER1_RES: new FormControl(0),
+
+
       });
 
     this.formPost3 = new FormGroup(
