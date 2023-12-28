@@ -4,6 +4,7 @@ import { EstadoModel } from "./FGR_ESTDO";
 import { LocalModel } from "./FGR_LOCAL";
 import { TidoModel } from "./FCL_TIDOM";
 import { FldLocalModel } from "./FLD_LOCAL";
+import { EnteModel } from "./FCL_ENTE";
 export class DirecModel
 {
     Cve_CP : number
@@ -17,6 +18,7 @@ export class DirecModel
     Num_Cpent: string
     LMunicipioLMunicipio
     Direcciones: Array<DirecModel>
+    Ente = new EnteModel()
     Pais = new PaisModel()
     Estado = new EstadoModel()
     Municipio = new MunicModel()

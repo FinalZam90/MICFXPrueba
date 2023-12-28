@@ -4,12 +4,13 @@ import { Movi1Model } from "../ML/MOVI1";
 import { Observable } from "rxjs";
 import { EnteModel } from "../ML/FCL_ENTE";
 import { DirecModel } from "../ML/FCL_DIREC";
+import { EntIdModel } from "../ML/FCL_ENTID";
 @Injectable({
     providedIn: 'root'
 })
 
-export class DirecService{
-    myApi = "https://webmicfx.arashi.solutions/FGR/WsDirec.p";
+export class EntIdService{
+    myApi = "https://webmicfx.arashi.solutions/FGR/WsIdenti.p";
 
     options = 
     {
@@ -30,25 +31,17 @@ export class DirecService{
         return this.http.get(this.myApi);
         
     }
-    public Add(Direc: DirecModel)
+    public Add(EntId: EntIdModel)
     {
         let body = new URLSearchParams();
-        body.set('ACCION', 'AddDir');
-        body.set('NUM', Direc.Ente.Num_Ente.toString());
-        body.set('CP', Direc.Cve_CP.toString());
-        body.set('MUNIC', Direc.Municipio.Cve_Munic.toString());
-        body.set('NUMEXT', Direc.Num_Ext.toString());
-        body.set('VIVI', Direc.Vivienda.Cve_Tidom.toString());
-        body.set('PAIS', Direc.Pais.Cve_Pais.toString());
-        body.set('LOCAL', Direc.Localidad.Cve_Local.toString());
-        body.set('NUMINT', Direc.Num_Int.toString());
-        body.set('RESEN', Direc.Num_Resen.toString());
-        body.set('EDO', Direc.Estado.Cve_Estdo.toString());
-        body.set('CNB', Direc.LocalCNB.Cve_LoPLD.toString());
-        body.set('APPOS', Direc.Num_Appos.toString());
-        body.set('CIUDAD', Direc.Des_Ciuda);
-        body.set('COL', Direc.Nom_Colon);
-        body.set('CALLE', Direc.Des_Calle);
+        ///body.set('ACCION', 'AddDir');
+        body.set('NUM', EntId.Ente.Num_Ente.toString());
+        body.set('TIP', EntId.Cve_TipId.toString());
+        body.set('VENCI', EntId.An_Venci.toString());
+        body.set('NUMIDENT', EntId.Num_Identi.toString());
+        body.set('FECHA', EntId.Fec_AddRec);
+        body.set('IDENT', EntId.Cve_Identi);
+        
         
         return this.http.post(this.myApi, body.toString(), this.options);
     }
