@@ -52,24 +52,24 @@ export class FgrManClienComponent implements OnInit {
 
   constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private fb: FormBuilder, private route: ActivatedRoute, private location: Location) {
 
-
-    this.formPost = this.fb.group({
-      //PASO 1
-      NOM1_ENTE: [''],
-      NOM2_ENTE: [''],
-      APE1_ENTE: [''],
-      APE2_ENTE: [''],
-      FEC_NAC: [''],    
-      TIP_SEX: this.fb.array<SexGenModel>([]),
-      DES_SUCUR: this.fb.array<SucurModel>([]),
-      DES_LUGNA: this.fb.array<LugnaModel>([]),    
-      DES_TIPCL: this.fb.array<TipClModel>([]),
-      DES_NAC: this.fb.array<PaisModel>([]),
-      RFC: [''],
-      CURP: ['']
-    })
-
     /*
+        this.formPost = this.fb.group({
+          //PASO 1
+          NOM1_ENTE: [''],
+          NOM2_ENTE: [''],
+          APE1_ENTE: [''],
+          APE2_ENTE: [''],
+          FEC_NAC: [''],
+          TIP_SEX: this.fb.array<SexGenModel>([]),
+          DES_SUCUR: this.fb.array<SucurModel>([]),
+          DES_LUGNA: this.fb.array<LugnaModel>([]),
+          DES_TIPCL: this.fb.array<TipClModel>([]),
+          DES_NAC: this.fb.array<PaisModel>([]),
+          RFC: [''],
+          CURP: ['']
+        })*/
+
+
     this.formPost = new FormGroup(
       {
         //PASO 1
@@ -87,7 +87,7 @@ export class FgrManClienComponent implements OnInit {
         CURP: new FormControl('')
         // PASO 2
 
-      });*/
+      });
 
     this.formPost2 = new FormGroup(
       {
@@ -103,10 +103,57 @@ export class FgrManClienComponent implements OnInit {
         CNB: new FormControl(new Array<AegenModel>()),
         FEC_INICIO: new FormControl(''),
 
-        //Nuevos por conectar
+        //NUEVOS POR CONECTAR
         FUE_REC: new FormControl(new Array()),
-        PER1: new FormControl(new Array()),
-        PER1_RES: new FormControl(0),
+
+        PRC1: new FormGroup({
+          PER: new FormControl(new Array()),
+          SIG: new FormControl(0),
+        }),
+
+        PRC2: new FormGroup({
+          PER: new FormControl(new Array()),
+          SIG: new FormControl(0),
+        }),
+
+        GAST_MEN: new FormControl(0),
+
+        //pago de credito        
+        INS_MON: new FormControl(new Array()),
+        APLI_REC: new FormControl(new Array()),
+        CAN_ENV: new FormControl(new Array()),
+
+        LGR_OPE: new FormGroup({
+          LGRO_ESTDO: new FormControl(new Array()),
+          LGRO_MUNIC: new FormControl(new Array()),
+        }),
+
+        LGR_ACT: new FormGroup({
+          LGRA_ESTDO: new FormControl(new Array()),
+          LGRA_MUNIC: new FormControl(new Array()),
+        }),
+
+        //conocimiento del cliente
+        IDEN: new FormGroup({
+          PROV_REC: new FormControl(''),
+          PROP_REA: new FormControl(''),
+          CUEN_TER: new FormControl(''),
+        }),
+
+        PROM: new FormControl(),
+
+        OTR_DAT: new FormGroup({
+          CAP_DIF: new FormControl(''),
+          ACTIV: new FormControl(''),
+        }),
+
+        DAT_FON: new FormGroup({
+          LEN_IND: new FormControl(''),
+          RED_SOC: new FormControl(''),
+          US_INT: new FormControl(''),
+        }),
+
+        ROL_HOG: new FormControl(''),
 
 
       });

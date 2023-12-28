@@ -449,14 +449,15 @@
 											<div class="input-group mb-3">
 												<label class="input-group-text" for="recursos">Opción</label>
 
-												<select formNameControl="FUE_REC" class="form-select" id="recursos" required>
+												<select formNameControl="FUE_REC" class="form-select" id="recursos"
+													required>
 													<option>Bonos y otras compensaciones</option>
 												</select>
 											</div>
 
 										</div><!--Fuente recursos-->
 
-										<div class="mb-3 row">
+										<div formGroupName="PRC1" class="mb-3 row">
 
 											<div class="col-sm-6">
 												<label for="per1" class="form-label">Periodicidad</label>
@@ -465,7 +466,8 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select formNameControl="PER1" class="form-select" id="per1" required>
+													<select formNameControl="PER" class="form-select" id="per1"
+														required>
 														<option>Ninguno</option>
 													</select>
 												</div>
@@ -474,13 +476,14 @@
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" class="form-control" required>
+													<input id="signo" type="number" formControlName="SIG"
+														class="form-control" required>
 												</div>
 											</div><!--$-->
 
 										</div><!--Periodicidad1 conjunto-->
 
-										<div class="mb-3 row">
+										<div formGroupName="PRC2" class="mb-3 row">
 
 											<div class="col-sm-6">
 												<label for="per2" class="form-label">Periodicidad</label>
@@ -489,7 +492,8 @@
 													<label class="input-group-text" for="per2">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select class="form-select" id="per2" required>
+													<select id="per2" class="form-select" formControlName="PER"
+														required>
 														<option>Ninguno</option>
 													</select>
 												</div>
@@ -498,7 +502,8 @@
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" class="form-control" required>
+													<input id="signo" type="number" formControlName="SIG"
+														class="form-control" required>
 												</div>
 											</div><!--$-->
 
@@ -511,8 +516,10 @@
 										<div class="col-sm-12 col-md-9 ">
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
-												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto Mensual</label>
-												<input id="gasto" type="number" class="form-control" required>
+												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto
+													Mensual</label>
+												<input id="gasto" type="number" formControlName="GAST_MEN"
+													class="form-control" required>
 											</div><!--Gasto Mensual-->
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
@@ -527,7 +534,8 @@
 											</div><!--Prepago-->
 
 											<div class="d-flex gap-2 align-items-center">
-												<label class="form-label col-sm-6 col-md-4">Ptje Liquidación Anticipada</label>
+												<label class="form-label col-sm-6 col-md-4">Ptje Liquidación
+													Anticipada</label>
 												<label class="input-group-text">0.00</label>
 											</div><!--Liquidacion-->
 
@@ -558,7 +566,8 @@
 													<i class="bx bx-coin-stack"></i>
 												</label>
 
-												<select class="form-select" id="monetario" required>
+												<select id="monetario" class="form-select" formControlName="INS_MON"
+													required>
 													<option>Efectivo</option>
 													<option>Transferencia Spei</option>
 												</select>
@@ -574,7 +583,8 @@
 													<i class="bx bxs-blanket"></i>
 												</label>
 
-												<select class="form-select" id="recursosA" required>
+												<select id="recursosA" class="form-select" formControlName="APLI_REC"
+													required>
 													<option>Gastos de Operación...</option>
 													<option>Pagos de sueldos..</option>
 												</select>
@@ -590,7 +600,8 @@
 													<i class="bx bx-transfer"></i>
 												</label>
 
-												<select class="form-select" id="envio" required>
+												<select id="envio" class="form-select" formControlName="CAN_ENV"
+													required>
 													<option>Ninguno</option>
 													<option>Ventanilla Bancaria</option>
 												</select>
@@ -604,8 +615,9 @@
 
 										<div class="col-sm-12 col-xxl-10">
 
-											<fieldset>
+											<fieldset formGroupName="LGR_OPE">
 												<label for="est1" class="form-label">Lugar de Operación</label>
+
 												<div class="mb-3">
 
 													<div class="input-group ">
@@ -613,7 +625,7 @@
 															<label for="est1">Estado</label>
 														</label>
 
-														<select formNameControl="CVE_ESTDO" [ngModel]="EstadoSelect"
+														<select formNameControl="LGRO_ESTDO" [ngModel]="EstadoSelect"
 															(ngModelChange)="CambioEstado($event)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est1" required>
@@ -627,7 +639,6 @@
 
 												<div class="mb-3">
 
-
 													<div class="input-group">
 														<label class="input-group-text d-flex align-items-center"
 															for="mun1">
@@ -635,7 +646,7 @@
 															<label for="mun1">Municipio</label>
 														</label>
 
-														<select formNameControl="CVE_MUNIC" [ngModel]="MunicSelect"
+														<select formNameControl="LGRO_MUNIC" [ngModel]="MunicSelect"
 															(ngModelChange)="CambioMunicipio($event)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun1" required>
@@ -648,18 +659,18 @@
 												</div><!--municipio-->
 											</fieldset>
 
-											<fieldset>
+											<fieldset formGroupName="LGR_ACT">
 												<label for="est2" class="form-label">Lugar de Actividad
 													Económica</label>
+
 												<div class="mb-3">
 
-													<div class="input-group ">
+													<div class="input-group">
 														<label class="input-group-text d-flex align-items-center">
-
 															<label for="est2">Estado</label>
 														</label>
 
-														<select formNameControl="CVE_ESTDO" [ngModel]="EstadoSelect"
+														<select formNameControl="LGRA_ESTDO" [ngModel]="EstadoSelect"
 															(ngModelChange)="CambioEstado($event)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est2" required>
@@ -673,7 +684,6 @@
 
 												<div class="mb-3">
 
-
 													<div class="input-group">
 														<label class="input-group-text d-flex align-items-center"
 															for="mun2">
@@ -681,7 +691,7 @@
 															<label for="mun2">Municipio</label>
 														</label>
 
-														<select formNameControl="CVE_MUNIC" [ngModel]="MunicSelect"
+														<select formNameControl="LGRA_MUNIC" [ngModel]="MunicSelect"
 															(ngModelChange)="CambioMunicipio($event)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun2" required>
@@ -696,116 +706,129 @@
 
 											<div class="d-flex flex-column justify-content-center">
 												<button type="submit" class="btn btn-light px-5">Guardar Datos</button>
-											</div>
+											</div><!--submit-->
 										</div>
-
-
 
 									</div><!--col2-->
 
 								</form>
-							</div><!--Forma de Pago de Crédito-->			
+							</div><!--Forma de Pago de Crédito-->
 
 							<hr>
 
 							<div class="mb-5">
 
 								<h3>Conocimiento del Cliente</h3>
+
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
 									<div class="col-sm-12 col-md-6 col-lg-4">
-										<label class="form-label">Se identifica como:</label>
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Proveedor de
-												Recursos</label>
-										</div>
+										<ng-container formGroupName="IDEN">
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Propietario
-												Real</label>
-										</div>
+											<label class="form-label">Se identifica como:</label>
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Cuenta de
-												tercero</label>
-										</div>
+											<div class="form-check">
+												<input formControlName="PROV_REC" class="form-check-input"
+													type="checkbox" id="identifica">
+												<label class="form-check-label" for="identifica">Proveedor de
+													Recursos</label>
+											</div><!--Proveedor de recursos-->
 
+											<div class="form-check">
+												<input formControlName="PROP_REA" class="form-check-input"
+													type="checkbox" id="propietario">
+												<label class="form-check-label" for="propietario">Propietario
+													Real</label>
+											</div><!--Propietario-->
+
+											<div class="form-check">
+												<input formControlName="CUEN_TER" class="form-check-input"
+													type="checkbox" id="cuenta">
+												<label class="form-check-label" for="cuenta">Cuenta de tercero</label>
+											</div><!--cuenta tercero-->
+
+										</ng-container><!--section identifica como-->
+										
 										<br>
 
 										<label class="form-label">Promotor indica:</label>
 
 										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Poco solvente</label>
-										</div>
+											<input formControlName="PROM" class="form-check-input" type="checkbox"
+												value="" id="solvente">
+											<label class="form-check-label" for="solvente">Poco solvente</label>
+										</div><!--poco solvente-->
 
-
-									</div>
+									</div><!--COL1-->
 
 									<div class="col-sm-12 col-md-6 col-lg-4">
 
-										<label class="form-label">Otros datos:</label>
+										<ng-container formGroupName="OTR_DAT">
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Capacidades
-												diferentes</label>
-										</div>
+											<label class="form-label">Otros datos:</label>
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value=""
-												id="flexCheckDefault">
-											<label class="form-check-label" for="flexCheckDefault">Activo</label>
-										</div>
+											<div class="form-check">
+												<input formControlName="CAP_DIF" class="form-check-input"
+													type="checkbox" value="" id="capacidades">
+												<label class="form-check-label" for="capacidades">Capacidades
+													diferentes</label>
+											</div><!--capacidades diferentes-->
+
+											<div class="form-check">
+												<input formControlName="ACTIV" class="form-check-input" type="checkbox"
+													value="" id="activo">
+												<label class="form-check-label" for="activo">Activo</label>
+											</div><!--activo-->
+
+										</ng-container><!--section otros datos-->
 
 										<br>
 
-										<label class="form-label">Datos Fondeadores:</label>
+										<ng-container formGroupName="DAT_FON">
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" id="">
-											<label class="form-check-label" for="">Lengua Indígena</label>
-										</div>
+											<label class="form-label">Datos Fondeadores:</label>
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="">
-											<label class="form-check-label" for="">Redes Sociales</label>
-										</div>
+											<div class="form-check">
+												<input formControlName="LEN_IND" class="form-check-input"
+													type="checkbox" id="lengua">
+												<label class="form-check-label" for="lengua">Lengua Indígena</label>
+											</div><!--lengua indígena-->
 
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" value="" id="">
-											<label class="form-check-label" for="">Uso Internet</label>
-										</div>
+											<div class="form-check">
+												<input formControlName="RED_SOC" class="form-check-input"
+													type="checkbox" value="" id="social">
+												<label class="form-check-label" for="social">Redes Sociales</label>
+											</div><!--redes sociales-->
 
+											<div class="form-check">
+												<input formControlName="US_INT" class="form-check-input" type="checkbox"
+													value="" id="internet">
+												<label class="form-check-label" for="internet">Uso Internet</label>
+											</div><!--uso internet-->
 
-									</div>
+										</ng-container><!--DATOS FONDEADORES-->
+
+									</div><!--COL2-->
 
 									<div class="col-sm-12 col-md-6 col-lg-3">
 
 										<label class="form-label">Rol en Hogar</label>
+
 										<div class="input-group mb-3">
-											<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-											<select class="form-select" id="inputGroupSelect01">
+											<label class="input-group-text" for="hogar">Opción</label>
+											<select formControlName="ROL_HOG" class="form-select" id="hogar">
 												<option selected>1</option>
 												<option value="1">2</option>
 												<option value="2">3</option>
 											</select>
-										</div>
+										</div><!--Rol Hogar-->
 
 										<br>
 										<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 
-									</div>
+									</div><!--COL3-->
 
 								</form>
 							</div><!--Conocimiento del Cliente-->
@@ -1134,7 +1157,7 @@
 									<label class="form-label">Años de conocerlo/a</label>
 									<input type="number" class="form-control" min="1" required>
 								</div><!--Años-->
-							
+
 								<div class="col-sm-12 col-xl-4 d-flex gap-2 align-items-center">
 
 									<label for="recomienda" class="form-label">Recomienda</label>
@@ -1212,7 +1235,7 @@
 										</mat-select>
 									</div>
 								</div>
-						
+
 								<hr>
 
 								<div class="col-sm-12 mb-3">
