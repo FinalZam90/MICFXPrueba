@@ -13,7 +13,7 @@ import { TidomService } from '../../SL/FCL_TIDOM';
 import { DirecService } from '../../SL/FCL_DIREC';
 
 import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form, Validators } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -73,18 +73,41 @@ export class FgrManClienComponent implements OnInit {
     this.formPost = new FormGroup(
       {
         //PASO 1
-        NOM1_ENTE: new FormControl('', []),
+        NOM1_ENTE: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(4)
+          ]),
+
         NOM2_ENTE: new FormControl(''),
-        APE1_ENTE: new FormControl(''),
-        APE2_ENTE: new FormControl(''),
-        FEC_NAC: new FormControl(''),
+        APE1_ENTE: new FormControl('',
+
+          [
+            Validators.required,
+            Validators.minLength(4)
+          ]),
+
+        APE2_ENTE: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(4)
+          ]),
+
+        FEC_NAC: new FormControl('',
+          [
+            Validators.required
+          ]),
         TIP_SEX: new FormControl(new Array<SexGenModel>()),
         DES_SUCUR: new FormControl(new Array<SucurModel>()),
         DES_LUGNA: new FormControl(new Array<LugnaModel>()),
         DES_TIPCL: new FormControl(new Array<TipClModel>()),
         DES_NAC: new FormControl(new Array<PaisModel>()),
         RFC: new FormControl(''),
-        CURP: new FormControl('')
+        CURP: new FormControl('',
+          [
+            Validators.required,
+            Validators.pattern('/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/')
+          ])
         // PASO 2
 
       });
@@ -154,7 +177,6 @@ export class FgrManClienComponent implements OnInit {
         }),
 
         ROL_HOG: new FormControl(''),
-
 
       });
 
