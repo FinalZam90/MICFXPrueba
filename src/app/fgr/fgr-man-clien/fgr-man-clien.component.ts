@@ -81,7 +81,6 @@ export class FgrManClienComponent implements OnInit {
 
         NOM2_ENTE: new FormControl(''),
         APE1_ENTE: new FormControl('',
-
           [
             Validators.required,
             Validators.minLength(4)
@@ -97,16 +96,34 @@ export class FgrManClienComponent implements OnInit {
           [
             Validators.required
           ]),
-        TIP_SEX: new FormControl(new Array<SexGenModel>()),
-        DES_SUCUR: new FormControl(new Array<SucurModel>()),
-        DES_LUGNA: new FormControl(new Array<LugnaModel>()),
-        DES_TIPCL: new FormControl(new Array<TipClModel>()),
-        DES_NAC: new FormControl(new Array<PaisModel>()),
-        RFC: new FormControl(''),
+
+        TIP_SEX: new FormControl(new Array<SexGenModel>(), [
+          Validators.required
+        ]),
+
+        DES_SUCUR: new FormControl(new Array<SucurModel>(), [
+          Validators.required
+        ]),
+        DES_LUGNA: new FormControl(new Array<LugnaModel>(), [
+          Validators.required
+        ]),
+        DES_TIPCL: new FormControl(new Array<TipClModel>(), [
+          Validators.required
+        ]),
+        DES_NAC: new FormControl(new Array<PaisModel>(), [
+          Validators.required,
+          Validators.max(5)
+        ]),
+
+        RFC: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
+        ]),
+
         CURP: new FormControl('',
           [
             Validators.required,
-            Validators.pattern('/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/')
+            Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
           ])
         // PASO 2
 
@@ -257,20 +274,26 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
+
   GetSucurs() {
     let result = new Result()
+
     this.SucSer.GetAll().subscribe((r) => {
+
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) {
+
         result.Objects = new Array<SucurModel>();
         let SucInicio = new SucurModel();
+
         SucInicio.Cve_Sucur = null
         SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
+      
         if (this.contadorGuardadoSelectores > 0) {
           SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
           SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
         }
-
 
         for (let index of this.imprimirdef) {
           let SucMo = new SucurModel()
@@ -278,15 +301,18 @@ export class FgrManClienComponent implements OnInit {
           SucMo.Des_Sucur = index.DES_SUCUR;
 
           if (this.contadorGuardadoSelectores > 0) {
+
             if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
               result.Objects.push(SucMo)
             }
+
           }
           else {
             result.Objects.push(SucMo)
           }
 
         }
+
         this.SucurSelect = SucInicio
         result.Objects.unshift(SucInicio)
         this.ente.Sucur.Sucurs = result.Objects
@@ -295,17 +321,25 @@ export class FgrManClienComponent implements OnInit {
     })
   }
   GetTipCl() {
+
     let result = new Result()
+
     this.ClSer.GetAll().subscribe((r) => {
+
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) {
+
         result.Objects = new Array<TipClModel>();
         let ClInicio = new TipClModel();
+
         ClInicio.Cve_TipCl = null
         ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
+      
         if (this.contadorGuardadoSelectores > 0) {
           ClInicio = this.ClienSelect
         }
+
         for (let index of this.imprimirdef) {
           let ClMo = new TipClModel()
           ClMo.Cve_TipCl = index.CVE_TIPCL;
@@ -328,13 +362,16 @@ export class FgrManClienComponent implements OnInit {
   }
   GetPais() {
     let result = new Result()
+
     this.PaiSer.GetAll().subscribe((r) => {
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) {
         result.Objects = new Array<PaisModel>();
         let PaiInicio = new PaisModel();
         PaiInicio.Cve_Pais = null
         PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
+     
         if (this.contadorGuardadoSelectores > 0) {
           PaiInicio = this.PaisSelect
         }
@@ -558,12 +595,17 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
+
   public GetEstado() {
     let result = new Result()
+
     this.EdoSer.GetAll().subscribe((r) => {
+
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) {
         result.Objects = new Array<EstadoModel>()
+       
         for (let index of this.imprimirdef) {
           let EdoMod = new EstadoModel()
           EdoMod.Cve_Estdo = index.CVE_ESTDO;
