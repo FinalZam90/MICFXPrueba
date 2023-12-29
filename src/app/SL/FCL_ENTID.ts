@@ -10,7 +10,7 @@ import { EntIdModel } from "../ML/FCL_ENTID";
 })
 
 export class EntIdService{
-    myApi = "https://webmicfx.arashi.solutions/FGR/WsIdenti.p";
+    myApi = "https://webmicfx.arashi.solutions/FCL/WsIdenti.p";
 
     options = 
     {
@@ -19,22 +19,30 @@ export class EntIdService{
     constructor(private http:HttpClient){}
     
     
-    public GetAll(): Observable<any>
+    public GetAll(EnteId: EntIdModel): Observable<any>
+    {
+        EnteId.Ente.Num_Ente = 9732
+        let body = new URLSearchParams();
+        body.set('ACCION', 'GetById');
+       
+        body.set('NUM', EnteId.Ente.Num_Ente.toString());
+     
+        return this.http.post(this.myApi, body.toString(), this.options);
+        
+    }
+    public GetTipId(): Observable<any>
     {
         let body = new URLSearchParams();
-        /*body.set('ACCION', 'Consul');
-        body.set('FECHA', '');
-        body.set('ORACS', '');
-        */
-        //body.set('ACCION', "ConDep");
-        this.http.get(this.myApi).subscribe((r) => {console.log(r)});
-        return this.http.get(this.myApi);
+        body.set('ACCION', 'GetTip');
+   
+     
+        return this.http.post(this.myApi, body.toString(), this.options);
         
     }
     public Add(EntId: EntIdModel)
     {
         let body = new URLSearchParams();
-        ///body.set('ACCION', 'AddDir');
+        body.set('ACCION', 'AddIdent');
         body.set('NUM', EntId.Ente.Num_Ente.toString());
         body.set('TIP', EntId.Cve_TipId.toString());
         body.set('VENCI', EntId.An_Venci.toString());

@@ -11,6 +11,8 @@ import { LocalService } from '../../SL/FGR_LOCAL';
 import { LocalCNBService } from '../../SL/FLD_LOCAL';
 import { TidomService } from '../../SL/FCL_TIDOM';
 import { DirecService } from '../../SL/FCL_DIREC';
+import { EntIdService } from '../../SL/FCL_ENTID';
+import { RefmiService } from '../../SL/FCL_REFMI';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form } from '@angular/forms';
@@ -30,6 +32,8 @@ import { LocalModel } from "../../ML/FGR_LOCAL";
 import { FldLocalModel } from "../../ML/FLD_LOCAL";
 import { TidoModel } from "../../ML/FCL_TIDOM";
 import { DirecModel } from "../../ML/FCL_DIREC";
+import { EntIdModel } from "../../ML/FCL_ENTID";
+import { RefmiModel } from "../../ML/FCL_REFMI";
 import { CivModel } from "../../ML/EdoCiv";
 import { Result } from "../../ML/Result";
 import { SexGenModel } from "../../ML/TipSex";
@@ -38,10 +42,12 @@ import { SucurModel } from "../../ML/FGR_SUCUR";
 import { AegenModel } from "../../ML/FCR_AEGEN";
 import { GrusoModel } from "../../ML/FCL_GRUSO";
 import { IngreModel } from "../../ML/NivIngreso";
+
 import *  as ut from "utf8";
 import { FormModule } from 'src/app/form/form.module';
 import { tr } from 'date-fns/locale';
 import { arrayMax } from 'highcharts';
+import { ajax } from 'jquery';
 
 @Component({
   selector: 'app-fgr-man-clien',
@@ -50,7 +56,7 @@ import { arrayMax } from 'highcharts';
 })
 export class FgrManClienComponent implements OnInit {
 
-  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private EntIdSer: EntIdService, private RefSer: RefmiService, private cook: CookieService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
     this.formPost = new FormGroup(
       {
         //PASO 1
@@ -104,20 +110,41 @@ export class FgrManClienComponent implements OnInit {
         AÑRES: new FormControl(''),
         REFERENCIAS: new FormControl('')
       });
-
+      this.formPostIdenti = new FormGroup(
+      {
+        TIPID: new FormControl(new Array<EntIdModel>()),
+        AN_VENC: new FormControl(''),
+        FEC_ALT: new FormControl(''),
+        NUM_IDENTI: new FormControl(''),
+        FOLIO_IDENTI: new FormControl('')
+      });
+      this.formPostRefmi = new FormGroup(
+        {
+          NOMBRE: new FormControl(''),
+          TEL: new FormControl(''),
+          DIREC: new FormControl(''),
+          AN_CON: new FormControl(''),
+          CVE_RESP: new FormControl(new Array),
+          COMEN: new FormControl('')
+        });
   }
 
 
   public formPost: FormGroup
   public formPost2: FormGroup
   public formPost3: FormGroup
+  public formPostIdenti: FormGroup
+  public formPostRefmi: FormGroup
   public ente: EnteModel
   public direc: DirecModel
+  public entid: EntIdModel
+  public refmi: RefmiModel
   public show: boolean;
   public FormShow: boolean;
   public imprimirdef: any
   public EnteSelect: any
-  public Id: string
+  public Id: string;
+  
 
   public LocalSelect = new LocalModel()
   public TipSexSelect = new SexGenModel()
@@ -136,10 +163,14 @@ export class FgrManClienComponent implements OnInit {
   public LocalidadSelect = new LocalModel()
   public LocalCNBSelect = new FldLocalModel()
   public ViviendaSelect = new TidoModel()
-
+  
+  public EntIdSelect = new EntIdModel()
+  
+  
   public msg = new Messg()
   public arregloPaisesSelect = new Array<PaisModel>();
   public arregloGrusoSelect = new Array<GrusoModel>();
+  public arregloTipIdsSelect = new Array<EntIdModel>();
   public mostrarModal: boolean = false;
   public mostrar: boolean = false;
   public counter = 6;
@@ -149,12 +180,14 @@ export class FgrManClienComponent implements OnInit {
 
   ngOnInit(): void {
     this.contadorGuardadoSelectores = 0;
-    $('#next-btn').prop('disabled', true)
-    this.ente = new EnteModel()
-    this.direc = new DirecModel()
-
-    this.LlenarListas()
-    this.LlenarLista2()
+    $('#next-btn').prop('disabled', true);
+    this.ente = new EnteModel();
+    this.direc = new DirecModel();
+    this.entid = new EntIdModel();
+    this.refmi = new RefmiModel();
+    
+    this.LlenarListas();
+    this.LlenarLista2();
     $.getScript('./assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js');
     $.getScript('./assets/js/custom-smartWizard.js');
     $.getScript('./assets/plugins/select2/select2.min.js');
@@ -298,7 +331,8 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  GetSexGen() {
+  GetSexGen() 
+  {
     let result = new Result()
     result.Objects = new Array<SexGenModel>()
     let SeGenInicio = new SexGenModel();
@@ -485,14 +519,17 @@ export class FgrManClienComponent implements OnInit {
       }
     }, (e) => { console.log(e) })
   }
-  public GetMunicipio(EdoProv: EstadoModel) {
+  public GetMunicipio(EdoProv: EstadoModel) 
+  {
     let result = new Result()
 
     this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<MunicModel>()
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let MunicMod = new MunicModel()
           MunicMod.Cve_Munic = index.CVE_MUNIC;
           MunicMod.Nom_Munic = index.NOM_MUNIC;
@@ -502,13 +539,15 @@ export class FgrManClienComponent implements OnInit {
         result.Correct = true;
         this.direc.Municipio.Municipios = result.Objects;
       }
-      else {
+      else 
+      {
         result.Correct = false;
         result.ErrorMessage = "Sin Municipios";
       }
     }, (e) => { console.log(e) })
   }
-  public GetLocalidad(MuniProv: MunicModel) {
+  public GetLocalidad(MuniProv: MunicModel) 
+  {
 
 
     let result = new Result();
@@ -576,6 +615,129 @@ export class FgrManClienComponent implements OnInit {
       else {
         result.Correct = false;
         result.ErrorMessage = "No hay tipo de vivienda existente."
+      }
+    })
+  }
+  GetTipId() 
+  {
+    let result = new Result()
+    this.EntIdSer.GetTipId().subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<EntIdModel>()
+        let EntIdInicio = new EntIdModel()
+        for (let index of this.imprimirdef) 
+        {
+          let EntIdMo = new EntIdModel()
+          EntIdMo.Cve_TipId = index.CVE_TIPID;
+          EntIdMo.Des_Identi = index.DES_TIPID;
+          result.Objects.push(EntIdMo)
+        }
+        result.Correct = true;
+        this.entid.TipIds = result.Objects
+      }
+      else 
+      {
+        result.Correct = false;
+        result.ErrorMessage = "No hay tipo de Identificación existente."
+      }
+    })
+  }
+  GetIdenti() 
+  {
+    let result = new Result()
+    this.EntIdSer.GetAll(this.entid).subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<EntIdModel>()
+        let EntIdInicio = new EntIdModel()
+        for (let index of this.imprimirdef) 
+        {
+          let EntIdMo = new EntIdModel()
+          EntIdMo.Fec_Venci = index.FEC_VENCI;
+          EntIdMo.Des_Identi = index.DES_TIPID;
+          EntIdMo.Fec_AddRec = index.FEC_ADDREC;
+          EntIdMo.Num_Identi = index.NUM_IDENTI;
+          EntIdMo.Cve_Identi = index.CVE_IDENT;
+          result.Objects.push(EntIdMo)
+        }
+        result.Correct = true;
+        this.entid.EntIds = result.Objects
+      }
+      else 
+      {
+        result.Correct = false;
+        result.ErrorMessage = "El cliente no tiene Identificación existente."
+      }
+    })
+  }
+  GetRefmi() 
+  {
+    let result = new Result()
+    this.RefSer.GetAll(this.refmi).subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<RefmiModel>()
+        let RefmiInicio = new RefmiModel()
+        for (let index of this.imprimirdef) 
+        {
+          for(let i=0; i<5; i++)
+          {
+            let RefmiMo = new RefmiModel()
+            RefmiMo.Nom_Refer = index.NOM_REFER[i];
+            RefmiMo.Des_Dirre = index.DES_DIRRE[i];
+            RefmiMo.Num_TelRe = index.NUM_TELRE[i];
+            RefmiMo.Num_AnoCo = index.Num_AnoCo[i];
+            RefmiMo.Ban_Reco = index.BAN_Recom[i];
+            RefmiMo.Des_Comen = index.Des_Comen;
+            result.Objects.push(RefmiMo)
+          }
+          
+        }
+        result.Correct = true;
+        this.refmi.Refs = result.Objects
+      }
+      else 
+      {
+        result.Correct = false;
+        result.ErrorMessage = "El cliente no tiene Referenciados."
+      }
+    })
+  }
+  GetDirecsByEnte() 
+  {
+    let result = new Result()
+    this.DirSer.GetAll(this.direc).subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<DirecModel>()
+        let DirecInicio = new DirecModel()
+        for (let index of this.imprimirdef) 
+        {
+          let DirMo = new DirecModel()
+          DirMo.Num_Direc = index.NUM_DIREC;
+          DirMo.Direc_Com = index.DIREC;
+          DirMo.Vivienda = new TidoModel();
+          DirMo.Vivienda.Des_Tidom = index.TIDOM;
+         
+          result.Objects.push(DirMo)
+          
+        }
+        result.Correct = true;
+        this.direc.Direcciones = result.Objects
+      }
+      else 
+      {
+        result.Correct = false;
+        result.ErrorMessage = "El cliente no tiene direcciones."
       }
     })
   }
@@ -655,6 +817,10 @@ export class FgrManClienComponent implements OnInit {
     this.GetNives()
     this.GetEstado()
     this.GetVivienda()
+    this.GetTipId()
+    this.GetDirecsByEnte()
+    this.GetRefmi()
+    this.GetIdenti()
   }
   public Form2() {
     this.ente.EdoCi = this.formPost2.controls['EDO_CIV'].value
@@ -673,7 +839,9 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.MaPaso2(this.ente).subscribe((r) => { console.log(r) }, (e) => { console.log(e) })
 
   }
-  public Form3() {
+  public Form3() 
+  {
+    this.direc.Ente = this.ente;
     this.direc.Pais = this.formPost3.controls['CVE_PAIS'].value
     this.direc.Estado = this.formPost3.controls['CVE_ESTDO'].value
     this.direc.Municipio = this.formPost3.controls['CVE_MUNIC'].value
@@ -691,6 +859,31 @@ export class FgrManClienComponent implements OnInit {
     this.direc.Num_Resen = this.formPost3.controls['AÑRES'].value
     this.direc.Num_Cpent = this.formPost3.controls['REFERENCIAS'].value
 
+  }
+  public FormIdenti()
+  {
+    this.entid.Ente =  this.ente;
+
+    this.entid.An_Venci = this.formPostIdenti.controls['AN_VENC'].value;
+    this.entid.Fec_AddRec = this.formPostIdenti.controls['FEC_ALT'].value;
+    this.entid.Num_Identi = this.formPostIdenti.controls['NUM_IDENTI'].value;
+    this.entid.Cve_Identi = this.formPostIdenti.controls['FOLIO_IDENTI'].value;
+
+    this.EntIdSer.Add(this.entid).subscribe()
+    
+    this.GetIdenti()
+  }
+  public FormRefmi()
+  {
+    this.refmi.Ente = this.ente;
+
+    this.refmi.Nom_Refer = this.formPostRefmi.controls['NOMBRE'].value;
+    this.refmi.Num_TelRe = this.formPostRefmi.controls['TEL'].value;
+    this.refmi.Des_Dirre = this.formPostRefmi.controls['DIREC'].value;
+    this.refmi.Num_AnoCo = this.formPostRefmi.controls['AN_CON'].value;
+    this.refmi.Des_Comen = this.formPostRefmi.controls['COMEN'].value;
+
+    this.RefSer.Add(this.refmi).subscribe()
   }
   public Regresar(): void {
     this.location.back();
@@ -882,6 +1075,19 @@ export class FgrManClienComponent implements OnInit {
     else {
       alert('Solo escoge 5')
 
+    }
+
+  }
+
+  TipIdSelect(event) {
+    if (event.isUserInput == true) {
+      if (event.source.selected == true) {
+
+        this.arregloTipIdsSelect.push(event.source.value)
+        
+      }
+      
+      console.log(this.contadorGrusos);
     }
 
   }

@@ -8,6 +8,7 @@ export class RefmiModel
     Cve_Respr = new Array<number>(4);
     Des_Comen: string;
     Num_TelRe: string;
+    Ban_Reco: boolean
     Ente = new EnteModel();
     Refs: Array<RefmiModel>
 

@@ -997,10 +997,10 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>1</td>
-													<td>Casa</td>
-													<td>Villa de las Flores Coacalco</td>
+												<tr *ngFor="let dir of direc.Direcciones">
+													<td>{{dir.Num_Direc}}</td>
+													<td>{{dir.Vivienda.Des_Tidom}}</td>
+													<td>{{dir.Direc_Com}}</td>
 												</tr>
 											</tbody>
 										</table>
@@ -1013,15 +1013,18 @@
 							aria-labelledby="identificaciones">
 							<h3>Identificaciones</h3>
 
-							<form class="row">
+							<form class="row" novalidate [formGroup]="formPostIdenti" (ngSubmit)="FormIdenti()">
 
 								<div class="col-md-6 mb-3">
 									<label for="credencial" class="form-label">Tipo ID:</label>
 									<div id="credencial" class="input-group">
 										<mat-select multiple class="form-control" placeholder="Seleccione">
-											<mat-option> Credencial Elector </mat-option>
-											<mat-option> Pasaporte </mat-option>
-											<mat-option> Acta de Nacimiento</mat-option>
+											<mat-option (onSelectionChange)="TipIdSelect($event)"
+													*ngFor="let enti of entid.TipIds" [value]="enti">
+													{{ enti.Des_Identi }}
+											</mat-option>
+											<!--<mat-option> Pasaporte </mat-option>
+											<mat-option> Acta de Nacimiento</mat-option>-->
 										</mat-select>
 									</div>
 								</div><!--credencial-->
@@ -1029,23 +1032,23 @@
 
 								<div class="col-md-6 mb-3">
 									<label for="Vencimiento" class="form-label">Año Vencimiento</label>
-									<input id="vencimiento" type="number" class="form-control" required>
+									<input id="vencimiento" formControlName="AN_VENC" [(ngModel)]="entid.An_Venci" type="number" class="form-control" required>
 								</div><!--año vencimiento-->
 
 								<div class="col-md-6 mb-3">
 									<label for="alta" class="form-label">Fecha Alta:</label>
-									<input id="alta" type="date" class="form-control" required>
+									<input id="alta" type="date" formControlName="FEC_ALT" [(ngModel)]="entid.Fec_AddRec" class="form-control" required>
 								</div><!--fecha alta-->
 
 								<div class="col-md-6 mb-3">
 									<label for="identifi" class="form-label">N° de Identificación:</label>
-									<input id="identifi" type="number" class="form-control" required>
+									<input id="identifi" type="number" class="form-control" [(ngModel)]="entid.Num_Identi" formControlName="NUM_IDENTI" required>
 								</div><!--identificacion-->
 
 								<div class="col-md-6 mb-3">
 									<label for="folio" class="form-label">Folio/Cve Identificación:</label>
-									<input id="folio" type="text" class="form-control" [(ngModel)]="ente.RFC"
-										formControlName="RFC" required>
+									<input id="folio" type="text" class="form-control" [(ngModel)]="entid.Cve_Identi"
+										formControlName="FOLIO_IDENTI" required>
 								</div><!--folio-->
 
 								<div class="col-sm-4 mt-3 d-flex flex-column justify-content-center">
@@ -1080,12 +1083,12 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>R.F.C.</td>
-													<td>2030</td>
-													<td></td>
-													<td></td>
-													<td></td>
+												<tr *ngFor = "let enti of entid.EntIds">
+													<td>{{enti.Des_Identi}}</td>
+													<td>{{enti.Fec_Venci}}</td>
+													<td>{{enti.Fec_AddRec}}</td>
+													<td>{{enti.Num_Identi}}</td>
+													<td>{{enti.Cve_Identi}}</td>
 													<td class="text-center"><i class="bx bx-check"></i></td>
 													<td class="text-center">
 														<div class="file-select">
@@ -1105,26 +1108,26 @@
 						<section id="referencias" class="tab-pane" role="tabpanel" aria-labelledby="referencias">
 							<h3>Referencias</h3>
 
-							<form class="row">
+							<form class="row" novalidate [formGroup]="formPostRefmi" (ngSubmit)="FormRefmi()">
 
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Nombre Completo</label>
-									<input type="text" class="form-control" required>
+									<input type="text" class="form-control" formControlName="NOMBRE" [(ngModel)]="refmi.Nom_Refer" required>
 								</div><!--Nombre(s)-->
 
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Teléfono</label>
-									<input type="tel" class="form-control" required>
+									<input type="tel" class="form-control" formControlName="TEL" [(ngModel)]="refmi.Num_TelRe" required>
 								</div><!--Telefono-->
 
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Dirección</label>
-									<input type="text" class="form-control" required>
+									<input type="text" class="form-control" formControlName="DIREC" [(ngModel)]="refmi.Des_Dirre" required>
 								</div><!--Direccion-->
 
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Años de conocerlo/a</label>
-									<input type="number" class="form-control" min="1" required>
+									<input type="number" class="form-control" min="1" formControlName="AN_CON" [(ngModel)]="refmi.Num_AnoCo" required>
 								</div><!--Años-->
 
 								<div class="col-md-6 mb-3">
@@ -1143,7 +1146,7 @@
 
 								<div class="col-md-6 mb-3">
 									<label class="form-label">Comentarios</label>
-									<textarea></textarea>
+									<textarea formControlName="COMEN" [(ngModel)]="refmi.Des_Comen"></textarea>
 								</div>
 
 								<div class="col-sm-4 mt-3 d-flex flex-column justify-content-center">
@@ -1179,14 +1182,17 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>Juan Escutia</td>
-													<td>Bajo el puente</td>
-													<td>Señas de humo</td>
+												<tr *ngFor="let ref of refmi.Refs">
+													<td>{{ref.Nom_Refer}}</td>
+													<td>{{ref.Des_Dirre}}</td>
+													<td>{{ref.Num_TelRe}}</td>
+													<td>{{ref.Num_AnoCo}}</td>
 													<td></td>
-													<td></td>
-													<td></td>
-													<td></td>
+													<td>
+														<div class="badge rounded-pill bg-light w-100" *ngIf="ref.Ban_Reco == true">Si</div>
+														<div class="badge rounded-pill bg-light w-100" *ngIf="ref.Ban_Reco == false">No</div>
+													</td>
+													<td>{{ref.Des_Comen}}</td>
 													<td class="text-center"><button><i
 																class="bx bx-pencil"></i></button></td>
 												</tr>

@@ -16,7 +16,9 @@ export class DirecModel
     Num_Appos: number
     Num_Resen: number
     Num_Cpent: string
-    LMunicipioLMunicipio
+    Num_Direc: number
+    Direc_Com: string
+    
     Direcciones: Array<DirecModel>
     Ente = new EnteModel()
     Pais = new PaisModel()

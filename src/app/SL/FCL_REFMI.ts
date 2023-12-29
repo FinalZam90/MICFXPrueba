@@ -10,7 +10,7 @@ import { RefmiModel } from "../ML/FCL_REFMI";
 })
 
 export class RefmiService{
-    myApi = "https://webmicfx.arashi.solutions/FGR/WsRefmi.p";
+    myApi = "https://webmicfx.arashi.solutions/FCL/WsRefmi.p";
 
     options = 
     {
@@ -21,6 +21,7 @@ export class RefmiService{
     
     public GetAll(Refmi: RefmiModel): Observable<any>
     {
+        Refmi.Ente.Num_Ente = 9732
         let body = new URLSearchParams();
         body.set('ACCION', 'GetById');
         body.set('NUM', Refmi.Ente.Num_Ente.toString());
@@ -30,7 +31,7 @@ export class RefmiService{
         */
         //body.set('ACCION', "ConDep");
         this.http.get(this.myApi).subscribe((r) => {console.log(r)});
-        return this.http.get(this.myApi);
+        return this.http.post(this.myApi, body.toString(), this.options);
         
     }
     public Add(Refmi: RefmiModel)

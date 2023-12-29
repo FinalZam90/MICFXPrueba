@@ -9,7 +9,7 @@ import { DirecModel } from "../ML/FCL_DIREC";
 })
 
 export class DirecService{
-    myApi = "https://webmicfx.arashi.solutions/FGR/WsDirec.p";
+    myApi = "https://webmicfx.arashi.solutions/FCL/WsDirec.p";
 
     options = 
     {
@@ -18,16 +18,14 @@ export class DirecService{
     constructor(private http:HttpClient){}
     
     
-    public GetAll(): Observable<any>
+    public GetAll(Direc: DirecModel): Observable<any>
     {
+        Direc.Ente.Num_Ente = 9732
         let body = new URLSearchParams();
-        /*body.set('ACCION', 'Consul');
-        body.set('FECHA', '');
-        body.set('ORACS', '');
-        */
-        //body.set('ACCION', "ConDep");
-        this.http.get(this.myApi).subscribe((r) => {console.log(r)});
-        return this.http.get(this.myApi);
+        body.set('ACCION', "GetDir");
+        body.set('NUM', Direc.Ente.Num_Ente.toString());
+        
+        return this.http.post(this.myApi, body.toString(), this.options);
         
     }
     public Add(Direc: DirecModel)
