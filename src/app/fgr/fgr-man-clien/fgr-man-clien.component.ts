@@ -90,13 +90,13 @@ export class FgrManClienComponent implements OnInit {
         APE1_ENTE: new FormControl('',
           [
             Validators.required,
-            Validators.minLength(4)
+            Validators.minLength(2)
           ]),
 
         APE2_ENTE: new FormControl('',
           [
             Validators.required,
-            Validators.minLength(4)
+            Validators.minLength(2)
           ]),
 
         FEC_NAC: new FormControl('',
@@ -246,6 +246,8 @@ export class FgrManClienComponent implements OnInit {
           return '*Este campo es obligatorio.';
         case 'minlength':
           return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} letras`;
+          case 'pattern':
+            return '*Formato no válido.'
       }
     }
 
