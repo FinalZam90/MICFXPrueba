@@ -449,8 +449,12 @@
 											<div class="input-group mb-3">
 												<label class="input-group-text" for="recursos">Opción</label>
 
-												<select class="form-select" id="recursos" required>
-													<option>Bonos y otras compensaciones</option>
+												<select formNameControl="CNB" [ngModel]="FuercSelect"
+												(ngModelChange)="CambioRecursos($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="recursos"
+												required>
+													<option [ngValue]="fu" *ngFor="let fu of fuerc.Fuercs">{{fu.Des_Fuerc}}</option>
+												
 												</select>
 											</div>
 
@@ -552,9 +556,12 @@
 													<i class="bx bx-coin-stack"></i>
 												</label>
 
-												<select class="form-select" id="monetario" required>
-													<option>Efectivo</option>
-													<option>Transferencia Spei</option>
+												<select formNameControl="CNB" [ngModel]="FopaSelect"
+												(ngModelChange)="CambioInstr($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="monetario"
+												required>
+													<option [ngValue]="fop" *ngFor="let fop of fopag.Fopags">{{fop.Nom_Fopag}}</option>
+												
 												</select>
 											</div>
 
@@ -568,9 +575,12 @@
 													<i class="bx bxs-blanket"></i>
 												</label>
 
-												<select class="form-select" id="recursosA" required>
-													<option>Gastos de Operación...</option>
-													<option>Pagos de sueldos..</option>
+												<select formNameControl="CNB" [ngModel]="DestiSelect"
+												(ngModelChange)="CambioDesti($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="recursosA"
+												required>
+													<option [ngValue]="dest" *ngFor="let dest of desti.Destis">{{dest.Des_Desti}}</option>
+												
 												</select>
 											</div>
 
@@ -589,9 +599,12 @@
 													<i class="bx bx-transfer"></i>
 												</label>
 
-												<select class="form-select" id="envio" required>
-													<option>Ninguno</option>
-													<option>Ventanilla Bancaria</option>
+												<select formNameControl="CNB" [ngModel]="CnvenSelect"
+												(ngModelChange)="CambioCNENV($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="envio"
+												required>
+													<option [ngValue]="cn" *ngFor="let cn of cnen.Cnenvs">{{cn.Des_Cnenv}}</option>
+												
 												</select>
 											</div>
 
@@ -787,10 +800,14 @@
 										<label class="form-label">Rol en Hogar</label>
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-											<select class="form-select" id="inputGroupSelect01">
-												<option selected>1</option>
-												<option value="1">2</option>
-												<option value="2">3</option>
+											<select formNameControl="CVE_MUNIC" [ngModel]="RhogaSelect"
+															(ngModelChange)="CambioRhoga($event)" name="sel1"
+															[ngModelOptions]="{standalone: true}" class="form-select"
+															id="mun2" required>
+															<option *ngFor="let rho of rhog.Rhogas"
+																[ngValue]="rho">
+																{{rho.Des_Rhoga}}</option>
+
 											</select>
 										</div>
 
