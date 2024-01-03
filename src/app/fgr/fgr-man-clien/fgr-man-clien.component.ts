@@ -216,12 +216,11 @@ export class FgrManClienComponent implements OnInit {
     this.fopag = new FopagModel();
     this.fuerc = new FuercModel();
     this.rhog = new RhogaModel()
-    /*
+    
     this.perio1 = new PerioModel();
     this.perio2 = new PerioModel();
-    this.perio2.Perios = new Array<PerioModel>();
-    this.perio1.Perios = new Array<PerioModel>();
-    */
+    
+    
     this.LlenarListas();
     this.LlenarLista2();
     $.getScript('./assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js');
@@ -531,32 +530,45 @@ export class FgrManClienComponent implements OnInit {
   }
   GetPeriod()
   {
-    this.perio1.Perios[0].Cve = 0;
-    this.perio1.Perios[0].Des = "Ninguno";
-    this.perio1.Perios[1].Cve = 1;
-    this.perio1.Perios[1].Des = "Diario";
-    this.perio1.Perios[2].Cve = 2;
-    this.perio1.Perios[2].Des = "Semanal";
-    this.perio1.Perios[3].Cve = 3;
-    this.perio1.Perios[3].Des = "Quincenal";
-    this.perio1.Perios[4].Cve = 4;
-    this.perio1.Perios[4].Des = "Mensual";
-    this.perio1.Perios[5].Cve = 5;
-    this.perio1.Perios[5].Des = "Unico";
-    this.Perio1Select = this.perio1.Perios[0]
+    this.perio2.Perios = new Array<PerioModel>();
+    this.perio1.Perios = new Array<PerioModel>();
+    let Pmo = new PerioModel()
+    Pmo.Cve = 0;
+    Pmo.Des = "Ninguno";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
 
-    this.perio2.Perios[0].Cve = 0;
-    this.perio2.Perios[0].Des = "Ninguno";
-    this.perio2.Perios[1].Cve = 1;
-    this.perio2.Perios[1].Des = "Diario";
-    this.perio2.Perios[2].Cve = 2;
-    this.perio2.Perios[2].Des = "Semanal";
-    this.perio2.Perios[3].Cve = 3;
-    this.perio2.Perios[3].Des = "Quincenal";
-    this.perio2.Perios[4].Cve = 4;
-    this.perio2.Perios[4].Des = "Mensual";
-    this.perio2.Perios[5].Cve = 5;
-    this.perio2.Perios[5].Des = "Unico";
+    Pmo = new PerioModel()
+    Pmo.Cve = 1;
+    Pmo.Des = "Diario";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
+
+    Pmo = new PerioModel()
+    Pmo.Cve = 2;
+    Pmo.Des = "Semanal";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
+
+    Pmo = new PerioModel()
+    Pmo.Cve = 3;
+    Pmo.Des = "Quincenal";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
+
+    Pmo = new PerioModel()
+    Pmo.Cve = 4;
+    Pmo.Des = "Mensual";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
+
+    Pmo = new PerioModel()
+    Pmo.Cve = 5;
+    Pmo.Des = "Único";
+    this.perio1.Perios.push(Pmo)
+    this.perio2.Perios.push(Pmo)
+
+    this.Perio1Select = this.perio1.Perios[0]
     this.Perio2Select = this.perio2.Perios[0]
   }
   GetGruso() {
@@ -1081,7 +1093,7 @@ export class FgrManClienComponent implements OnInit {
     this.GetFopag()
     this.GetFuerc()
     this.GetRhoga()
-    //this.GetPeriod()
+    this.GetPeriod()
   }
   public Form2() 
   {

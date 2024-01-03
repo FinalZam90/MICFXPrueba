@@ -469,9 +469,15 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select class="form-select" id="per1" required>
-														<option>Ninguno</option>
-													</select>
+													<select formNameControl="CVE_MUNIC" [ngModel]="Perio1Select"
+															(ngModelChange)="CambioPer1($event)" name="sel1"
+															[ngModelOptions]="{standalone: true}" class="form-select"
+															id="per1" required>
+															<option *ngFor="let per of perio1.Perios"
+																[ngValue]="per">
+																{{per.Des}}</option>
+
+											</select>
 												</div>
 											</div> <!--Periocidad1-->
 
@@ -493,9 +499,15 @@
 													<label class="input-group-text" for="per2">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select class="form-select" id="per2" required>
-														<option>Ninguno</option>
-													</select>
+													<select formNameControl="CVE_MUNIC" [ngModel]="Perio2Select"
+															(ngModelChange)="CambioPer2($event)" name="sel1"
+															[ngModelOptions]="{standalone: true}" class="form-select"
+															id="per2" required>
+															<option *ngFor="let per of perio2.Perios"
+																[ngValue]="per2">
+																{{per.Des}}</option>
+
+											</select>
 												</div>
 											</div> <!--Periocidad2-->
 
