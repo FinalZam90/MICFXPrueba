@@ -111,6 +111,10 @@
 								<div class="col-md-12 col-lg-6">
 									<input type="text" class="form-control" id="nombre" [(ngModel)]="ente.Nom_Ente1"
 										formControlName="NOM1_ENTE">
+
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NOM1_ENTE')">
+										<label>{{textError('NOM1_ENTE')}}</label>
+									</div><!--msj error-->
 								</div><!--Nombre1-->
 
 								<div class="col-md-12 col-lg-6">
@@ -122,18 +126,31 @@
 									<label for="apellidoP" class="form-label">Apellido Paterno</label>
 									<input type="text" class="form-control" id="apellidoP" [(ngModel)]="ente.Ape_Ente1"
 										formControlName="APE1_ENTE">
+
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APE1_ENTE')">
+										<label>{{textError('APE1_ENTE')}}</label>
+									</div><!--msj error-->
+
 								</div><!--Apellido paterno-->
 
 								<div class="col-md-12 col-lg-6">
 									<label for="apellidoM" class="form-label">Apellido Materno</label>
 									<input type="text" class="form-control" id="apellidoM" [(ngModel)]="ente.Ape_Ente2"
 										formControlName="APE2_ENTE">
+
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APE2_ENTE')">
+										<label>{{textError('APE2_ENTE')}}</label>
+									</div><!--msj error-->
 								</div><!--Apellido materno-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
 									<input id="nacimiento" type="date" class="form-control" [(ngModel)]="ente.Fec_Na2"
 										formControlName="FEC_NAC">
+
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('FEC_NAC')">
+										<label>{{textError('FEC_NAC')}}</label>
+									</div><!--msj error-->
 								</div><!--Fecha Nacimiento-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -151,6 +168,9 @@
 												{{Gen.Des_TipSex}}</option>
 										</select>
 									</div>
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('TIP_SEX')">
+										<label>{{textError('TIP_SEX')}}</label>
+									</div><!--msj error-->
 								</div><!--Género-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -165,6 +185,9 @@
 												*ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
 										</select>
 									</div>
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_NAC')">
+										<label>{{textError('DES_NAC')}}</label>
+									</div><!--msj error-->
 								</div><!--Nacionalidad-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -180,6 +203,7 @@
 											</mat-option>
 										</mat-select>
 									</div>
+
 								</div><!--Nacionalidad-->
 
 								<!--	
@@ -211,18 +235,29 @@
 										<option value="2">ETC</option>-->
 										</select>
 									</div>
+
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_LUGNA')">
+										<label>{{textError('DES_LUGNA')}}</label>
+									</div><!--msj error-->
+
 								</div><!--Lugar de Nacimiento-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="rfc" class="form-label">RFC</label>
 									<input type="text" class="form-control" id="rfc" [(ngModel)]="ente.RFC"
 										formControlName="RFC">
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('RFC')">
+										<label>{{textError('RFC')}}</label>
+									</div><!--msj error-->
 								</div><!--RFC-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="curp" class="form-label">CURP</label>
 									<input type="text" class="form-control" id="curp" [(ngModel)]="ente.CURP"
 										formControlName="CURP">
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('CURP')">
+										<label>{{textError('CURP')}}</label>
+									</div><!--msj error-->
 								</div><!--CURP-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -240,6 +275,9 @@
 											<!--<option value="1">VERACRUZ</option>
 										<option value="2">ECATEPUNK</option>-->
 										</select>
+										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_SUCUR')">
+											<label>{{textError('DES_SUCUR')}}</label>
+										</div><!--msj error-->
 									</div>
 								</div><!--Sucursal-->
 
@@ -260,6 +298,9 @@
 										<option value="3">ETC</option>-->
 										</select>
 									</div>
+									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_TIPCL')">
+										<label>{{textError('DES_TIPCL')}}</label>
+									</div><!--msj error-->
 								</div><!--Tipo cliente-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">

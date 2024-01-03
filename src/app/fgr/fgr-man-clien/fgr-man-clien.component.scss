@@ -18,6 +18,11 @@ section {
   width: 100%;
 }
 
+.errorD {
+  border-radius: 5px;
+  background-color: #174054;
+}
+
 //**** PESTAÑA GENERALES*****************//
 .box {
   height: 260px;
@@ -26,7 +31,7 @@ section {
 @media(min-width: 992px) {
 
   .box {
-    justify-content: center!important;
+    justify-content: center !important;
   }
 
 }

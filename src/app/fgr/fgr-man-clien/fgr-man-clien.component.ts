@@ -50,7 +50,15 @@ import { arrayMax } from 'highcharts';
 })
 export class FgrManClienComponent implements OnInit {
 
-  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private fb: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(
+    private SucSer: SucurService,
+    private ClSer: ClService,
+    private EnteSer: EnteService,
+    private PaiSer: PaisService,
+    private LuSer: LugnaService,
+    private LocSer: LocalService,
+    private LocCNBSer: LocalCNBService,
+    private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private fb: FormBuilder, private route: ActivatedRoute, private location: Location) {
 
     /*
         this.formPost = this.fb.group({
@@ -69,14 +77,13 @@ export class FgrManClienComponent implements OnInit {
           CURP: ['']
         })*/
 
-
     this.formPost = new FormGroup(
       {
         //PASO 1
         NOM1_ENTE: new FormControl('',
           [
             Validators.required,
-            Validators.minLength(4)
+            Validators.minLength(2)
           ]),
 
         NOM2_ENTE: new FormControl(''),
@@ -219,6 +226,31 @@ export class FgrManClienComponent implements OnInit {
 
   }
 
+  //Manejo de mensaje de errores.
+
+  errorHandle(field: string): boolean | null {
+    return this.formPost.controls[field].errors
+      && this.formPost.controls[field].touched;
+  }
+
+  textError(field: string): string {
+
+    if (!this.formPost.controls[field]) return null;
+
+    const errors = this.formPost.controls[field].errors || {};
+
+    for (const key of Object.keys(errors)) {
+
+      switch (key) {
+        case 'required':
+          return '*Este campo es obligatorio.';
+        case 'minlength':
+          return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} letras`;
+      }
+    }
+
+    return null;
+  }
 
   public formPost: FormGroup
   public formPost2: FormGroup
@@ -289,7 +321,7 @@ export class FgrManClienComponent implements OnInit {
 
         SucInicio.Cve_Sucur = null
         SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
-      
+
         if (this.contadorGuardadoSelectores > 0) {
           SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
           SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
@@ -335,7 +367,7 @@ export class FgrManClienComponent implements OnInit {
 
         ClInicio.Cve_TipCl = null
         ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
-      
+
         if (this.contadorGuardadoSelectores > 0) {
           ClInicio = this.ClienSelect
         }
@@ -371,7 +403,7 @@ export class FgrManClienComponent implements OnInit {
         let PaiInicio = new PaisModel();
         PaiInicio.Cve_Pais = null
         PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
-     
+
         if (this.contadorGuardadoSelectores > 0) {
           PaiInicio = this.PaisSelect
         }
@@ -605,7 +637,7 @@ export class FgrManClienComponent implements OnInit {
 
       if (this.imprimirdef != null) {
         result.Objects = new Array<EstadoModel>()
-       
+
         for (let index of this.imprimirdef) {
           let EdoMod = new EstadoModel()
           EdoMod.Cve_Estdo = index.CVE_ESTDO;
