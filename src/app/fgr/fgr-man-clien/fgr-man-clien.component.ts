@@ -58,7 +58,14 @@ export class FgrManClienComponent implements OnInit {
     private LuSer: LugnaService,
     private LocSer: LocalService,
     private LocCNBSer: LocalCNBService,
-    private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private fb: FormBuilder, private route: ActivatedRoute, private location: Location) {
+    private EdoSer: EstadoService,
+    private MuniSSer: MunicService,
+    private TidoSer: TidomService,
+    private DirSer: DirecService,
+    private cook: CookieService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private location: Location) {
 
     /*
         this.formPost = this.fb.group({
@@ -138,17 +145,57 @@ export class FgrManClienComponent implements OnInit {
 
     this.formPost2 = new FormGroup(
       {
-        EDO_CIV: new FormControl(new Array<CivModel>()),
-        NIV_ES: new FormControl(new Array<EstuModel>()),
-        NUM_DECLI: new FormControl(''),
-        TEL1: new FormControl(''),
-        TEL2: new FormControl(''),
-        TEL3: new FormControl(''),
-        EMAIL: new FormControl(''),
-        NIV_ING: new FormControl(new Array<IngreModel>()),
-        GPO_ECO: new FormControl(new Array<GrusoModel>()),
-        CNB: new FormControl(new Array<AegenModel>()),
-        FEC_INICIO: new FormControl(''),
+        EDO_CIV: new FormControl(new Array<CivModel>(), [
+          Validators.required
+        ]),
+
+        NIV_ES: new FormControl(new Array<EstuModel>(), [
+          Validators.required
+        ]),
+
+        NUM_DECLI: new FormControl('', [
+          Validators.required,
+          Validators.max(5),
+          Validators.min(0)
+        ]),
+
+        TEL1: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        TEL2: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+        TEL3: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        EMAIL: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^(.+)@(\\S+)$')
+        ]),
+
+        NIV_ING: new FormControl(new Array<IngreModel>(),[
+          Validators.required
+        ]),
+
+        GPO_ECO: new FormControl(new Array<GrusoModel>(),[
+          Validators.required
+        ]),
+
+        CNB: new FormControl(new Array<AegenModel>(),[
+          Validators.required
+        ]),
+
+        FEC_INICIO: new FormControl('',[
+          Validators.required
+        ]),
 
         //NUEVOS POR CONECTAR
         FUE_REC: new FormControl(new Array()),
@@ -228,26 +275,35 @@ export class FgrManClienComponent implements OnInit {
 
   //Manejo de mensaje de errores.
 
-  errorHandle(field: string): boolean | null {
-    return this.formPost.controls[field].errors
-      && this.formPost.controls[field].touched;
+  errorHandle(field: string, form: FormGroup): boolean | null {
+    return form.controls[field].errors
+      && form.controls[field].touched;
   }
 
-  textError(field: string): string {
+  textError(field: string, form: FormGroup): string {
 
-    if (!this.formPost.controls[field]) return null;
+    if (!form.controls[field]) return null;
 
-    const errors = this.formPost.controls[field].errors || {};
+    const errors = form.controls[field].errors || {};
 
     for (const key of Object.keys(errors)) {
 
       switch (key) {
+
         case 'required':
           return '*Este campo es obligatorio.';
+
         case 'minlength':
           return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} letras`;
-          case 'pattern':
-            return '*Formato no válido.'
+
+        case 'pattern':
+          return '*Formato no válido.';
+
+        case 'max':
+          return `*Este campo admite máximo ${errors['max'].max} elementos`;
+
+        case 'min':
+          return `*Este campo admite un mínimo de ${errors['min'].min} elementos`;
       }
     }
 
