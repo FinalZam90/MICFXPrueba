@@ -181,36 +181,53 @@ export class FgrManClienComponent implements OnInit {
           Validators.pattern('^(.+)@(\\S+)$')
         ]),
 
-        NIV_ING: new FormControl(new Array<IngreModel>(),[
+        NIV_ING: new FormControl(new Array<IngreModel>(), [
           Validators.required
         ]),
 
-        GPO_ECO: new FormControl(new Array<GrusoModel>(),[
+        GPO_ECO: new FormControl(new Array<GrusoModel>(), [
           Validators.required
         ]),
 
-        CNB: new FormControl(new Array<AegenModel>(),[
+        CNB: new FormControl(new Array<AegenModel>(), [
           Validators.required
         ]),
 
-        FEC_INICIO: new FormControl('',[
+        FEC_INICIO: new FormControl('', [
           Validators.required
         ]),
 
         //NUEVOS POR CONECTAR
-        FUE_REC: new FormControl(new Array()),
+        FUE_REC: new FormControl(new Array(), [
+          Validators.required
+        ]),
 
         PRC1: new FormGroup({
-          PER: new FormControl(new Array()),
-          SIG: new FormControl(0),
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
         }),
 
         PRC2: new FormGroup({
-          PER: new FormControl(new Array()),
-          SIG: new FormControl(0),
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG2: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
         }),
 
-        GAST_MEN: new FormControl(0),
+        GAST_MEN: new FormControl(0, [
+          Validators.required,
+          Validators.min(0)
+        ]),
 
         //pago de credito        
         INS_MON: new FormControl(new Array()),
@@ -260,15 +277,54 @@ export class FgrManClienComponent implements OnInit {
         LOCALCNB: new FormControl(new Array<FldLocalModel>()),
         VIVIENDA: new FormControl(new Array<TidoModel>()),
 
-        CP: new FormControl(''),
-        CIUDAD: new FormControl(''),
-        COLONIA: new FormControl(''),
-        CALLE: new FormControl(''),
-        NUM_EXT: new FormControl(''),
-        NUM_INT: new FormControl(''),
-        APPOS: new FormControl(''),
-        AÑRES: new FormControl(''),
-        REFERENCIAS: new FormControl('')
+        CP: new FormControl('', [
+          Validators.required
+        ]),
+
+        CIUDAD: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        COLONIA: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        CALLE: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        NUM_EXT: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+
+        NUM_INT: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+
+        APPOS: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2)
+        ]),
+
+        AÑRES: new FormControl('', [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(100)
+        ]),
+
+        REFERENCIAS: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(300)
+        ])
       });
 
   }
@@ -276,6 +332,9 @@ export class FgrManClienComponent implements OnInit {
   //Manejo de mensaje de errores.
 
   errorHandle(field: string, form: FormGroup): boolean | null {
+
+    if (!form.controls[field]) return null;
+
     return form.controls[field].errors
       && form.controls[field].touched;
   }
@@ -294,16 +353,16 @@ export class FgrManClienComponent implements OnInit {
           return '*Este campo es obligatorio.';
 
         case 'minlength':
-          return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} letras`;
+          return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} caracteres`;
 
         case 'pattern':
           return '*Formato no válido.';
 
         case 'max':
-          return `*Este campo admite máximo ${errors['max'].max} elementos`;
+          return `*Este campo admite un valor máximo ${errors['max'].max} elementos`;
 
         case 'min':
-          return `*Este campo admite un mínimo de ${errors['min'].min} elementos`;
+          return `*Este campo admite un valor mínimo de ${errors['min'].min} elementos`;
       }
     }
 

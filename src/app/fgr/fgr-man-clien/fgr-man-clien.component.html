@@ -169,9 +169,6 @@
 										</select>
 									</div>
 
-									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('TIP_SEX', formPost)">
-										<label>{{textError('TIP_SEX', formPost)}}</label>
-									</div><!--msj error-->
 								</div><!--Género-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -186,9 +183,7 @@
 												*ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
 										</select>
 									</div>
-									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_NAC', formPost)">
-										<label>{{textError('DES_NAC', formPost)}}</label>
-									</div><!--msj error-->
+
 								</div><!--Nacionalidad-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -238,10 +233,6 @@
 										</select>
 									</div>
 
-									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_LUGNA', formPost)">
-										<label>{{textError('DES_LUGNA')}}</label>
-									</div><!--msj error-->
-
 								</div><!--Lugar de Nacimiento-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -278,9 +269,6 @@
 											<!--<option value="1">VERACRUZ</option>
 										<option value="2">ECATEPUNK</option>-->
 										</select>
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_SUCUR', formPost)">
-											<label>{{textError('DES_SUCUR', formPost)}}</label>
-										</div><!--msj error-->
 									</div>
 								</div><!--Sucursal-->
 
@@ -301,9 +289,7 @@
 										<option value="3">ETC</option>-->
 										</select>
 									</div>
-									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('DES_TIPCL', formPost)">
-										<label>{{textError('DES_TIPCL', formPost)}}</label>
-									</div><!--msj error-->
+
 								</div><!--Tipo cliente-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -338,10 +324,6 @@
 											</select>
 										</div>
 
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('EDO_CIV', formPost2)">
-											<label>{{textError('EDO_CIV', formPost2)}}</label>
-										</div><!--msj error-->
-
 									</div><!--Estado Civil-->
 
 									<div class="col-sm-12 col-lg-6 col-xl-4">
@@ -374,15 +356,11 @@
 											</select>
 										</div>
 
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('NIV_ES', formPost2)">
-											<label>{{textError('NIV_ES', formPost2)}}</label>
-										</div><!--msj error-->
-
 									</div><!--Nivel de estudios-->
 
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="correo" class="form-label">Correo electrónico</label>
-										<input id="correo" type="text" class="form-control"
+										<input id="correo" type="email" class="form-control"
 											placeholder="correo@dominio.com" [(ngModel)]="ente.Email"
 											formControlName="EMAIL">
 
@@ -428,6 +406,7 @@
 
 							<div class="mb-5">
 								<h3>Información Económica</h3>
+
 								<form class="row g-3 needs-validation" novalidate [formGroup]="formPost2"
 									(ngSubmit)="Form2()">
 
@@ -447,10 +426,6 @@
 											<option value="2">Secundaria</option>-->
 											</select>
 										</div>
-
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('NIV_ING', formPost2)">
-											<label>{{textError('NIV_ING', formPost2)}}</label>
-										</div><!--msj error-->
 
 									</div><!--Nivel de ingreso-->
 
@@ -522,10 +497,6 @@
 											</select>
 										</div>
 
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('CNB', formPost2)">
-											<label>{{textError('CNB', formPost2)}}</label>
-										</div><!--msj error-->
-
 									</div><!--Actividad Económica CNByV-->
 
 									<div class="col-sm-12 col-lg-6 col-xl-4 d-flex flex-column justify-content-center">
@@ -550,16 +521,10 @@
 											<div class="input-group mb-3">
 												<label class="input-group-text" for="recursos">Opción</label>
 
-												<select formNameControl="FUE_REC" class="form-select" id="recursos"
-													required>
+												<select formNameControl="FUE_REC" class="form-select" id="recursos">
 													<option>Bonos y otras compensaciones</option>
 												</select>
 											</div>
-
-											<div class="py-3 px-2 border-bottom"
-												*ngIf="errorHandle('FUE_REC', formPost2)">
-												<label>{{textError('FUE_REC', formPost2)}}</label>
-											</div><!--msj error-->
 
 										</div><!--Fuente recursos-->
 
@@ -572,29 +537,26 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select formNameControl="PER" class="form-select" id="per1"
-														required>
+													<select formNameControl="PER" class="form-select" id="per1">
 														<option>Ninguno</option>
 													</select>
 												</div>
 
-												<div class="py-3 px-2 border-bottom"
-													*ngIf="errorHandle('PER', formPost2)">
-													<label>{{textError('PER', formPost2)}}</label>
-												</div><!--msj error-->
 											</div> <!--Periocidad1-->
 
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
+
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
 													<input id="signo" type="number" formControlName="SIG"
-														class="form-control" required>
+														class="form-control">
 												</div>
 
 												<div class="py-3 px-2 border-bottom"
 													*ngIf="errorHandle('SIG', formPost2)">
 													<label>{{textError('SIG', formPost2)}}</label>
 												</div><!--msj error-->
+
 											</div><!--$-->
 
 										</div><!--Periodicidad1 conjunto-->
@@ -608,29 +570,23 @@
 													<label class="input-group-text" for="per2">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select id="per2" class="form-select" formControlName="PER"
-														required>
+													<select id="per2" class="form-select" formControlName="PER">
 														<option>Ninguno</option>
 													</select>
 												</div>
 
-												<div class="py-3 px-2 border-bottom"
-													*ngIf="errorHandle('PER', formPost2)">
-													<label>{{textError('PER', formPost2)}}</label>
-
-												</div><!--msj error-->
 											</div> <!--Periocidad2-->
 
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG"
+													<input id="signo" type="number" formControlName="SIG2"
 														class="form-control" required>
 												</div>
 
 												<div class="py-3 px-2 border-bottom"
-													*ngIf="errorHandle('SIG', formPost2)">
-													<label>{{textError('SIG', formPost2)}}</label>
+													*ngIf="errorHandle('SIG2', formPost2)">
+													<label>{{textError('SIG2', formPost2)}}</label>
 												</div><!--msj error-->
 
 											</div><!--$-->
@@ -647,7 +603,7 @@
 												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto
 													Mensual</label>
 												<input id="gasto" type="number" formControlName="GAST_MEN"
-													class="form-control" required>
+													class="form-control">
 
 												<div class="py-3 px-2 border-bottom"
 													*ngIf="errorHandle('GAST_MEN', formPost2)">
@@ -707,10 +663,6 @@
 												</select>
 											</div>
 
-											<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('INS_MON', formPost2)">
-												<label>{{textError('INS_MON', formPost2)}}</label>
-											</div><!--msj error-->
-
 										</div><!--Instr Monetario-->
 
 										<div class="mb-3">
@@ -728,10 +680,6 @@
 												</select>
 											</div>
 
-											<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('APLI_REC', formPost2)">
-												<label>{{textError('APLI_REC', formPost2)}}</label>
-											</div><!--msj error-->
-
 										</div><!--Aplicación Recursos-->
 
 										<div class="mb-3">
@@ -748,10 +696,6 @@
 													<option>Ventanilla Bancaria</option>
 												</select>
 											</div>
-
-											<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('CAN_ENV', formPost2)">
-												<label>{{textError('CAN_ENV', formPost2)}}</label>
-											</div><!--msj error-->
 
 										</div><!--Canal de envio-->
 
@@ -971,10 +915,6 @@
 											</select>
 										</div><!--Rol Hogar-->
 
-										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('ROL_HOG', formPost2)">
-											<label>{{textError('ROL_HOG', formPost2)}}</label>
-										</div><!--msj error-->
-
 										<br>
 										<button type="submit" class="btn btn-light px-5">Guardar datos</button>
 
@@ -993,7 +933,11 @@
 								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="cp" class="form-label">Código Postal</label>
 									<input type="text" class="form-control" id="cp" [(ngModel)]="direc.Cve_CP"
-										formControlName="CP" required>
+										formControlName="CP">
+
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CP', formPost3)">
+										<label>{{textError('CP', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--Codigo Postal-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
@@ -1008,7 +952,6 @@
 											required>
 											<option *ngFor="let pais of direc.Pais.Paises" [ngValue]="pais">
 												{{pais.Des_Nac}}</option>
-
 										</select>
 									</div>
 								</div><!--País-->
@@ -1058,7 +1001,6 @@
 											required>
 											<option *ngFor="let loca of direc.Localidad.Localidades" [ngValue]="loca">
 												{{loca.Nom_Local}}</option>
-
 										</select>
 									</div>
 								</div><!--localidad-->
@@ -1083,37 +1025,55 @@
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="ciudad" class="form-label">Ciudad</label>
 									<input type="text" class="form-control" id="ciudad" [(ngModel)]="direc.Des_Ciuda"
-										formControlName="CIUDAD" required>
+										formControlName="CIUDAD">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CIUDAD', formPost3)">
+										<label>{{textError('CIUDAD', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--ciudad-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="colonia" class="form-label">Colonia</label>
 									<input type="text" class="form-control" id="colonia" [(ngModel)]="direc.Nom_Colon"
-										formControlName="COLONIA" required>
+										formControlName="COLONIA">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('COLONIA', formPost3)">
+										<label>{{textError('COLONIA', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--colonia-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="calle" class="form-label">Calle</label>
 									<input type="text" class="form-control" id="calle" [(ngModel)]="direc.Des_Calle"
-										formControlName="CALLE" required>
+										formControlName="CALLE">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CALLE', formPost3)">
+										<label>{{textError('CALLE', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--calle-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="nExterior" class="form-label">Número exterior</label>
-									<input type="text" class="form-control" id="nExterior" [(ngModel)]="direc.Num_Ext"
-										formControlName="NUM_EXT" required>
+									<input type="number" class="form-control" id="nExterior" [(ngModel)]="direc.Num_Ext"
+										formControlName="NUM_EXT">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NUM_EXT', formPost3)">
+										<label>{{textError('NUM_EXT', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--Numero ext-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="nInterior" class="form-label">Número interior</label>
-									<input type="text" class="form-control" id="nInterior" [(ngModel)]="direc.Num_Int"
-										formControlName="NUM_INT" required>
+									<input type="number" class="form-control" id="nInterior" [(ngModel)]="direc.Num_Int"
+										formControlName="NUM_INT">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NUM_INT', formPost3)">
+										<label>{{textError('NUM_INT', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--numero interior-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="apostal1" class="form-label">Apartado Postal</label>
-									<input type="text" class="form-control" id="apostal1" [(ngModel)]="direc.Num_Appos"
-										formControlName="APPOS" required>
+									<input type="number" class="form-control" id="apostal1" [(ngModel)]="direc.Num_Appos"
+										formControlName="APPOS">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APPOS', formPost3)">
+										<label>{{textError('APPOS', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--Apartado postal-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
@@ -1135,14 +1095,20 @@
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="residenciaA" class="form-label">Años de residencia</label>
-									<input type="text" class="form-control" id="residenciaA"
-										[(ngModel)]="direc.Num_Resen" formControlName="AÑRES" required>
+									<input type="number" class="form-control" id="residenciaA"
+										[(ngModel)]="direc.Num_Resen" formControlName="AÑRES">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('AÑRES', formPost3)">
+										<label>{{textError('AÑRES', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--años residencia-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="calles" class="form-label">Referencia entre calles</label>
 									<input type="text" class="form-control" id="calles" [(ngModel)]="direc.Num_Cpent"
-										formControlName="REFERENCIAS" required>
+										formControlName="REFERENCIAS">
+										<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('REFERENCIAS', formPost3)">
+											<label>{{textError('REFERENCIAS', formPost3)}}</label>
+										</div><!--msj error-->
 								</div><!--ref calles-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
