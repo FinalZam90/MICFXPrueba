@@ -218,8 +218,10 @@
 								-->
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="nacimientoL">
+
+									<div class="input-group mb-3 position-relative">
+										<label (click)="manageModal()" class="input-group-text" for="nacimientoL"
+											#search>
 											<i class="bx bx-search"></i>
 										</label>
 										<select formNameControl="DES_LUGNA" [ngModel]="LugnaSelect"
@@ -231,9 +233,19 @@
 											<!--<option value="1">AQUÍ OTRA</option>
 										<option value="2">ETC</option>-->
 										</select>
+
+										<div class="modal-box" *ngIf="activeModal" #modalBox>
+											<input type="search" class="form-control" placeholder="Buscar...">
+											<div class="box">
+												<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">
+													{{lug.Des_Lugna}}</option>
+											</div>
+										</div><!--Modal box-->
 									</div>
 
+
 								</div><!--Lugar de Nacimiento-->
+
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="rfc" class="form-label">RFC</label>
@@ -1069,8 +1081,8 @@
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="apostal1" class="form-label">Apartado Postal</label>
-									<input type="number" class="form-control" id="apostal1" [(ngModel)]="direc.Num_Appos"
-										formControlName="APPOS">
+									<input type="number" class="form-control" id="apostal1"
+										[(ngModel)]="direc.Num_Appos" formControlName="APPOS">
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APPOS', formPost3)">
 										<label>{{textError('APPOS', formPost3)}}</label>
 									</div><!--msj error-->
@@ -1106,9 +1118,9 @@
 									<label for="calles" class="form-label">Referencia entre calles</label>
 									<input type="text" class="form-control" id="calles" [(ngModel)]="direc.Num_Cpent"
 										formControlName="REFERENCIAS">
-										<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('REFERENCIAS', formPost3)">
-											<label>{{textError('REFERENCIAS', formPost3)}}</label>
-										</div><!--msj error-->
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('REFERENCIAS', formPost3)">
+										<label>{{textError('REFERENCIAS', formPost3)}}</label>
+									</div><!--msj error-->
 								</div><!--ref calles-->
 
 								<div class="col-sm-12 col-lg-6 col-xl-4">

@@ -18,6 +18,37 @@ section {
   width: 100%;
 }
 
+.bx-search {
+  cursor: pointer;
+}
+
+label {
+  display: inline-block;
+}
+
+.modal-box {
+  top: 0;
+  left: 42px;
+  width: 100%;
+  z-index: 300;
+  position: absolute;
+  background-color: black;
+
+  input,
+  option {
+    color: white;
+
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  .box {
+    height: 200px;
+    overflow-y: scroll;
+
+  }
+}
 
 //**** PESTAÑA GENERALES*****************//
 .box {

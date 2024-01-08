@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, HostListener, Renderer2, ChangeDetectorRef } from '@angular/core';
 
 import { ClService } from '../../SL/FCL_TIPCL';
 import { EnteService } from '../../SL/FCL_ENTE';
@@ -43,12 +43,27 @@ import { FormModule } from 'src/app/form/form.module';
 import { tr } from 'date-fns/locale';
 import { arrayMax } from 'highcharts';
 
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
+import { event } from 'jquery';
+
 @Component({
   selector: 'app-fgr-man-clien',
   templateUrl: './fgr-man-clien.component.html',
   styleUrls: ['./fgr-man-clien.component.scss']
 })
-export class FgrManClienComponent implements OnInit {
+export class FgrManClienComponent implements OnInit, AfterViewInit {
 
   constructor(
     private SucSer: SucurService,
@@ -65,7 +80,12 @@ export class FgrManClienComponent implements OnInit {
     private cook: CookieService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private location: Location) {
+    private location: Location,
+
+    public dialog: MatDialog,
+    private renderer: Renderer2,
+    private cdr: ChangeDetectorRef
+  ) {
 
     /*
         this.formPost = this.fb.group({
@@ -329,6 +349,33 @@ export class FgrManClienComponent implements OnInit {
 
   }
 
+  activeModal: boolean = false;
+  @ViewChild('modalBox') modalBox: ElementRef | undefined;
+
+  manageModal(): void {
+
+    console.log(this.activeModal);
+    this.cdr.detectChanges(); // Forzar la detección de cambios
+
+    this.activeModal = !this.activeModal;
+  }
+
+
+  ngAfterViewInit(): void {
+
+    this.renderer.listen('document', 'click', (event: Event) => {
+
+      if (this.modalBox && !this.modalBox.nativeElement.contains(event.target)) {
+        this.cdr.detectChanges(); // Forzar la detección de cambios
+        this.activeModal = false;
+      }
+
+    })
+  }
+
+
+
+
   //Manejo de mensaje de errores.
 
   errorHandle(field: string, form: FormGroup): boolean | null {
@@ -368,6 +415,7 @@ export class FgrManClienComponent implements OnInit {
 
     return null;
   }
+
 
   public formPost: FormGroup
   public formPost2: FormGroup
