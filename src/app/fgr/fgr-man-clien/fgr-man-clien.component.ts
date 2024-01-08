@@ -45,12 +45,7 @@ import { arrayMax } from 'highcharts';
 
 import {
   MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
+  
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -63,7 +58,7 @@ import { event } from 'jquery';
   templateUrl: './fgr-man-clien.component.html',
   styleUrls: ['./fgr-man-clien.component.scss']
 })
-export class FgrManClienComponent implements OnInit, AfterViewInit {
+export class FgrManClienComponent implements OnInit {
 
   constructor(
     private SucSer: SucurService,
@@ -348,32 +343,6 @@ export class FgrManClienComponent implements OnInit, AfterViewInit {
       });
 
   }
-
-  activeModal: boolean = false;
-  @ViewChild('modalBox') modalBox: ElementRef | undefined;
-
-  manageModal(): void {
-
-    console.log(this.activeModal);
-    this.cdr.detectChanges(); // Forzar la detección de cambios
-
-    this.activeModal = !this.activeModal;
-  }
-
-
-  ngAfterViewInit(): void {
-
-    this.renderer.listen('document', 'click', (event: Event) => {
-
-      if (this.modalBox && !this.modalBox.nativeElement.contains(event.target)) {
-        this.cdr.detectChanges(); // Forzar la detección de cambios
-        this.activeModal = false;
-      }
-
-    })
-  }
-
-
 
 
   //Manejo de mensaje de errores.

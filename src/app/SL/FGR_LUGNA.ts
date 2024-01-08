@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 
 export class LugnaService{
     myApi = "https://webmicfx.arashi.solutions/FGR/WsConLugna.p";
-
+    myApi2 = '/prueba/FGR/WsConLugna.p'
     options = 
     {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
@@ -26,7 +26,7 @@ export class LugnaService{
         */
         //body.set('ACCION', "ConDep");
         this.http.get(this.myApi).subscribe((r) => {console.log(r)});
-        return this.http.get(this.myApi);
+        return this.http.get(this.myApi2);
         
     }
     
