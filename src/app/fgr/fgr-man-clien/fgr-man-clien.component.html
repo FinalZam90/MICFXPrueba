@@ -171,6 +171,12 @@
 									<label for="nacionalidad" class="form-label">Nacionalidad (Pueden ser hasta
 										5)</label>
 									<div class="input-group mb-3">
+										<datalist id="listapruebajuasjuas">
+											<option [ngValue]="pais" *ngFor ="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
+										</datalist>
+										<input type="search" list="listapruebajuasjuas" id="listapruebajuasjuas" class="form-control">
+										
+										<!--
 										<mat-select id="nacionalidad" multiple class="form-control"
 											placeholder="Ingresa">
 											<mat-option (onSelectionChange)="PaisSelec($event)"
@@ -179,7 +185,9 @@
 												{{ pais.Des_Nac }}
 											</mat-option>
 										</mat-select>
+										-->
 									</div>
+									
 								</div><!--Nacionalidad-->
 
 								<!--	

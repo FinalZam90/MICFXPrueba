@@ -442,28 +442,36 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  GetEdoCi() {
+  GetEdoCi() 
+  {
     let result = new Result()
-    this.EnteSer.GetEdoCiv().subscribe((r) => {
+    this.EnteSer.GetEdoCiv().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<CivModel>();
         let CivInicio = new CivModel();
         CivInicio.Cve_EdoCi = null
         CivInicio.Tip_EdoCi = "------------ SELECCIONA UN ESTADO CIVIL --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.contadorGuardadoSelectores > 0) 
+        {
           CivInicio = this.EdoCivSelect
         }
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let CivMo = new CivModel()
           CivMo.Cve_EdoCi = index.CveTipEdoCi;
           CivMo.Tip_EdoCi = index.TIP_EDOCI;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (CivMo.Cve_EdoCi == CivInicio.Cve_EdoCi) {
+          if (this.contadorGuardadoSelectores > 0) 
+          {
+            if (CivMo.Cve_EdoCi == CivInicio.Cve_EdoCi) 
+            {
               result.Objects.push(CivMo)
             }
           }
-          else {
+          else 
+          {
             result.Objects.push(CivMo)
           }
 
