@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, HostListener, Renderer2, ChangeDetectorRef } from '@angular/core';
 
 import { ClService } from '../../SL/FCL_TIPCL';
 import { EnteService } from '../../SL/FCL_ENTE';
@@ -20,7 +20,7 @@ import { FopagService } from '../../SL/FCR_FOPAG';
 import { RhogaService } from '../../SL/FGR_RHOGA';
 
 import { CookieService } from 'ngx-cookie-service';
-import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form, Validators } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -54,12 +54,21 @@ import { FopagModel } from "../../ML/FCR_FOPAG";
 import { RhogaModel } from "../../ML/FGR_RHOGA";
 import { PerioModel } from "../../ML/Periodicidad";
 
+
 import *  as ut from "utf8";
 import { FormModule } from 'src/app/form/form.module';
 import { tr } from 'date-fns/locale';
 import { arrayMax } from 'highcharts';
-import { ajax } from 'jquery';
-import { _countGroupLabelsBeforeOption } from '@angular/material/core';
+
+import {
+  MatDialog,
+
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-fgr-man-clien',
@@ -68,40 +77,234 @@ import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 })
 export class FgrManClienComponent implements OnInit {
 
-  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private EntIdSer: EntIdService, private RefSer: RefmiService, private CnvSer: CnenvService, private FuerSer: FuercService, private DestiSer: DestiService, private FopSer: FopagService, private RhoSer: RhogaService, private cook: CookieService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) 
-  {
+  constructor(
+    private SucSer: SucurService,
+    private ClSer: ClService,
+    private EnteSer: EnteService,
+    private PaiSer: PaisService,
+    private LuSer: LugnaService,
+    private LocSer: LocalService,
+    private LocCNBSer: LocalCNBService,
+    private EdoSer: EstadoService,
+    private MuniSSer: MunicService,
+    private TidoSer: TidomService,
+    private DirSer: DirecService,
+    private EntIdSer: EntIdService, 
+    private RefSer: RefmiService, 
+    private CnvSer: CnenvService,
+    private FuerSer: FuercService,
+    private DestiSer: DestiService,
+    private FopSer: FopagService,
+    private RhoSer: RhogaService,
+    private cook: CookieService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private location: Location,
+
+    public dialog: MatDialog,
+    private renderer: Renderer2,
+    private cdr: ChangeDetectorRef
+  ) {
+
+    /*
+        this.formPost = this.fb.group({
+          //PASO 1
+          NOM1_ENTE: [''],
+          NOM2_ENTE: [''],
+          APE1_ENTE: [''],
+          APE2_ENTE: [''],
+          FEC_NAC: [''],
+          TIP_SEX: this.fb.array<SexGenModel>([]),
+          DES_SUCUR: this.fb.array<SucurModel>([]),
+          DES_LUGNA: this.fb.array<LugnaModel>([]),
+          DES_TIPCL: this.fb.array<TipClModel>([]),
+          DES_NAC: this.fb.array<PaisModel>([]),
+          RFC: [''],
+          CURP: ['']
+        })*/
+
     this.formPost = new FormGroup(
       {
         //PASO 1
-        NOM1_ENTE: new FormControl(''),
+        NOM1_ENTE: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2)
+          ]),
+
         NOM2_ENTE: new FormControl(''),
-        APE1_ENTE: new FormControl(''),
-        APE2_ENTE: new FormControl(''),
-        FEC_NAC: new FormControl(''),
-        TIP_SEX: new FormControl(new Array<SexGenModel>()),
-        DES_SUCUR: new FormControl(new Array<SucurModel>()),
-        DES_LUGNA: new FormControl(new Array<LugnaModel>()),
-        DES_TIPCL: new FormControl(new Array<TipClModel>()),
-        DES_NAC: new FormControl(new Array<PaisModel>()),
-        RFC: new FormControl(''),
-        CURP: new FormControl('')
+        APE1_ENTE: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2)
+          ]),
+
+        APE2_ENTE: new FormControl('',
+          [
+            Validators.required,
+            Validators.minLength(2)
+          ]),
+
+        FEC_NAC: new FormControl('',
+          [
+            Validators.required
+          ]),
+
+        TIP_SEX: new FormControl(new Array<SexGenModel>(), [
+          Validators.required
+        ]),
+
+        DES_SUCUR: new FormControl(new Array<SucurModel>(), [
+          Validators.required
+        ]),
+        DES_LUGNA: new FormControl(new Array<LugnaModel>(), [
+          Validators.required
+        ]),
+        DES_TIPCL: new FormControl(new Array<TipClModel>(), [
+          Validators.required
+        ]),
+        DES_NAC: new FormControl(new Array<PaisModel>(), [
+          Validators.required,
+          Validators.max(5)
+        ]),
+
+        RFC: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
+        ]),
+
+        CURP: new FormControl('',
+          [
+            Validators.required,
+            Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
+          ])
         // PASO 2
 
       });
 
     this.formPost2 = new FormGroup(
       {
-        EDO_CIV: new FormControl(new Array<CivModel>()),
-        NIV_ES: new FormControl(new Array<EstuModel>()),
-        NUM_DECLI: new FormControl(''),
-        TEL1: new FormControl(''),
-        TEL2: new FormControl(''),
-        TEL3: new FormControl(''),
-        EMAIL: new FormControl(''),
-        NIV_ING: new FormControl(new Array<IngreModel>()),
-        GPO_ECO: new FormControl(new Array<GrusoModel>()),
-        CNB: new FormControl(new Array<AegenModel>()),
-        FEC_INICIO: new FormControl('')
+        EDO_CIV: new FormControl(new Array<CivModel>(), [
+          Validators.required
+        ]),
+
+        NIV_ES: new FormControl(new Array<EstuModel>(), [
+          Validators.required
+        ]),
+
+        NUM_DECLI: new FormControl('', [
+          Validators.required,
+          Validators.max(5),
+          Validators.min(0)
+        ]),
+
+        TEL1: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        TEL2: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+        TEL3: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        EMAIL: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^(.+)@(\\S+)$')
+        ]),
+
+        NIV_ING: new FormControl(new Array<IngreModel>(), [
+          Validators.required
+        ]),
+
+        GPO_ECO: new FormControl(new Array<GrusoModel>(), [
+          Validators.required
+        ]),
+
+        CNB: new FormControl(new Array<AegenModel>(), [
+          Validators.required
+        ]),
+
+        FEC_INICIO: new FormControl('', [
+          Validators.required
+        ]),
+
+        //NUEVOS POR CONECTAR
+        FUE_REC: new FormControl(new Array(), [
+          Validators.required
+        ]),
+
+        PRC1: new FormGroup({
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
+        }),
+
+        PRC2: new FormGroup({
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG2: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
+        }),
+
+        GAST_MEN: new FormControl(0, [
+          Validators.required,
+          Validators.min(0)
+        ]),
+
+        //pago de credito        
+        INS_MON: new FormControl(new Array()),
+        APLI_REC: new FormControl(new Array()),
+        CAN_ENV: new FormControl(new Array()),
+
+        LGR_OPE: new FormGroup({
+          LGRO_ESTDO: new FormControl(new Array()),
+          LGRO_MUNIC: new FormControl(new Array()),
+        }),
+
+        LGR_ACT: new FormGroup({
+          LGRA_ESTDO: new FormControl(new Array()),
+          LGRA_MUNIC: new FormControl(new Array()),
+        }),
+
+        //conocimiento del cliente
+        IDEN: new FormGroup({
+          PROV_REC: new FormControl(''),
+          PROP_REA: new FormControl(''),
+          CUEN_TER: new FormControl(''),
+        }),
+
+        PROM: new FormControl(),
+
+        OTR_DAT: new FormGroup({
+          CAP_DIF: new FormControl(''),
+          ACTIV: new FormControl(''),
+        }),
+
+        DAT_FON: new FormGroup({
+          LEN_IND: new FormControl(''),
+          RED_SOC: new FormControl(''),
+          US_INT: new FormControl(''),
+        }),
+
+        ROL_HOG: new FormControl(''),
+
       });
 
     this.formPost3 = new FormGroup(
@@ -113,17 +316,56 @@ export class FgrManClienComponent implements OnInit {
         LOCALCNB: new FormControl(new Array<FldLocalModel>()),
         VIVIENDA: new FormControl(new Array<TidoModel>()),
 
-        CP: new FormControl(''),
-        CIUDAD: new FormControl(''),
-        COLONIA: new FormControl(''),
-        CALLE: new FormControl(''),
-        NUM_EXT: new FormControl(''),
-        NUM_INT: new FormControl(''),
-        APPOS: new FormControl(''),
-        AÑRES: new FormControl(''),
-        REFERENCIAS: new FormControl('')
+        CP: new FormControl('', [
+          Validators.required
+        ]),
+
+        CIUDAD: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        COLONIA: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        CALLE: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(150)
+        ]),
+
+        NUM_EXT: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+
+        NUM_INT: new FormControl('', [
+          Validators.required,
+          Validators.min(1)
+        ]),
+
+        APPOS: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2)
+        ]),
+
+        AÑRES: new FormControl('', [
+          Validators.required,
+          Validators.min(0),
+          Validators.max(100)
+        ]),
+
+        REFERENCIAS: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(300)
+        ])
       });
-      this.formPostIdenti = new FormGroup(
+    this.formPostIdenti = new FormGroup(
       {
         TIPID: new FormControl(new Array<EntIdModel>()),
         AN_VENC: new FormControl(''),
@@ -131,15 +373,56 @@ export class FgrManClienComponent implements OnInit {
         NUM_IDENTI: new FormControl(''),
         FOLIO_IDENTI: new FormControl('')
       });
-      this.formPostRefmi = new FormGroup(
-        {
-          NOMBRE: new FormControl(''),
-          TEL: new FormControl(''),
-          DIREC: new FormControl(''),
-          AN_CON: new FormControl(''),
-          CVE_RESP: new FormControl(new Array),
-          COMEN: new FormControl('')
-        });
+    this.formPostRefmi = new FormGroup(
+      {
+        NOMBRE: new FormControl(''),
+        TEL: new FormControl(''),
+        DIREC: new FormControl(''),
+        AN_CON: new FormControl(''),
+        CVE_RESP: new FormControl(new Array),
+        COMEN: new FormControl('')
+      });
+  }
+
+
+  //Manejo de mensaje de errores.
+
+  errorHandle(field: string, form: FormGroup): boolean | null {
+
+    if (!form.controls[field]) return null;
+
+    return form.controls[field].errors
+      && form.controls[field].touched;
+  }
+
+  textError(field: string, form: FormGroup): string {
+
+    if (!form.controls[field]) return null;
+
+    const errors = form.controls[field].errors || {};
+
+    for (const key of Object.keys(errors)) {
+
+      switch (key) {
+
+        case 'required':
+          return '*Este campo es obligatorio.';
+
+        case 'minlength':
+          return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} caracteres`;
+
+        case 'pattern':
+          return '*Formato no válido.';
+
+        case 'max':
+          return `*Este campo admite un valor máximo ${errors['max'].max} elementos`;
+
+        case 'min':
+          return `*Este campo admite un valor mínimo de ${errors['min'].min} elementos`;
+      }
+    }
+
+    return null;
   }
 
 
@@ -164,7 +447,7 @@ export class FgrManClienComponent implements OnInit {
   public imprimirdef: any
   public EnteSelect: any
   public Id: string;
-  
+
 
   public LocalSelect = new LocalModel()
   public TipSexSelect = new SexGenModel()
