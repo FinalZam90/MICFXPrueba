@@ -45,7 +45,7 @@ import { arrayMax } from 'highcharts';
 
 import {
   MatDialog,
-  
+
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -346,7 +346,6 @@ export class FgrManClienComponent implements OnInit {
 
 
   //Manejo de mensaje de errores.
-
   errorHandle(field: string, form: FormGroup): boolean | null {
 
     if (!form.controls[field]) return null;
