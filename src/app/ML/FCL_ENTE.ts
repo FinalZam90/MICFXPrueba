@@ -34,6 +34,10 @@ export class EnteModel
     Ban_Paral: boolean
     Ban_Activ: boolean
     Num_Lirpe: number
+    Ban_Lenin: boolean
+    Ban_Redso: boolean
+    Ban_Usoin: boolean
+
     Ingr = new IngreModel()
     Gruso = new GrusoModel()
     Aegen = new AegenModel()
