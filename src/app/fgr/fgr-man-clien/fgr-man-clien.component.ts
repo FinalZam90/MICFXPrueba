@@ -60,6 +60,16 @@ import { FormModule } from 'src/app/form/form.module';
 import { tr } from 'date-fns/locale';
 import { arrayMax } from 'highcharts';
 
+import {
+  MatDialog,
+  
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
+import { event } from 'jquery';
+
 @Component({
   selector: 'app-fgr-man-clien',
   templateUrl: './fgr-man-clien.component.html',
@@ -262,7 +272,6 @@ export class FgrManClienComponent implements OnInit {
 
 
   //Manejo de mensaje de errores.
-
   errorHandle(field: string, form: FormGroup): boolean | null {
 
     if (!form.controls[field]) return null;

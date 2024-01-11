@@ -222,8 +222,10 @@
 								-->
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
-									<div class="input-group mb-3">
-										<label class="input-group-text" for="nacimientoL">
+
+									<div class="input-group mb-3 position-relative">
+										<label (click)="manageModal()" class="input-group-text" for="nacimientoL"
+											#search>
 											<i class="bx bx-search"></i>
 										</label>
 										<select formNameControl="DES_LUGNA" [ngModel]="LugnaSelect"
@@ -1361,7 +1363,7 @@
 									</div>
 								</div>
 							</div>
-						</section><!--referencias--><!--referencias-->
+						</section><!--referencias-->
 					</div><!--tab-content-->
 
 				</div><!--smartwizard-->
