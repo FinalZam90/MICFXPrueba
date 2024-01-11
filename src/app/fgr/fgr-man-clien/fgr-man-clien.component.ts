@@ -53,7 +53,7 @@ import { DestiModel } from "../../ML/FCR_DESTI";
 import { FopagModel } from "../../ML/FCR_FOPAG";
 import { RhogaModel } from "../../ML/FGR_RHOGA";
 import { PerioModel } from "../../ML/Periodicidad";
-
+import { MdPagModel } from "../../ML/FCL_MDPAG";
 
 import *  as ut from "utf8";
 import { FormModule } from 'src/app/form/form.module';
@@ -279,8 +279,10 @@ export class FgrManClienComponent implements OnInit {
         }),
 
         LGR_ACT: new FormGroup({
-          LGRA_ESTDO: new FormControl(new Array()),
-          LGRA_MUNIC: new FormControl(new Array()),
+          LGRA_ESTDO: new FormControl(new Array<EstadoModel>()),
+          LGRA_MUNIC: new FormControl(new Array<MunicModel>()),
+          LGRA_ESTDO2: new FormControl(new Array<EstadoModel>()),
+          LGRA_MUNIC2: new FormControl(new Array<MunicModel>()),
         }),
 
         //conocimiento del cliente
@@ -440,6 +442,7 @@ export class FgrManClienComponent implements OnInit {
   public fuerc: FuercModel
   public desti: DestiModel
   public rhog: RhogaModel
+  public mdpag: MdPagModel
   public perio1: PerioModel
   public perio2: PerioModel
   public show: boolean;
@@ -463,6 +466,10 @@ export class FgrManClienComponent implements OnInit {
 
   public EstadoSelect = new EstadoModel()
   public MunicSelect = new MunicModel()
+  public EstadoSelectOp = new EstadoModel()
+  public MunicSelectOp = new MunicModel()
+  public EstadoSelectAc = new EstadoModel()
+  public MunicSelectAc = new MunicModel()
   public LocalidadSelect = new LocalModel()
   public LocalCNBSelect = new FldLocalModel()
   public ViviendaSelect = new TidoModel()
@@ -502,7 +509,7 @@ export class FgrManClienComponent implements OnInit {
     
     this.perio1 = new PerioModel();
     this.perio2 = new PerioModel();
-    
+    this.mdpag = new MdPagModel();
     
     this.LlenarListas();
     this.LlenarLista2();
@@ -926,8 +933,12 @@ export class FgrManClienComponent implements OnInit {
        
         
         this.EstadoSelect = EdoInicio
+        this.EstadoSelectOp = EdoInicio
+        this.EstadoSelectAc = EdoInicio
         result.Objects.unshift(EdoInicio)
         this.direc.Estado.Estados = result.Objects;
+        this.mdpag.EstadoAc.Estados = result.Objects;
+        this.mdpag.EstadoOp.Estados = result.Objects;
         result.Correct = true;
       }
       else {
@@ -959,8 +970,12 @@ export class FgrManClienComponent implements OnInit {
         result.Correct = true;
         
         this.MunicSelect = MunInicio
+        this.MunicSelectAc = MunInicio
+        this.MunicSelectOp = MunInicio
         result.Objects.unshift(MunInicio)
         this.direc.Municipio.Municipios = result.Objects;
+        this.mdpag.MunicOp.Municipios = result.Objects
+        this.mdpag.MunicAc.Municipios = result.Objects
         result.Correct = true;
       }
       else 
@@ -970,6 +985,52 @@ export class FgrManClienComponent implements OnInit {
       }
     }, (e) => { console.log(e) })
   }
+
+  public GetMunicipioM(EdoProv: EstadoModel, n: number) 
+  {
+    let result = new Result()
+
+    this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<MunicModel>()
+        let MunInicio = new MunicModel();
+        MunInicio.Cve_Munic = null
+        MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
+        for (let index of this.imprimirdef) 
+        {
+          let MunicMod = new MunicModel()
+          MunicMod.Cve_Munic = index.CVE_MUNIC;
+          MunicMod.Nom_Munic = index.NOM_MUNIC;
+
+          result.Objects.push(MunicMod)
+        }
+        result.Correct = true;
+        result.Objects.unshift(MunInicio)
+        if(n = 1)
+        {
+          this.MunicSelectOp = MunInicio
+          this.mdpag.MunicOp.Municipios = result.Objects
+        }
+        if(n = 2)
+        {
+          this.MunicSelectAc = MunInicio
+          this.mdpag.MunicAc.Municipios = result.Objects
+        }
+      
+        
+        
+        result.Correct = true;
+      }
+      else 
+      {
+        result.Correct = false;
+        result.ErrorMessage = "Sin Municipios";
+      }
+    }, (e) => { console.log(e) })
+  }
+
   public GetLocalidad(MuniProv: MunicModel) 
   {
 
@@ -1401,6 +1462,26 @@ export class FgrManClienComponent implements OnInit {
     this.ente.Tel_2 = this.formPost2.controls['TEL2'].value
     this.ente.Tel_3 = this.formPost2.controls['TEL3'].value
     this.ente.Fec_Inicio = this.formPost2.controls['FEC_INICIO'].value
+    
+    //NUEVOS CONECTADOS PENDIENTES POR FORMULARIOS Y CLASES PROPI@S
+    this.mdpag.Fuerc = this.FuercSelect
+    this.mdpag.Pagcu1 = this.Perio1Select
+    this.mdpag.Pagcu2 = this.Perio2Select
+    this.mdpag.EstadoOp = this.EstadoSelectOp
+    this.mdpag.EstadoAc = this.EstadoSelectAc
+    this.mdpag.MunicOp = this.MunicSelectOp
+    this.mdpag.MunicAc = this.MunicSelectAc
+    this.mdpag.Cnenv = this.CnvenSelect
+    this.mdpag.AplRc = this.DestiSelect
+    this.mdpag.MdPag = this.FopaSelect
+    this.mdpag.Ente = this.ente
+    this.mdpag.Fec_MdPag = "" + new Date()
+
+    this.mdpag.Pagcu1.Sig = this.formPost2.controls['SIG'].value
+    this.mdpag.Pagcu2.Sig = this.formPost2.controls['SIG2'].value
+    this.mdpag.Mon_Gasto = this.formPost2.controls['GAST_MEN'].value
+
+    //FIN
     this.contadorGrusos = 0;
     this.EnteSer.MaPaso2(this.ente).subscribe((r) => { console.log(r) }, (e) => { console.log(e) })
 
@@ -1519,6 +1600,27 @@ export class FgrManClienComponent implements OnInit {
     EdoEnvio.Pais = this.PaisSelect;
     this.GetMunicipio(EdoEnvio)
   }
+  CambioEstadoM(newEstado, n) 
+  {
+    if(n = 1)
+    {
+      this.EstadoSelectOp = newEstado
+      this.formPost2.setControl('LGRO_ESTDO', new FormControl(this.EstadoSelectOp))
+      let EdoEnvio = new EstadoModel()
+      EdoEnvio = this.EstadoSelectOp;
+      EdoEnvio.Pais.Cve_Pais = 1
+      this.GetMunicipioM(EdoEnvio, 1)
+    }
+    if(n = 2)
+    {
+      this.EstadoSelectAc = newEstado
+      this.formPost2.setControl('LGRO_ESTDO2', new FormControl(this.EstadoSelectAc))
+      let EdoEnvio = new EstadoModel()
+      EdoEnvio = this.EstadoSelectAc;
+      EdoEnvio.Pais.Cve_Pais = 1
+      this.GetMunicipioM(EdoEnvio, 2)
+    }
+  }
   CambioMunicipio(newMunicipio) 
   {
     this.MunicSelect = newMunicipio
@@ -1529,6 +1631,21 @@ export class FgrManClienComponent implements OnInit {
     MuniEnvio.Pais = this.PaisSelect
     this.GetLocalidad(MuniEnvio)
     this.GetLocalidadCNB(MuniEnvio)
+  }
+  CambioMunicipioM(newMunicipio, n) 
+  {
+    if(n = 1)
+    {
+      this.MunicSelectOp = newMunicipio
+      this.formPost2.setControl('LGRA_MUNIC', new FormControl(this.MunicSelectOp))
+    
+    }
+    if(n = 2)
+    {
+      this.MunicSelectAc = newMunicipio
+      this.formPost2.setControl('LGRA_MUNIC2', new FormControl(this.MunicSelectAc))
+      
+    }
   }
   CambioLocalidad(newLocalidad) 
   {

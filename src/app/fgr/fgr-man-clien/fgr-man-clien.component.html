@@ -568,7 +568,7 @@
 
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG"
+													<input id="signo" type="number" formControlName="SIG" [(ngModel)]="mdpag.Pagcu1.Sig"
 														class="form-control">
 												</div>
 
@@ -605,7 +605,7 @@
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG2"
+													<input id="signo" type="number" formControlName="SIG2" [(ngModel)]="mdpag.Pagcu2.Sig"
 														class="form-control" required>
 												</div>
 
@@ -627,7 +627,7 @@
 											<div class="mb-3 d-flex gap-2 align-items-center">
 												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto
 													Mensual</label>
-												<input id="gasto" type="number" formControlName="GAST_MEN"
+												<input id="gasto" type="number" formControlName="GAST_MEN" [(ngModel)]="mdpag.Mon_Gasto"
 													class="form-control">
 
 												<div class="py-3 px-2 border-bottom"
@@ -749,11 +749,11 @@
 															<label for="est1">Estado</label>
 														</label>
 
-														<select formNameControl="LGRO_ESTDO" [ngModel]="EstadoSelect"
-															(ngModelChange)="CambioEstado($event)" name="sel1"
+														<select formNameControl="LGRO_ESTDO" [ngModel]="EstadoSelectOp"
+															(ngModelChange)="CambioEstadoM($event, 1)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est1" required>
-															<option *ngFor="let edo of direc.Estado.Estados"
+															<option *ngFor="let edo of mdpag.EstadoOp.Estados"
 																[ngValue]="edo">
 																{{edo.Nom_Estdo}}</option>
 
@@ -770,8 +770,8 @@
 															<label for="mun1">Municipio</label>
 														</label>
 
-														<select formNameControl="LGRO_MUNIC" [ngModel]="MunicSelect"
-															(ngModelChange)="CambioMunicipio($event)" name="sel1"
+														<select formNameControl="LGRO_MUNIC" [ngModel]="MunicSelectOp"
+															(ngModelChange)="CambioMunicipioM($event, 1)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun1" required>
 															<option *ngFor="let munic of direc.Municipio.Municipios"
@@ -794,11 +794,11 @@
 															<label for="est2">Estado</label>
 														</label>
 
-														<select formNameControl="LGRA_ESTDO" [ngModel]="EstadoSelect"
-															(ngModelChange)="CambioEstado($event)" name="sel1"
+														<select formNameControl="LGRA_ESTDO2" [ngModel]="EstadoSelectAc"
+															(ngModelChange)="CambioEstadoM($event, 2)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est2" required>
-															<option *ngFor="let edo of direc.Estado.Estados"
+															<option *ngFor="let edo of mdpag.EstadoAc.Estados"
 																[ngValue]="edo">
 																{{edo.Nom_Estdo}}</option>
 
@@ -815,8 +815,8 @@
 															<label for="mun2">Municipio</label>
 														</label>
 
-														<select formNameControl="LGRA_MUNIC" [ngModel]="MunicSelect"
-															(ngModelChange)="CambioMunicipio($event)" name="sel1"
+														<select formNameControl="LGRA_MUNIC2" [ngModel]="MunicSelectAc"
+															(ngModelChange)="CambioMunicipioM($event, 2)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun2" required>
 															<option *ngFor="let munic of direc.Municipio.Municipios"
