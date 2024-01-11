@@ -568,7 +568,7 @@
 
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG" [(ngModel)]="mdpag.Pagcu1.Sig"
+													<input id="signo" type="number" formControlName="SIG" [(ngModel)]="mdpag.Pagcu1.Sig" (keyup)="GetUti()" (change) ="GetUti()"
 														class="form-control">
 												</div>
 
@@ -605,7 +605,7 @@
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG2" [(ngModel)]="mdpag.Pagcu2.Sig"
+													<input id="signo" type="number" formControlName="SIG2" [(ngModel)]="mdpag.Pagcu2.Sig" (keyup)="GetUti()" (change) ="GetUti()"
 														class="form-control" required>
 												</div>
 
@@ -627,7 +627,7 @@
 											<div class="mb-3 d-flex gap-2 align-items-center">
 												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto
 													Mensual</label>
-												<input id="gasto" type="number" formControlName="GAST_MEN" [(ngModel)]="mdpag.Mon_Gasto"
+												<input id="gasto" type="number" formControlName="GAST_MEN" [(ngModel)]="mdpag.Mon_Gasto" (keyup)="GetUti()" (change) ="GetUti()"
 													class="form-control">
 
 												<div class="py-3 px-2 border-bottom"
@@ -639,19 +639,19 @@
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
 												<label class="form-label col-sm-6 col-md-4">Utilidad</label>
-												<label class="input-group-text">0.00</label>
+												<label class="input-group-text">{{mdpag.Mon_Util}}</label>
 
 											</div><!--Utilidad-->
 
 											<div class="mb-3 d-flex gap-2 align-items-center">
 												<label class="form-label col-sm-6 col-md-4">Ptje Prepago</label>
-												<label class="input-group-text">0.00</label>
+												<label class="input-group-text">{{mdpag.Mon_PrePa}}</label>
 											</div><!--Prepago-->
 
 											<div class="d-flex gap-2 align-items-center">
 												<label class="form-label col-sm-6 col-md-4">Ptje Liquidación
 													Anticipada</label>
-												<label class="input-group-text">0.00</label>
+												<label class="input-group-text">{{mdpag.Mon_LiqAn}}</label>
 											</div><!--Liquidacion-->
 
 										</div>
@@ -670,7 +670,7 @@
 
 										<div class="mb-3 d-flex align-items-center gap-1">
 											<label>Umbral</label>
-											<p class="input-group-text my-0">3,000.00</p>
+											<p class="input-group-text my-0">{{mdpag.Mon_Umbra}}</p>
 										</div><!--Umbral-->
 
 										<div class="mb-3">
@@ -753,9 +753,9 @@
 															(ngModelChange)="CambioEstadoM($event, 1)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est1" required>
-															<option *ngFor="let edo of mdpag.EstadoOp.Estados"
-																[ngValue]="edo">
-																{{edo.Nom_Estdo}}</option>
+															<option *ngFor="let edo1 of mdpag.EstadoOp.Estados"
+																[ngValue]="edo1">
+																{{edo1.Nom_Estdo}}</option>
 
 														</select>
 													</div>
@@ -774,9 +774,9 @@
 															(ngModelChange)="CambioMunicipioM($event, 1)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun1" required>
-															<option *ngFor="let munic of direc.Municipio.Municipios"
-																[ngValue]="munic">
-																{{munic.Nom_Munic}}</option>
+															<option *ngFor="let munic1 of mdpag.MunicOp.Municipios"
+																[ngValue]="munic1">
+																{{munic1.Nom_Munic}}</option>
 
 														</select>
 													</div>
@@ -798,9 +798,9 @@
 															(ngModelChange)="CambioEstadoM($event, 2)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="est2" required>
-															<option *ngFor="let edo of mdpag.EstadoAc.Estados"
-																[ngValue]="edo">
-																{{edo.Nom_Estdo}}</option>
+															<option *ngFor="let edo2 of mdpag.EstadoAc.Estados"
+																[ngValue]="edo2">
+																{{edo2.Nom_Estdo}}</option>
 
 														</select>
 													</div>
@@ -819,9 +819,9 @@
 															(ngModelChange)="CambioMunicipioM($event, 2)" name="sel1"
 															[ngModelOptions]="{standalone: true}" class="form-select"
 															id="mun2" required>
-															<option *ngFor="let munic of direc.Municipio.Municipios"
-																[ngValue]="munic">
-																{{munic.Nom_Munic}}</option>
+															<option *ngFor="let munic2 of mdpag.MunicOp.Municipios"
+																[ngValue]="munic2">
+																{{munic2.Nom_Munic}}</option>
 
 														</select>
 													</div>

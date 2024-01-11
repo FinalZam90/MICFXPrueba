@@ -18,6 +18,7 @@ import { CnenvService } from '../../SL/FCR_CNENV';
 import { DestiService } from '../../SL/FCR_DESTI';
 import { FopagService } from '../../SL/FCR_FOPAG';
 import { RhogaService } from '../../SL/FGR_RHOGA';
+import { MdPagService } from '../../SL/FCL_MDPAG';
 
 import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, SelectControlValueAccessor, AbstractControl, Form, Validators } from '@angular/forms';
@@ -96,6 +97,7 @@ export class FgrManClienComponent implements OnInit {
     private DestiSer: DestiService,
     private FopSer: FopagService,
     private RhoSer: RhogaService,
+    private MdPSer: MdPagService,
     private cook: CookieService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -1358,8 +1360,27 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-
-  public Form() {
+  public GetUti()
+  {
+    this.mdpag.Pagcu1 = this.Perio1Select
+    this.mdpag.Pagcu2 = this.Perio2Select
+    this.mdpag.Pagcu1.Sig = this.formPost2.controls['SIG'].value
+    this.mdpag.Pagcu2.Sig = this.formPost2.controls['SIG2'].value
+    this.mdpag.Mon_Gasto = this.formPost2.controls['GAST_MEN'].value
+    this.MdPSer.GetUtil(this.mdpag).subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if(this.imprimirdef != null)
+      {
+        this.mdpag.Mon_Util = this.imprimirdef.UTIL;
+        this.mdpag.Mon_PrePa = this.imprimirdef.PREPA;
+        this.mdpag.Mon_LiqAn = this.imprimirdef.LIQA;
+        this.mdpag.Mon_Umbra = this.imprimirdef.UMBR;
+      }
+    })
+  }
+  public Form() 
+  {
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
