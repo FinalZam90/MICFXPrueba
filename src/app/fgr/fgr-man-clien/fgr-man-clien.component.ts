@@ -62,7 +62,7 @@ import { arrayMax } from 'highcharts';
 
 import {
   MatDialog,
-  
+
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -77,7 +77,52 @@ import { event } from 'jquery';
 })
 export class FgrManClienComponent implements OnInit {
 
-  constructor(private SucSer: SucurService, private ClSer: ClService, private EnteSer: EnteService, private PaiSer: PaisService, private LuSer: LugnaService, private LocSer: LocalService, private LocCNBSer: LocalCNBService, private EdoSer: EstadoService, private MuniSSer: MunicService, private TidoSer: TidomService, private DirSer: DirecService, private cook: CookieService, private formBuilder: FormBuilder, private route: ActivatedRoute, private location: Location) {
+  constructor(
+    private SucSer: SucurService,
+    private ClSer: ClService,
+    private EnteSer: EnteService,
+    private PaiSer: PaisService,
+    private LuSer: LugnaService,
+    private LocSer: LocalService,
+    private LocCNBSer: LocalCNBService,
+    private EdoSer: EstadoService,
+    private MuniSSer: MunicService,
+    private TidoSer: TidomService,
+    private DirSer: DirecService,
+    private EntIdSer: EntIdService, 
+    private RefSer: RefmiService, 
+    private CnvSer: CnenvService,
+    private FuerSer: FuercService,
+    private DestiSer: DestiService,
+    private FopSer: FopagService,
+    private RhoSer: RhogaService,
+    private cook: CookieService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private location: Location,
+
+    public dialog: MatDialog,
+    private renderer: Renderer2,
+    private cdr: ChangeDetectorRef
+  ) {
+
+    /*
+        this.formPost = this.fb.group({
+          //PASO 1
+          NOM1_ENTE: [''],
+          NOM2_ENTE: [''],
+          APE1_ENTE: [''],
+          APE2_ENTE: [''],
+          FEC_NAC: [''],
+          TIP_SEX: this.fb.array<SexGenModel>([]),
+          DES_SUCUR: this.fb.array<SucurModel>([]),
+          DES_LUGNA: this.fb.array<LugnaModel>([]),
+          DES_TIPCL: this.fb.array<TipClModel>([]),
+          DES_NAC: this.fb.array<PaisModel>([]),
+          RFC: [''],
+          CURP: ['']
+        })*/
+
     this.formPost = new FormGroup(
       {
         //PASO 1
@@ -139,17 +184,129 @@ export class FgrManClienComponent implements OnInit {
 
     this.formPost2 = new FormGroup(
       {
-        EDO_CIV: new FormControl(new Array<CivModel>()),
-        NIV_ES: new FormControl(new Array<EstuModel>()),
-        NUM_DECLI: new FormControl(''),
-        TEL1: new FormControl(''),
-        TEL2: new FormControl(''),
-        TEL3: new FormControl(''),
-        EMAIL: new FormControl(''),
-        NIV_ING: new FormControl(new Array<IngreModel>()),
-        GPO_ECO: new FormControl(new Array<GrusoModel>()),
-        CNB: new FormControl(new Array<AegenModel>()),
-        FEC_INICIO: new FormControl('')
+        EDO_CIV: new FormControl(new Array<CivModel>(), [
+          Validators.required
+        ]),
+
+        NIV_ES: new FormControl(new Array<EstuModel>(), [
+          Validators.required
+        ]),
+
+        NUM_DECLI: new FormControl('', [
+          Validators.required,
+          Validators.max(5),
+          Validators.min(0)
+        ]),
+
+        TEL1: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        TEL2: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+        TEL3: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        EMAIL: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^(.+)@(\\S+)$')
+        ]),
+
+        NIV_ING: new FormControl(new Array<IngreModel>(), [
+          Validators.required
+        ]),
+
+        GPO_ECO: new FormControl(new Array<GrusoModel>(), [
+          Validators.required
+        ]),
+
+        CNB: new FormControl(new Array<AegenModel>(), [
+          Validators.required
+        ]),
+
+        FEC_INICIO: new FormControl('', [
+          Validators.required
+        ]),
+
+        //NUEVOS POR CONECTAR
+        FUE_REC: new FormControl(new Array(), [
+          Validators.required
+        ]),
+
+        PRC1: new FormGroup({
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
+        }),
+
+        PRC2: new FormGroup({
+          PER: new FormControl(new Array(), [
+            Validators.required
+          ]),
+
+          SIG2: new FormControl(0, [
+            Validators.required,
+            Validators.min(0)
+          ]),
+        }),
+
+        GAST_MEN: new FormControl(0, [
+          Validators.required,
+          Validators.min(0)
+        ]),
+
+        //pago de credito        
+        INS_MON: new FormControl(new Array()),
+        APLI_REC: new FormControl(new Array()),
+        CAN_ENV: new FormControl(new Array()),
+
+        LGR_OPE: new FormGroup({
+          LGRO_ESTDO: new FormControl(new Array()),
+          LGRO_MUNIC: new FormControl(new Array()),
+        }),
+
+        LGR_ACT: new FormGroup({
+          LGRA_ESTDO: new FormControl(new Array<EstadoModel>()),
+          LGRA_MUNIC: new FormControl(new Array<MunicModel>()),
+          LGRA_ESTDO2: new FormControl(new Array<EstadoModel>()),
+          LGRA_MUNIC2: new FormControl(new Array<MunicModel>()),
+        }),
+
+        //conocimiento del cliente
+        IDEN: new FormGroup({
+          PROV_REC: new FormControl(''),
+          PROP_REA: new FormControl(''),
+          CUEN_TER: new FormControl(''),
+        }),
+
+        PROM: new FormControl(),
+
+        OTR_DAT: new FormGroup({
+          CAP_DIF: new FormControl(''),
+          ACTIV: new FormControl(''),
+        }),
+
+        DAT_FON: new FormGroup({
+          LEN_IND: new FormControl(''),
+          RED_SOC: new FormControl(''),
+          US_INT: new FormControl(''),
+        }),
+
+        ROL_HOG: new FormControl(''),
+
       });
 
     this.formPost3 = new FormGroup(
@@ -232,46 +389,6 @@ export class FgrManClienComponent implements OnInit {
 
   //Manejo de mensaje de errores.
 
-  errorHandle(field: string, form: FormGroup): boolean | null {
-
-    if (!form.controls[field]) return null;
-
-    return form.controls[field].errors
-      && form.controls[field].touched;
-  }
-
-  textError(field: string, form: FormGroup): string {
-
-    if (!form.controls[field]) return null;
-
-    const errors = form.controls[field].errors || {};
-
-    for (const key of Object.keys(errors)) {
-
-      switch (key) {
-
-        case 'required':
-          return '*Este campo es obligatorio.';
-
-        case 'minlength':
-          return `*Este campo requiere un mínimo de ${errors['minlength'].requiredLength} caracteres`;
-
-        case 'pattern':
-          return '*Formato no válido.';
-
-        case 'max':
-          return `*Este campo admite un valor máximo ${errors['max'].max} elementos`;
-
-        case 'min':
-          return `*Este campo admite un valor mínimo de ${errors['min'].min} elementos`;
-      }
-    }
-
-    return null;
-  }
-
-
-  //Manejo de mensaje de errores.
   errorHandle(field: string, form: FormGroup): boolean | null {
 
     if (!form.controls[field]) return null;
@@ -403,20 +520,24 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
-  GetSucurs() {
+  GetSucurs() 
+  {
     let result = new Result()
-    this.SucSer.GetAll().subscribe((r) => {
+    this.SucSer.GetAll().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<SucurModel>();
         let SucInicio = new SucurModel();
-
         SucInicio.Cve_Sucur = null
         SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.contadorGuardadoSelectores > 0) 
+        {
           SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
           SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
         }
+
 
         for (let index of this.imprimirdef) {
           let SucMo = new SucurModel()
@@ -424,18 +545,15 @@ export class FgrManClienComponent implements OnInit {
           SucMo.Des_Sucur = index.DES_SUCUR;
 
           if (this.contadorGuardadoSelectores > 0) {
-
             if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
               result.Objects.push(SucMo)
             }
-
           }
           else {
             result.Objects.push(SucMo)
           }
 
         }
-
         this.SucurSelect = SucInicio
         result.Objects.unshift(SucInicio)
         this.ente.Sucur.Sucurs = result.Objects
@@ -444,22 +562,19 @@ export class FgrManClienComponent implements OnInit {
     })
   }
   GetTipCl() {
-
     let result = new Result()
-    this.ClSer.GetAll().subscribe((r) => {
+    this.ClSer.GetAll().subscribe((r) => 
+    {
       this.imprimirdef = r;
-
       if (this.imprimirdef != null) {
-
         result.Objects = new Array<TipClModel>();
         let ClInicio = new TipClModel();
-
         ClInicio.Cve_TipCl = null
         ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.
+          contadorGuardadoSelectores > 0) {
           ClInicio = this.ClienSelect
         }
-
         for (let index of this.imprimirdef) {
           let ClMo = new TipClModel()
           ClMo.Cve_TipCl = index.CVE_TIPCL;
@@ -482,16 +597,13 @@ export class FgrManClienComponent implements OnInit {
   }
   GetPais() {
     let result = new Result()
-
     this.PaiSer.GetAll().subscribe((r) => {
       this.imprimirdef = r;
-
       if (this.imprimirdef != null) {
         result.Objects = new Array<PaisModel>();
         let PaiInicio = new PaisModel();
         PaiInicio.Cve_Pais = null
         PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
-
         if (this.contadorGuardadoSelectores > 0) {
           PaiInicio = this.PaisSelect
         }
@@ -801,17 +913,17 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-
   public GetEstado() {
     let result = new Result()
-
     this.EdoSer.GetAll().subscribe((r) => {
-
       this.imprimirdef = r;
-
       if (this.imprimirdef != null) {
-        result.Objects = new Array<EstadoModel>()
-        for (let index of this.imprimirdef) {
+        result.Objects = new Array<EstadoModel>();
+        let EdoInicio = new EstadoModel();
+        EdoInicio.Cve_Estdo = null
+        EdoInicio.Nom_Estdo = "------------ SELECCIONA UN ESTADO --------------"
+        for (let index of this.imprimirdef) 
+        {
           let EdoMod = new EstadoModel()
           EdoMod.Cve_Estdo = index.CVE_ESTDO;
           EdoMod.Nom_Estdo = index.NOM_ESTDO;
