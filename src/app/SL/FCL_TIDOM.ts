@@ -7,7 +7,8 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 
-export class TidomService{
+export class TidomService
+{
     myApi = "https://webmicfx.arashi.solutions/FCL/WsTidom.p";
 
     options = 
