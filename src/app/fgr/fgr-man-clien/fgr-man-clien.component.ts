@@ -125,268 +125,305 @@ export class FgrManClienComponent implements OnInit {
           CURP: ['']
         })*/
 
-    this.formPost = new FormGroup(
-      {
-        //PASO 1
-        NOM1_ENTE: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(2)
-          ]),
-
-        NOM2_ENTE: new FormControl(''),
-        APE1_ENTE: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(2)
-          ]),
-
-        APE2_ENTE: new FormControl('',
-          [
-            Validators.required,
-            Validators.minLength(2)
-          ]),
-
-        FEC_NAC: new FormControl('',
-          [
-            Validators.required
-          ]),
-
-        TIP_SEX: new FormControl(new Array<SexGenModel>(), [
-          Validators.required
-        ]),
-
-        DES_SUCUR: new FormControl(new Array<SucurModel>(), [
-          Validators.required
-        ]),
-        DES_LUGNA: new FormControl(new Array<LugnaModel>(), [
-          Validators.required
-        ]),
-        DES_TIPCL: new FormControl(new Array<TipClModel>(), [
-          Validators.required
-        ]),
-        DES_NAC: new FormControl(new Array<PaisModel>(), [
-          Validators.required,
-          Validators.max(5)
-        ]),
-
-        RFC: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
-        ]),
-
-        CURP: new FormControl('',
-          [
-            Validators.required,
-            Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
-          ])
-        // PASO 2
-
-      });
-
-    this.formPost2 = new FormGroup(
-      {
-        EDO_CIV: new FormControl(new Array<CivModel>(), [
-          Validators.required
-        ]),
-
-        NIV_ES: new FormControl(new Array<EstuModel>(), [
-          Validators.required
-        ]),
-
-        NUM_DECLI: new FormControl('', [
-          Validators.required,
-          Validators.max(5),
-          Validators.min(0)
-        ]),
-
-        TEL1: new FormControl('', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]),
-
-        TEL2: new FormControl('', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]),
-        TEL3: new FormControl('', [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(13)
-        ]),
-
-        EMAIL: new FormControl('', [
-          Validators.required,
-          Validators.pattern('^(.+)@(\\S+)$')
-        ]),
-
-        NIV_ING: new FormControl(new Array<IngreModel>(), [
-          Validators.required
-        ]),
-
-        GPO_ECO: new FormControl(new Array<GrusoModel>(), [
-          Validators.required
-        ]),
-
-        CNB: new FormControl(new Array<AegenModel>(), [
-          Validators.required
-        ]),
-
-        FEC_INICIO: new FormControl('', [
-          Validators.required
-        ]),
-
-        //NUEVOS POR CONECTAR
-        FUE_REC: new FormControl(new Array(), [
-          Validators.required
-        ]),
-
-        PRC1: new FormGroup({
-          PER: new FormControl(new Array(), [
-            Validators.required
-          ]),
-
-          SIG: new FormControl(0, [
-            Validators.required,
-            Validators.min(0)
-          ]),
-        }),
-
-        PRC2: new FormGroup({
-          PER: new FormControl(new Array(), [
-            Validators.required
-          ]),
-
-          SIG2: new FormControl(0, [
-            Validators.required,
-            Validators.min(0)
-          ]),
-        }),
-
-        GAST_MEN: new FormControl(0, [
-          Validators.required,
-          Validators.min(0)
-        ]),
-
-        //pago de credito        
-        INS_MON: new FormControl(new Array()),
-        APLI_REC: new FormControl(new Array()),
-        CAN_ENV: new FormControl(new Array()),
-
-        LGR_OPE: new FormGroup({
-          LGRO_ESTDO: new FormControl(new Array()),
-          LGRO_MUNIC: new FormControl(new Array()),
-        }),
-
-        LGR_ACT: new FormGroup({
-          LGRA_ESTDO: new FormControl(new Array<EstadoModel>()),
-          LGRA_MUNIC: new FormControl(new Array<MunicModel>()),
-          LGRA_ESTDO2: new FormControl(new Array<EstadoModel>()),
-          LGRA_MUNIC2: new FormControl(new Array<MunicModel>()),
-        }),
-
-        //conocimiento del cliente
-        IDEN: new FormGroup({
-          PROV_REC: new FormControl(''),
-          PROP_REA: new FormControl(''),
-          CUEN_TER: new FormControl(''),
-        }),
-
-        PROM: new FormControl(),
-
-        OTR_DAT: new FormGroup({
-          CAP_DIF: new FormControl(''),
-          ACTIV: new FormControl(''),
-        }),
-
-        DAT_FON: new FormGroup({
-          LEN_IND: new FormControl(''),
-          RED_SOC: new FormControl(''),
-          US_INT: new FormControl(''),
-        }),
-
-        ROL_HOG: new FormControl(''),
-
-      });
-
-    this.formPost3 = new FormGroup(
-      {
-        CVE_PAIS: new FormControl(new Array<PaisModel>()),
-        CVE_ESTDO: new FormControl(new Array<EstadoModel>()),
-        CVE_MUNIC: new FormControl(new Array<MunicModel>()),
-        LOCALIDAD: new FormControl(new Array<LocalModel>()),
-        LOCALCNB: new FormControl(new Array<FldLocalModel>()),
-        VIVIENDA: new FormControl(new Array<TidoModel>()),
-
-        CP: new FormControl('', [
-          Validators.required
-        ]),
-
-        CIUDAD: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(150)
-        ]),
-
-        COLONIA: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(150)
-        ]),
-
-        CALLE: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(150)
-        ]),
-
-        NUM_EXT: new FormControl('', [
-          Validators.required,
-          Validators.min(1)
-        ]),
-
-        NUM_INT: new FormControl('', [
-          Validators.required,
-          Validators.min(1)
-        ]),
-
-        APPOS: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2)
-        ]),
-
-        AÑRES: new FormControl('', [
-          Validators.required,
-          Validators.min(0),
-          Validators.max(100)
-        ]),
-
-        REFERENCIAS: new FormControl('', [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(300)
-        ])
-      });
-    this.formPostIdenti = new FormGroup(
-      {
-        TIPID: new FormControl(new Array<EntIdModel>()),
-        AN_VENC: new FormControl(''),
-        FEC_ALT: new FormControl(''),
-        NUM_IDENTI: new FormControl(''),
-        FOLIO_IDENTI: new FormControl('')
-      });
-    this.formPostRefmi = new FormGroup(
-      {
-        NOMBRE: new FormControl(''),
-        TEL: new FormControl(''),
-        DIREC: new FormControl(''),
-        AN_CON: new FormControl(''),
-        CVE_RESP: new FormControl(new Array),
-        COMEN: new FormControl('')
-      });
-  }
+        this.formPost = new FormGroup(
+          {
+            //PASO 1
+            NOM1_ENTE: new FormControl('',
+              [
+                Validators.required,
+                Validators.minLength(2)
+              ]),
+    
+            NOM2_ENTE: new FormControl(''),
+            APE1_ENTE: new FormControl('',
+              [
+                Validators.required,
+                Validators.minLength(2)
+              ]),
+    
+            APE2_ENTE: new FormControl('',
+              [
+                Validators.required,
+                Validators.minLength(2)
+              ]),
+    
+            FEC_NAC: new FormControl('',
+              [
+                Validators.required
+              ]),
+    
+            TIP_SEX: new FormControl(new Array<SexGenModel>(), [
+              Validators.required
+            ]),
+    
+            DES_SUCUR: new FormControl(new Array<SucurModel>(), [
+              Validators.required
+            ]),
+            DES_LUGNA: new FormControl(new Array<LugnaModel>(), [
+              Validators.required
+            ]),
+            DES_TIPCL: new FormControl(new Array<TipClModel>(), [
+              Validators.required
+            ]),
+            DES_NAC: new FormControl(new Array<PaisModel>(), [
+              Validators.required,
+              Validators.max(5)
+            ]),
+    
+            RFC: new FormControl('', [
+              Validators.required,
+              Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
+            ]),
+    
+            CURP: new FormControl('',
+              [
+                Validators.required,
+                Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
+              ])
+            // PASO 2
+    
+          });
+    
+        this.formPost2 = new FormGroup(
+          {
+            EDO_CIV: new FormControl(new Array<CivModel>(), [
+              Validators.required
+            ]),
+    
+            NIV_ES: new FormControl(new Array<EstuModel>(), [
+              Validators.required
+            ]),
+    
+            NUM_DECLI: new FormControl('', [
+              Validators.required,
+              Validators.max(5),
+              Validators.min(0)
+            ]),
+    
+            TEL1: new FormControl('', [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(13)
+            ]),
+    
+            TEL2: new FormControl('', [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(13)
+            ]),
+            TEL3: new FormControl('', [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(13)
+            ]),
+    
+            EMAIL: new FormControl('', [
+              Validators.required,
+              Validators.pattern('^(.+)@(\\S+)$')
+            ]),
+    
+            NIV_ING: new FormControl(new Array<IngreModel>(), [
+              Validators.required
+            ]),
+    
+            GPO_ECO: new FormControl(new Array<GrusoModel>(), [
+              Validators.required
+            ]),
+    
+            CNB: new FormControl(new Array<AegenModel>(), [
+              Validators.required
+            ]),
+    
+            FEC_INICIO: new FormControl('', [
+              Validators.required
+            ]),
+    
+            //NUEVOS POR CONECTAR
+            FUE_REC: new FormControl(new Array(), [
+              Validators.required
+            ]),
+    
+            PRC1: new FormGroup({
+              PER: new FormControl(new Array(), [
+                Validators.required
+              ]),
+    
+              SIG: new FormControl(0, [
+                Validators.required,
+                Validators.min(0)
+              ]),
+            }),
+    
+            PRC2: new FormGroup({
+              PER: new FormControl(new Array(), [
+                Validators.required
+              ]),
+    
+              SIG2: new FormControl(0, [
+                Validators.required,
+                Validators.min(0)
+              ]),
+            }),
+    
+            GAST_MEN: new FormControl(0, [
+              Validators.required,
+              Validators.min(0)
+            ]),
+    
+            //pago de credito        
+            INS_MON: new FormControl(new Array()),
+            APLI_REC: new FormControl(new Array()),
+            CAN_ENV: new FormControl(new Array()),
+    
+            LGR_OPE: new FormGroup({
+              LGRO_ESTDO: new FormControl(new Array()),
+              LGRO_MUNIC: new FormControl(new Array()),
+            }),
+    
+            LGR_ACT: new FormGroup({
+              LGRA_ESTDO: new FormControl(new Array<EstadoModel>()),
+              LGRA_MUNIC: new FormControl(new Array<MunicModel>()),
+              LGRA_ESTDO2: new FormControl(new Array<EstadoModel>()),
+              LGRA_MUNIC2: new FormControl(new Array<MunicModel>()),
+            }),
+    
+            //conocimiento del cliente
+            IDEN: new FormGroup({
+              PROV_REC: new FormControl(''),
+              PROP_REA: new FormControl(''),
+              CUEN_TER: new FormControl(''),
+            }),
+    
+            PROM: new FormControl(),
+    
+            OTR_DAT: new FormGroup({
+              CAP_DIF: new FormControl(''),
+              ACTIV: new FormControl(''),
+            }),
+    
+            DAT_FON: new FormGroup({
+              LEN_IND: new FormControl(''),
+              RED_SOC: new FormControl(''),
+              US_INT: new FormControl(''),
+            }),
+    
+            ROL_HOG: new FormControl(''),
+    
+          });
+    
+        this.formPost3 = new FormGroup
+          ({
+            CVE_PAIS: new FormControl(new Array<PaisModel>()),
+            CVE_ESTDO: new FormControl(new Array<EstadoModel>()),
+            CVE_MUNIC: new FormControl(new Array<MunicModel>()),
+            LOCALIDAD: new FormControl(new Array<LocalModel>()),
+            LOCALCNB: new FormControl(new Array<FldLocalModel>()),
+            VIVIENDA: new FormControl(new Array<TidoModel>()),
+    
+            CP: new FormControl('', [
+              Validators.required
+            ]),
+    
+            CIUDAD: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(150)
+            ]),
+    
+            COLONIA: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(150)
+            ]),
+    
+            CALLE: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(150)
+            ]),
+    
+            NUM_EXT: new FormControl('', [
+              Validators.required,
+              Validators.min(1)
+            ]),
+    
+            NUM_INT: new FormControl('', [
+              Validators.required,
+              Validators.min(1)
+            ]),
+    
+            APPOS: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2)
+            ]),
+    
+            AÑRES: new FormControl('', [
+              Validators.required,
+              Validators.min(0),
+              Validators.max(100)
+            ]),
+    
+            REFERENCIAS: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2),
+              Validators.maxLength(300)
+            ])
+          });
+    
+        this.formPostIdenti = new FormGroup
+          ({
+    
+            TIPID: new FormControl(new Array<EntIdModel>()),
+    
+            AN_VENC: new FormControl('', [
+              Validators.required,
+              Validators.min(1700)
+            ]),
+    
+            FEC_ALT: new FormControl('', [
+              Validators.required,
+              Validators.min(1700)
+            ]),
+    
+            NUM_IDENTI: new FormControl('', [
+              Validators.required
+            ]),
+    
+            FOLIO_IDENTI: new FormControl('', [
+              Validators.required
+            ])
+    
+          });
+    
+    
+        this.formPostRefmi = new FormGroup(
+          {
+            NOMBRE: new FormControl('', [
+              Validators.required,
+              Validators.minLength(2)
+            ]),
+    
+            TEL: new FormControl('', [
+              Validators.required,
+              Validators.minLength(10),
+              Validators.maxLength(13)
+            ]),
+    
+            DIREC: new FormControl('', [
+              Validators.required,
+              Validators.minLength(50)
+            ]),
+    
+            AN_CON: new FormControl('', [
+              Validators.required,
+              Validators.max(150),
+              Validators.min(0)
+            ]),
+    
+            CVE_RESP: new FormControl(new Array),
+            COMEN: new FormControl('')
+          });
+      }
 
 
   //Manejo de mensaje de errores.
@@ -869,7 +906,7 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  
+
   GetPeriod()
   {
     this.perio2.Perios = new Array<PerioModel>();

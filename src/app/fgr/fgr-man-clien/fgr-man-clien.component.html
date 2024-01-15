@@ -1155,8 +1155,8 @@
 									<div id="credencial" class="input-group">
 										<mat-select multiple class="form-control" placeholder="Seleccione">
 											<mat-option (onSelectionChange)="TipIdSelect($event)"
-													*ngFor="let enti of entid.TipIds" [value]="enti">
-													{{ enti.Des_Identi }}
+												*ngFor="let enti of entid.TipIds" [value]="enti">
+												{{ enti.Des_Identi }}
 											</mat-option>
 											<!--<mat-option> Pasaporte </mat-option>
 											<mat-option> Acta de Nacimiento</mat-option>-->
@@ -1167,23 +1167,40 @@
 
 								<div class="col-md-6 mb-3">
 									<label for="Vencimiento" class="form-label">Año Vencimiento</label>
-									<input id="vencimiento" formControlName="AN_VENC" [(ngModel)]="entid.An_Venci" type="number" class="form-control" required>
+									<input id="vencimiento" formControlName="AN_VENC" [(ngModel)]="entid.An_Venci"
+										type="number" class="form-control">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('AN_VENC', formPostIdenti)">
+										<label>{{textError('AN_VENC', formPostIdenti)}}</label>
+									</div><!--msj error-->
 								</div><!--año vencimiento-->
 
 								<div class="col-md-6 mb-3">
 									<label for="alta" class="form-label">Fecha Alta:</label>
-									<input id="alta" type="date" formControlName="FEC_ALT" [(ngModel)]="entid.Fec_AddRec" class="form-control" required>
+									<input id="alta" type="date" formControlName="FEC_ALT"
+										[(ngModel)]="entid.Fec_AddRec" class="form-control">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('FEC_ALT', formPostIdenti)">
+										<label>{{textError('FEC_ALT', formPostIdenti)}}</label>
+									</div><!--msj error-->
 								</div><!--fecha alta-->
 
 								<div class="col-md-6 mb-3">
 									<label for="identifi" class="form-label">N° de Identificación:</label>
-									<input id="identifi" type="number" class="form-control" [(ngModel)]="entid.Num_Identi" formControlName="NUM_IDENTI" required>
+									<input id="identifi" type="number" class="form-control"
+										[(ngModel)]="entid.Num_Identi" formControlName="NUM_IDENTI">
+									<div class="py-2 px-2 border-bottom"
+										*ngIf="errorHandle('NUM_IDENTI', formPostIdenti)">
+										<label>{{textError('NUM_IDENTI', formPostIdenti)}}</label>
+									</div><!--msj error-->
 								</div><!--identificacion-->
 
 								<div class="col-md-6 mb-3">
 									<label for="folio" class="form-label">Folio/Cve Identificación:</label>
 									<input id="folio" type="text" class="form-control" [(ngModel)]="entid.Cve_Identi"
-										formControlName="FOLIO_IDENTI" required>
+										formControlName="FOLIO_IDENTI">
+									<div class="py-2 px-2 border-bottom"
+										*ngIf="errorHandle('FOLIO_IDENTI', formPostIdenti)">
+										<label>{{textError('FOLIO_IDENTI', formPostIdenti)}}</label>
+									</div><!--msj error-->
 								</div><!--folio-->
 
 								<div class="col-sm-4 mt-3 d-flex flex-column justify-content-center">
@@ -1218,7 +1235,7 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr *ngFor = "let enti of entid.EntIds">
+												<tr *ngFor="let enti of entid.EntIds">
 													<td>{{enti.Des_Identi}}</td>
 													<td>{{enti.Fec_Venci}}</td>
 													<td>{{enti.Fec_AddRec}}</td>
@@ -1246,22 +1263,38 @@
 							<form class="row" novalidate [formGroup]="formPostRefmi" (ngSubmit)="FormRefmi()">
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Nombre Completo</label>
-									<input type="text" class="form-control" formControlName="NOMBRE" [(ngModel)]="refmi.Nom_Refer" required>
+									<input type="text" class="form-control" formControlName="NOMBRE"
+										[(ngModel)]="refmi.Nom_Refer">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NOMBRE', formPostRefmi)">
+										<label>{{textError('NOMBRE', formPostRefmi)}}</label>
+									</div><!--msj error-->
 								</div><!--Nombre(s)-->
 
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Teléfono</label>
-									<input type="tel" class="form-control" formControlName="TEL" [(ngModel)]="refmi.Num_TelRe" required>
+									<input type="tel" class="form-control" formControlName="TEL"
+										[(ngModel)]="refmi.Num_TelRe">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('TEL', formPostRefmi)">
+										<label>{{textError('TEL', formPostRefmi)}}</label>
+									</div><!--msj error-->
 								</div><!--Telefono-->
 
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Dirección</label>
-									<input type="text" class="form-control" formControlName="DIREC" [(ngModel)]="refmi.Des_Dirre" required>
+									<input type="text" class="form-control" formControlName="DIREC"
+										[(ngModel)]="refmi.Des_Dirre">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('DIREC', formPostRefmi)">
+										<label>{{textError('DIREC', formPostRefmi)}}</label>
+									</div><!--msj error-->
 								</div><!--Direccion-->
 
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Años de conocerlo/a</label>
-									<input type="number" class="form-control" min="1" formControlName="AN_CON" [(ngModel)]="refmi.Num_AnoCo" required>
+									<input type="number" class="form-control" min="1" formControlName="AN_CON"
+										[(ngModel)]="refmi.Num_AnoCo">
+									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('AN_CON', formPostRefmi)">
+										<label>{{textError('AN_CON', formPostRefmi)}}</label>
+									</div><!--msj error-->
 								</div><!--Años-->
 
 								<div class="col-sm-12 col-xl-4 d-flex gap-2 align-items-center">
@@ -1289,7 +1322,7 @@
 								</div>
 
 								<div class="col-sm-12 col-xl-4 mb-3">
-									<label class="form-label">Pregunta (1)</label>
+									<label class="form-label">Pregunta (2)</label>
 									<div class="input-group">
 
 										<mat-select class="form-control">
@@ -1302,7 +1335,7 @@
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-4 mb-3">
-									<label class="form-label">Pregunta (1)</label>
+									<label class="form-label">Pregunta (3)</label>
 									<div class="input-group">
 
 										<mat-select class="form-control">
@@ -1315,7 +1348,7 @@
 									</div>
 								</div>
 								<div class="col-sm-12 col-xl-4 mb-3">
-									<label class="form-label">Pregunta (1)</label>
+									<label class="form-label">Pregunta (4)</label>
 									<div class="input-group">
 
 										<mat-select class="form-control">
@@ -1329,7 +1362,7 @@
 								</div>
 
 								<div class="col-sm-12 col-xl-4 mb-3">
-									<label class="form-label">Pregunta (1)</label>
+									<label class="form-label">Pregunta (5)</label>
 									<div class="input-group">
 
 										<mat-select class="form-control">
@@ -1358,7 +1391,7 @@
 									</div>
 								</div>
 
-								
+
 
 
 							</form>
@@ -1397,8 +1430,10 @@
 													<td>{{ref.Num_AnoCo}}</td>
 													<td></td>
 													<td>
-														<div class="badge rounded-pill bg-light w-100" *ngIf="ref.Ban_Reco == true">Si</div>
-														<div class="badge rounded-pill bg-light w-100" *ngIf="ref.Ban_Reco == false">No</div>
+														<div class="badge rounded-pill bg-light w-100"
+															*ngIf="ref.Ban_Reco == true">Si</div>
+														<div class="badge rounded-pill bg-light w-100"
+															*ngIf="ref.Ban_Reco == false">No</div>
 													</td>
 													<td>{{ref.Des_Comen}}</td>
 													<td class="text-center"><button><i
