@@ -560,18 +560,21 @@ export class FgrManClienComponent implements OnInit {
   }
   GetSucurs() {
     let result = new Result()
+
     this.SucSer.GetAll().subscribe((r) => {
+
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) {
         result.Objects = new Array<SucurModel>();
         let SucInicio = new SucurModel();
         SucInicio.Cve_Sucur = null
         SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
+
         if (this.contadorGuardadoSelectores > 0) {
           SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
           SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
         }
-
 
         for (let index of this.imprimirdef) {
           let SucMo = new SucurModel()
@@ -604,10 +607,11 @@ export class FgrManClienComponent implements OnInit {
         let ClInicio = new TipClModel();
         ClInicio.Cve_TipCl = null
         ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
-        if (this.
-          contadorGuardadoSelectores > 0) {
+
+        if (this.contadorGuardadoSelectores > 0) {
           ClInicio = this.ClienSelect
         }
+
         for (let index of this.imprimirdef) {
           let ClMo = new TipClModel()
           ClMo.Cve_TipCl = index.CVE_TIPCL;
@@ -1506,6 +1510,7 @@ export class FgrManClienComponent implements OnInit {
   public Regresar(): void {
     this.location.back();
   }
+  
   CambioCl(newCl) {
     this.ClienSelect = newCl
     this.formPost.setControl('DES_TIPCL', new FormControl(this.ClienSelect))
