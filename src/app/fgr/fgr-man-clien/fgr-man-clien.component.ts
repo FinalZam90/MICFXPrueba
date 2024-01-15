@@ -172,12 +172,14 @@ export class FgrManClienComponent implements OnInit {
     
             RFC: new FormControl('', [
               Validators.required,
+              Validators.minLength(10),
               Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
             ]),
     
             CURP: new FormControl('',
               [
                 Validators.required,
+                Validators.minLength(18),
                 Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
               ])
             // PASO 2
