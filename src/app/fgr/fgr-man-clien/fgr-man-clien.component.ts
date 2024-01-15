@@ -1510,7 +1510,7 @@ export class FgrManClienComponent implements OnInit {
   public Regresar(): void {
     this.location.back();
   }
-  
+
   CambioCl(newCl) {
     this.ClienSelect = newCl
     this.formPost.setControl('DES_TIPCL', new FormControl(this.ClienSelect))
@@ -1524,7 +1524,7 @@ export class FgrManClienComponent implements OnInit {
     this.formPost.setControl('DES_NAC', new FormControl(this.PaisSelect))
   }
   CambioSexGen(newSexGen) {
-    this.TipSexSelect = newSexGen
+    this.TipSexSelect = newSexGen 
     this.formPost.setControl('TIP_SEX', new FormControl(this.TipSexSelect))
   }
   CambioSucur(newSucur) {
