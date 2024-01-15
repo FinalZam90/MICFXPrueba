@@ -381,10 +381,28 @@ export class FgrManClienComponent implements OnInit {
 
     this.formPostRefmi = new FormGroup(
       {
-        NOMBRE: new FormControl(''),
-        TEL: new FormControl(''),
-        DIREC: new FormControl(''),
-        AN_CON: new FormControl(''),
+        NOMBRE: new FormControl('', [
+          Validators.required,
+          Validators.minLength(2)
+        ]),
+
+        TEL: new FormControl('', [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(13)
+        ]),
+
+        DIREC: new FormControl('', [
+          Validators.required,
+          Validators.minLength(50)
+        ]),
+
+        AN_CON: new FormControl('', [
+          Validators.required,
+          Validators.max(150),
+          Validators.min(0)
+        ]),
+
         CVE_RESP: new FormControl(new Array),
         COMEN: new FormControl('')
       });
