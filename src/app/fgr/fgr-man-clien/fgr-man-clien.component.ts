@@ -523,24 +523,28 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
+
   GetSucurs() 
   {
     let result = new Result()
+
     this.SucSer.GetAll().subscribe((r) => 
     {
       this.imprimirdef = r;
+
       if (this.imprimirdef != null) 
       {
         result.Objects = new Array<SucurModel>();
         let SucInicio = new SucurModel();
         SucInicio.Cve_Sucur = null
         SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
+    
         if (this.contadorGuardadoSelectores > 0) 
         {
+          // Llena con información del usuario
           SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
           SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
         }
-
 
         for (let index of this.imprimirdef) {
           let SucMo = new SucurModel()
@@ -548,11 +552,15 @@ export class FgrManClienComponent implements OnInit {
           SucMo.Des_Sucur = index.DES_SUCUR;
 
           if (this.contadorGuardadoSelectores > 0) {
+
             if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
+              // Con orden
               result.Objects.push(SucMo)
             }
           }
+
           else {
+            // Sin orden
             result.Objects.push(SucMo)
           }
 
@@ -564,8 +572,10 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
+
   GetTipCl() {
     let result = new Result()
+    
     this.ClSer.GetAll().subscribe((r) => 
     {
       this.imprimirdef = r;
