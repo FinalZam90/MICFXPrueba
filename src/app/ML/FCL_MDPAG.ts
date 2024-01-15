@@ -15,6 +15,7 @@ export class MdPagModel
     Mon_PrePa: number;
     Mon_Util: number;
     Mon_Umbra: number;
+    
     AplRc = new DestiModel();
     Ente = new EnteModel();
     Cnenv = new CnenvModel();
