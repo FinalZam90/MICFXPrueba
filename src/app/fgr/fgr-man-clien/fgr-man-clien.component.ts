@@ -65,9 +65,7 @@ import {
   MatDialog,
 
 } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
 import { event } from 'jquery';
 
@@ -172,12 +170,14 @@ export class FgrManClienComponent implements OnInit {
 
         RFC: new FormControl('', [
           Validators.required,
+          Validators.minLength(10),
           Validators.pattern('^[A-Z&Ñ]{3,4}[0-9]{6}[A-V1-9][A-Z0-9]{3}$')
         ]),
 
         CURP: new FormControl('',
           [
             Validators.required,
+            Validators.minLength(18),
             Validators.pattern('^[A-Z]{4}[0-9]{6}[HM][A-Z]{5}[0-9]{2}$')
           ])
         // PASO 2
@@ -369,6 +369,7 @@ export class FgrManClienComponent implements OnInit {
           Validators.maxLength(300)
         ])
       });
+
     this.formPostIdenti = new FormGroup(
       {
         TIPID: new FormControl(new Array<EntIdModel>()),
@@ -377,6 +378,7 @@ export class FgrManClienComponent implements OnInit {
         NUM_IDENTI: new FormControl(''),
         FOLIO_IDENTI: new FormControl('')
       });
+
     this.formPostRefmi = new FormGroup(
       {
         NOMBRE: new FormControl(''),
@@ -387,7 +389,6 @@ export class FgrManClienComponent implements OnInit {
         COMEN: new FormControl('')
       });
   }
-
 
   //Manejo de mensaje de errores.
 
@@ -429,7 +430,7 @@ export class FgrManClienComponent implements OnInit {
     return null;
   }
 
-
+// Variables
   public formPost: FormGroup
   public formPost2: FormGroup
   public formPost3: FormGroup
