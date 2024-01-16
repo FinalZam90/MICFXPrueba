@@ -38,7 +38,7 @@ import { LocalModel } from "../../ML/FGR_LOCAL";
 import { FldLocalModel } from "../../ML/FLD_LOCAL";
 import { TidoModel } from "../../ML/FCL_TIDOM";
 import { DirecModel } from "../../ML/FCL_DIREC";
-import { EntIdModel } from "../../ML/FCL_ENTID";
+import { EntIdModel } from '../../ML/FCL_ENTID';
 import { RefmiModel } from "../../ML/FCL_REFMI";
 import { CivModel } from "../../ML/EdoCiv";
 import { Result } from "../../ML/Result";
@@ -842,364 +842,155 @@ export class FgrManClienComponent implements OnInit {
     }
   }
 
-  public GetMunicipio(EdoProv: EstadoModel) {
+  GetMunicipio(EdoProv: EstadoModel) {
     let result = new Result()
 
-    this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<MunicModel>()
-        let MunInicio = new MunicModel();
-        MunInicio.Cve_Munic = null
-        MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
-        for (let index of this.imprimirdef) {
-          let MunicMod = new MunicModel()
-          MunicMod.Cve_Munic = index.CVE_MUNIC;
-          MunicMod.Nom_Munic = index.NOM_MUNIC;
+    result = this.MuniSSer.GetMunicipio(EdoProv);
 
-          result.Objects.push(MunicMod)
-        }
-        result.Correct = true;
+    if (result.Correct) {
+      this.direc.Municipio.Municipios = result.Objects;
+      this.mdpag.MunicOp.Municipios = result.Objects
+      this.mdpag.MunicAc.Municipios = result.Objects
+    }
 
-        this.MunicSelect = MunInicio
-        this.MunicSelectAc = MunInicio
-        this.MunicSelectOp = MunInicio
-        result.Objects.unshift(MunInicio)
-        this.direc.Municipio.Municipios = result.Objects;
+  }
+
+  GetMunicipioM(EdoProv: EstadoModel, n: number) {
+    let result = new Result()
+
+    result = this.MuniSSer.GetMunicipioM(EdoProv);
+
+    if (result.Correct) {
+
+      if (n = 1) {
+        //this.MunicSelectOp = MunInicio
         this.mdpag.MunicOp.Municipios = result.Objects
+      }
+
+      if (n = 2) {
+        //this.MunicSelectAc = MunInicio
         this.mdpag.MunicAc.Municipios = result.Objects
-        result.Correct = true;
       }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "Sin Municipios";
-      }
-    }, (e) => { console.log(e) })
+
+    }
+
   }
 
-  public GetMunicipioM(EdoProv: EstadoModel, n: number) {
-    let result = new Result()
-
-    this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<MunicModel>()
-        let MunInicio = new MunicModel();
-        MunInicio.Cve_Munic = null
-        MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
-        for (let index of this.imprimirdef) {
-          let MunicMod = new MunicModel()
-          MunicMod.Cve_Munic = index.CVE_MUNIC;
-          MunicMod.Nom_Munic = index.NOM_MUNIC;
-
-          result.Objects.push(MunicMod)
-        }
-        result.Correct = true;
-        result.Objects.unshift(MunInicio)
-        if (n = 1) {
-          this.MunicSelectOp = MunInicio
-          this.mdpag.MunicOp.Municipios = result.Objects
-        }
-        if (n = 2) {
-          this.MunicSelectAc = MunInicio
-          this.mdpag.MunicAc.Municipios = result.Objects
-        }
-
-
-
-        result.Correct = true;
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "Sin Municipios";
-      }
-    }, (e) => { console.log(e) })
-  }
-
-  public GetLocalidad(MuniProv: MunicModel) {
-
-
+  GetLocalidad(MuniProv: MunicModel) {
     let result = new Result();
-    this.LocSer.GetAll(MuniProv).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<LocalModel>()
-        let LocaInicio = new LocalModel();
-        LocaInicio.Cve_Local = null
-        LocaInicio.Nom_Local = "------------ SELECCIONA UNA LOCALIDAD --------------"
 
-        for (let index of this.imprimirdef) {
-          let LocalMo = new LocalModel()
-          LocalMo.Cve_Local = index.CVE_LOCAL;
-          LocalMo.Nom_Local = index.NOM_LOCAL;
-          result.Objects.push(LocalMo)
-        }
-        result.Correct = true;
+    result = this.LocSer.GetLocalidad(MuniProv);
 
-        this.LocalSelect = LocaInicio
-        result.Objects.unshift(LocaInicio)
-        this.direc.Localidad.Localidades = result.Objects;
-        result.Correct = true;
-      }
-      else {
-        result.Correct = false;
-      }
-    },
-      (e) => { console.log(e) })
+    if (result.Correct) {
+      this.direc.Localidad.Localidades = result.Objects;
+    }
+
   }
-  public GetLocalidadCNB(MunicCons: MunicModel) {
 
+  GetLocalidadCNB(MunicCons: MunicModel) {
     let result = new Result();
-    this.LocCNBSer.GetAll(MunicCons).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<FldLocalModel>()
-        let LocalCNBInicio = new FldLocalModel()
 
-        LocalCNBInicio.Cve_LoPLD = null
-        LocalCNBInicio.Des_LoPLD = "------------ SELECCIONA UNA LOCALIDAD --------------"
-        for (let index of this.imprimirdef) {
-          let LocCNBMo = new FldLocalModel()
-          LocCNBMo.Cve_LoPLD = index.CVE_LOCAL;
-          LocCNBMo.Des_LoPLD = index.DES_LOCAL;
-          result.Objects.push(LocCNBMo)
-        }
-        result.Correct = true;
+    result = this.LocCNBSer.GetLocalidadCNB(MunicCons);
 
-        this.LocalCNBSelect = LocalCNBInicio
-        result.Objects.unshift(LocalCNBInicio)
-        this.direc.LocalCNB.FLDLocalis = result.Objects;
-      }
-      else {
-        result.Correct = false;
-      }
-    },
-      (e) => { console.log(e) })
+    if (result.Correct) {
+      this.direc.LocalCNB.FLDLocalis = result.Objects;
+    }
+
   }
-  public GetVivienda() {
+
+  GetVivienda() {
     let result = new Result()
-    this.TidoSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<TidoModel>()
-        let VivInicio = new TidoModel()
-        VivInicio.Cve_Tidom = null
-        VivInicio.Des_Tidom = "------------ SELECCIONA UNA VIVIENDA --------------"
-        for (let index of this.imprimirdef) {
-          let TidoMo = new TidoModel()
-          TidoMo.Cve_Tidom = index.CVE_TIDOM;
-          TidoMo.Des_Tidom = index.DES_TIDOM;
-          result.Objects.push(TidoMo)
-        }
-        result.Correct = true;
+    result = this.TidoSer.GetVivienda();
 
-        this.ViviendaSelect = VivInicio
-        result.Objects.unshift(VivInicio)
-        this.direc.Vivienda.Tidoms = result.Objects
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "No hay tipo de vivienda existente."
-      }
-    })
+    if (result.Correct) {
+      this.direc.Vivienda.Tidoms = result.Objects
+    }
   }
+
   GetTipId() {
     let result = new Result()
-    this.EntIdSer.GetTipId().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<EntIdModel>()
-        let EntIdInicio = new EntIdModel()
-        for (let index of this.imprimirdef) {
-          let EntIdMo = new EntIdModel()
-          EntIdMo.Cve_TipId = index.CVE_TIPID;
-          EntIdMo.Des_Identi = index.DES_TIPID;
-          result.Objects.push(EntIdMo)
-        }
-        result.Correct = true;
-        this.entid.TipIds = result.Objects
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "No hay tipo de Identificación existente."
-      }
-    })
+
+    result = this.EntIdSer.GetTipId2();
+
+    if (result.Correct) {
+      this.entid.TipIds = result.Objects
+    }
+
   }
+
   GetIdenti() {
     let result = new Result()
-    this.EntIdSer.GetAll(this.entid).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<EntIdModel>()
-        let EntIdInicio = new EntIdModel()
-        for (let index of this.imprimirdef) {
-          let EntIdMo = new EntIdModel()
-          EntIdMo.Fec_Venci = index.FEC_VENCI;
-          EntIdMo.Des_Identi = index.DES_TIPID;
-          EntIdMo.Fec_AddRec = index.FEC_ADDREC;
-          EntIdMo.Num_Identi = index.NUM_IDENTI;
-          EntIdMo.Cve_Identi = index.CVE_IDENT;
-          result.Objects.push(EntIdMo)
-        }
-        result.Correct = true;
-        this.entid.EntIds = result.Objects
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "El cliente no tiene Identificación existente."
-      }
-    })
+
+    result = this.EntIdSer.GetIdenti(this.entid);
+
+    if (result.Correct) {
+      this.entid.EntIds = result.Objects;
+    }
   }
+
   GetRefmi() {
     let result = new Result()
-    this.RefSer.GetAll(this.refmi).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<RefmiModel>()
-        let RefmiInicio = new RefmiModel()
-        for (let index of this.imprimirdef) {
-          for (let i = 0; i < 5; i++) {
-            let RefmiMo = new RefmiModel()
-            RefmiMo.Nom_Refer = index.NOM_REFER[i];
-            RefmiMo.Des_Dirre = index.DES_DIRRE[i];
-            RefmiMo.Num_TelRe = index.NUM_TELRE[i];
-            RefmiMo.Num_AnoCo = index.Num_AnoCo[i];
-            RefmiMo.Ban_Reco = index.BAN_Recom[i];
-            RefmiMo.Des_Comen = index.Des_Comen;
-            result.Objects.push(RefmiMo)
-          }
 
-        }
-        result.Correct = true;
-        this.refmi.Refs = result.Objects
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "El cliente no tiene Referenciados."
-      }
-    })
+    result = this.RefSer.GetRefmi(this.refmi);
+
+    if (result.Correct) {
+      this.refmi.Refs = result.Objects
+    }
+
   }
+
   GetDirecsByEnte() {
     let result = new Result()
-    this.DirSer.GetAll(this.direc).subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<DirecModel>()
-        let DirecInicio = new DirecModel()
-        for (let index of this.imprimirdef) {
-          let DirMo = new DirecModel()
-          DirMo.Num_Direc = index.NUM_DIREC;
-          DirMo.Direc_Com = index.DIREC;
-          DirMo.Vivienda = new TidoModel();
-          DirMo.Vivienda.Des_Tidom = index.TIDOM;
 
-          result.Objects.push(DirMo)
+    result = this.DirSer.GetDirecsByEnte(this.direc);
 
-        }
-        result.Correct = true;
-        this.direc.Direcciones = result.Objects
-      }
-      else {
-        result.Correct = false;
-        result.ErrorMessage = "El cliente no tiene direcciones."
-      }
-    })
+    if (result.Correct) {
+      this.direc.Direcciones = result.Objects
+    }
+
   }
 
   GetFuerc() {
     let result = new Result()
-    this.FuerSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<FuercModel>();
-        let FuerInicio = new FuercModel();
-        FuerInicio.Cve_Fuerc = null
-        FuerInicio.Des_Fuerc = "------------ SELECCIONA UNA FUENTE DE RECURSOS --------------"
-        for (let index of this.imprimirdef) {
-          let FuerMo = new FuercModel()
-          FuerMo.Cve_Fuerc = index.CVE_FUERC;
-          FuerMo.Des_Fuerc = index.DES_FUERC;
-          result.Objects.push(FuerMo);
 
-        }
-        this.FuercSelect = FuerInicio
-        result.Objects.unshift(FuerInicio)
-        this.fuerc.Fuercs = result.Objects
-        result.Correct = true;
-      }
-    })
+    result = this.FuerSer.GetFuerc();
+
+    if (result.Correct) {
+      this.fuerc.Fuercs = result.Objects
+    }
   }
 
   GetFopag() {
     let result = new Result()
-    this.FopSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<FopagModel>();
-        let FopaInicio = new FopagModel();
-        FopaInicio.Cve_Fopag = null
-        FopaInicio.Nom_Fopag = "------------ SELECCIONA UN INSTR. --------------"
-        for (let index of this.imprimirdef) {
-          let FopMo = new FopagModel()
-          FopMo.Cve_Fopag = index.CVE_FOPAG;
-          FopMo.Nom_Fopag = index.NOM_FOPAG;
-          result.Objects.push(FopMo);
 
-        }
-        this.FopaSelect = FopaInicio
-        result.Objects.unshift(FopaInicio)
-        this.fopag.Fopags = result.Objects
-        result.Correct = true;
-      }
-    })
+    result = this.FopSer.GetFopag();
+
+    if (result.Correct) {
+      this.fopag.Fopags = result.Objects
+    }
   }
 
   GetDesti() {
     let result = new Result()
-    this.DestiSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<DestiModel>();
-        let DestInicio = new DestiModel();
-        DestInicio.Cve_Desti = null
-        DestInicio.Des_Desti = "------------ SELECCIONA UNA APLICACIÓN DE RECURSOS --------------"
-        for (let index of this.imprimirdef) {
-          let DestMo = new DestiModel()
-          DestMo.Cve_Desti = index.CVE_DESTI;
-          DestMo.Des_Desti = index.DES_DESTI;
-          result.Objects.push(DestMo);
 
-        }
-        this.DestiSelect = DestInicio
-        result.Objects.unshift(DestInicio)
-        this.desti.Destis = result.Objects
-        result.Correct = true;
-      }
-    })
+    result = this.DestiSer.GetDesti();
+
+    if (result.Correct) {
+      this.desti.Destis = result.Objects
+    }
+
   }
 
   GetCnenv() {
     let result = new Result()
-    this.CnvSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<CnenvModel>();
-        let CneInicio = new CnenvModel();
-        CneInicio.Cve_Cnenv = null
-        CneInicio.Des_Cnenv = "------------ SELECCIONA UN CANAL DE ENVÍO --------------"
-        for (let index of this.imprimirdef) {
-          let CneMo = new CnenvModel()
-          CneMo.Cve_Cnenv = index.CVE_CNENV;
-          CneMo.Des_Cnenv = index.DES_CNENV;
-          result.Objects.push(CneMo)
-        }
-        this.CnvenSelect = CneInicio
-        result.Objects.unshift(CneInicio)
-        this.cnen.Cnenvs = result.Objects
-        result.Correct = true;
-      }
-    })
+
+    result = this.CnvSer.GetCnenv();
+
+    if (result.Correct) {
+      this.cnen.Cnenvs = result.Objects
+    }
   }
+
   public GetUti() {
     this.mdpag.Pagcu1 = this.Perio1Select
     this.mdpag.Pagcu2 = this.Perio2Select

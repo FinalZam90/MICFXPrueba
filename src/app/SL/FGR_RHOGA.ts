@@ -36,7 +36,6 @@ export class RhogaService {
         return this.http.get(this.myApi);
     }
 
-
     GetRhoga() {
         let result = new Result()
 
