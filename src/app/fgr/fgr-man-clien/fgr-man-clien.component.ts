@@ -1007,6 +1007,7 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
+  
   public Form() {
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
