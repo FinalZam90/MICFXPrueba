@@ -20,8 +20,8 @@ export class SucurService implements OnInit {
             headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         }
 
-    public imprimirdef: any
-    public ente: EnteModel
+    public imprimirdef: any;
+    public ente: EnteModel;
     public contadorGuardadoSelectores: number;
 
     constructor(
@@ -42,13 +42,13 @@ export class SucurService implements OnInit {
         //body.set('ACCION', "ConDep");
         this.http.get(this.myApi).subscribe((r) => { console.log(r) });
         return this.http.get(this.myApi);
-
     }
 
-    GetSucurs(contadorGuardadoSelectores: number, SucurSelect: SucurModel): Result {
+    GetSucurs(contador: number, SucurSelect: SucurModel): Result {
         let result = new Result()
 
-        this.SucSer.GetAll().subscribe((r) => {
+        this.SucSer.GetAll().subscribe((r) => 
+        {
 
             this.imprimirdef = r;
 
@@ -60,7 +60,7 @@ export class SucurService implements OnInit {
                 SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
 
                 // Si le dio en el boton guardar, aplica en cualquier pestaña
-                if (contadorGuardadoSelectores > 0) {
+                if (contador > 0) {
                     // Recibe información del usuario y formatea la data inicial
                     SucInicio.Cve_Sucur = SucurSelect.Cve_Sucur
                     SucInicio.Des_Sucur = SucurSelect.Des_Sucur
@@ -74,7 +74,7 @@ export class SucurService implements OnInit {
                     SucMo.Cve_Sucur = index.CVE_SUCUR;
                     SucMo.Des_Sucur = index.DES_SUCUR;
 
-                    if (contadorGuardadoSelectores > 0) {
+                    if (contador > 0) {
                         //Llena el formulario con la información anterior del usuario al dar guardar
                         if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
                             result.Objects.push(SucMo)
@@ -89,8 +89,8 @@ export class SucurService implements OnInit {
                 //Agrega al inicio de la lista el predeterminado
                 result.Objects.unshift(SucInicio)
                 //Si aprobó cambia bandera a correcto
-                result.Correct = true;               
-            }            
+                result.Correct = true;
+            }
         });
 
         return result;

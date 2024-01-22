@@ -426,7 +426,6 @@ export class FgrManClienComponent implements OnInit {
       });
   }
 
-
   //Manejo de mensaje de errores.
 
   errorHandle(field: string, form: FormGroup): boolean | null {
@@ -560,7 +559,7 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
-  // Section obtención de datos
+  // Section proyección de datos
   GetSucurs() {
     let result = new Result();
     result = this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect);
@@ -598,7 +597,6 @@ export class FgrManClienComponent implements OnInit {
       this.ente.Lugna.Lugnas = result.Objects
     }
   }
-
 
   GetSexGen() {
     let result = new Result()
@@ -1007,7 +1005,8 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  
+
+  // Section obtención de datos
   public Form() {
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
@@ -1043,21 +1042,25 @@ export class FgrManClienComponent implements OnInit {
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
+
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
       console.log(r);
       this.imprimirdef = r;
-      if (this.imprimirdef.BAN == true) {
+
+      if (this.imprimirdef.BAN == true) { 
         $('#next-btn').prop('disabled', false);
         this.LlenarLista2();
-
       }
+
       else {
+
         for (let x of this.imprimirdef.Errores) {
           CadenaMsg += x.DES_TERROR + ". "
         }
         this.msg.message = CadenaMsg + "  " + this.imprimirdef.Mensaje; this.mostrarModal = true
         alert(this.msg.message)
       }
+      
       this.ente.Num_Ente = this.imprimirdef.Numero;
       this.ente.RFC = this.imprimirdef.RFC;
       this.ente.CURP = this.imprimirdef.CURP
@@ -1068,14 +1071,15 @@ export class FgrManClienComponent implements OnInit {
     this.LlenarListas()
 
   }
+
   public LlenarListas() {
     this.GetSucurs()
     this.GetPais()
     this.GetLugna()
     this.GetSexGen()
     this.GetTipCl()
-
   }
+
   public LlenarLista2() {
     this.GetAegen()
     this.GetNivIng()
@@ -1095,6 +1099,7 @@ export class FgrManClienComponent implements OnInit {
     this.GetRhoga()
     this.GetPeriod()
   }
+
   public Form2() {
 
     this.ente.EdoCi = this.formPost2.controls['EDO_CIV'].value
@@ -1133,6 +1138,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.MaPaso2(this.ente).subscribe((r) => { console.log(r) }, (e) => { console.log(e) })
 
   }
+
   public Form3() {
     this.direc.Ente = this.ente;
     this.direc.Pais = this.formPost3.controls['CVE_PAIS'].value
@@ -1153,6 +1159,7 @@ export class FgrManClienComponent implements OnInit {
     this.direc.Num_Cpent = this.formPost3.controls['REFERENCIAS'].value
 
   }
+
   public FormIdenti() {
     this.entid.Ente = this.ente;
 
@@ -1165,6 +1172,7 @@ export class FgrManClienComponent implements OnInit {
 
     this.GetIdenti()
   }
+
   public FormRefmi() {
     this.refmi.Ente = this.ente;
 
@@ -1176,6 +1184,7 @@ export class FgrManClienComponent implements OnInit {
 
     this.RefSer.Add(this.refmi).subscribe()
   }
+
   public Regresar(): void {
     this.location.back();
   }

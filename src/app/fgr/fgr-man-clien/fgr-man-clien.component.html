@@ -200,16 +200,16 @@
 									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
 
 									<div class="input-group mb-3 position-relative">
+
 										<label class="input-group-text" for="nacimientoL" #search>
 											<i class="bx bx-search"></i>
 										</label>
+
 										<datalist id="listalugnas">
 											<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">{{lug.Des_Lugna}}</option>
 										</datalist>
 										<input type="search" list="listalugnas" id="listalugnas" class="form-control" formNameControl="DES_LUGNA">
-
-										
-
+				
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
