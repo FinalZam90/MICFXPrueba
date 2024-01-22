@@ -65,9 +65,7 @@ import {
   MatDialog,
 
 } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
 import { event } from 'jquery';
 
@@ -371,32 +369,14 @@ export class FgrManClienComponent implements OnInit {
           Validators.maxLength(300)
         ])
       });
-
-    this.formPostIdenti = new FormGroup
-      ({
-
+    this.formPostIdenti = new FormGroup(
+      {
         TIPID: new FormControl(new Array<EntIdModel>()),
-
-        AN_VENC: new FormControl('', [
-          Validators.required,
-          Validators.min(1700)
-        ]),
-
-        FEC_ALT: new FormControl('', [
-          Validators.required,
-          Validators.min(1700)
-        ]),
-
-        NUM_IDENTI: new FormControl('', [
-          Validators.required
-        ]),
-
-        FOLIO_IDENTI: new FormControl('', [
-          Validators.required
-        ])
-
+        AN_VENC: new FormControl(''),
+        FEC_ALT: new FormControl(''),
+        NUM_IDENTI: new FormControl(''),
+        FOLIO_IDENTI: new FormControl('')
       });
-
     this.formPostRefmi = new FormGroup(
       {
         NOMBRE: new FormControl('', [
@@ -466,7 +446,7 @@ export class FgrManClienComponent implements OnInit {
     return null;
   }
 
-
+// Variables
   public formPost: FormGroup
   public formPost2: FormGroup
   public formPost3: FormGroup
@@ -558,24 +538,81 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
+  GetSucurs() 
+  {
+    let result = new Result()
+    this.SucSer.GetAll().subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) 
+      {
+        result.Objects = new Array<SucurModel>();
+        let SucInicio = new SucurModel();
+        SucInicio.Cve_Sucur = null
+        SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
+        if (this.contadorGuardadoSelectores > 0) 
+        {
+          SucInicio.Cve_Sucur = this.SucurSelect.Cve_Sucur
+          SucInicio.Des_Sucur = this.SucurSelect.Des_Sucur
+        }
 
-  // Section proyección de datos
-  GetSucurs() {
-    let result = new Result();
-    result = this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect);
 
-    if (result.Correct == true) {
-      this.ente.Sucur.Sucurs = result.Objects
-    }
+        for (let index of this.imprimirdef) {
+          let SucMo = new SucurModel()
+          SucMo.Cve_Sucur = index.CVE_SUCUR;
+          SucMo.Des_Sucur = index.DES_SUCUR;
+
+          if (this.contadorGuardadoSelectores > 0) {
+            if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
+              result.Objects.push(SucMo)
+            }
+          }
+          else {
+            result.Objects.push(SucMo)
+          }
+
+        }
+        this.SucurSelect = SucInicio
+        result.Objects.unshift(SucInicio)
+        this.ente.Sucur.Sucurs = result.Objects
+        result.Correct = true;
+      }
+    })
   }
 
   GetTipCl() {
-    let result = new Result();
-    result = this.ClSer.GetTipCl(this.contadorGuardadoSelectores, this.ClienSelect)
-
-    if (result.Correct) {
-      this.ente.TipCl.TipCls = result.Objects
-    }
+    let result = new Result()
+    this.ClSer.GetAll().subscribe((r) => 
+    {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) {
+        result.Objects = new Array<TipClModel>();
+        let ClInicio = new TipClModel();
+        ClInicio.Cve_TipCl = null
+        ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
+        if (this.
+          contadorGuardadoSelectores > 0) {
+          ClInicio = this.ClienSelect
+        }
+        for (let index of this.imprimirdef) {
+          let ClMo = new TipClModel()
+          ClMo.Cve_TipCl = index.CVE_TIPCL;
+          ClMo.Des_TipCl = index.DES_TIPCL;
+          if (this.contadorGuardadoSelectores > 0) {
+            if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) {
+              result.Objects.push(ClMo)
+            }
+          }
+          else {
+            result.Objects.push(ClMo)
+          }
+        }
+        this.ClienSelect = ClInicio
+        result.Objects.unshift(ClInicio)
+        this.ente.TipCl.TipCls = result.Objects
+        result.Correct = true;
+      }
+    })
   }
 
   GetPais() {
