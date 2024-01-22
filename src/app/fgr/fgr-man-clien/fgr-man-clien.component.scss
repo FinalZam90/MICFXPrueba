@@ -14,58 +14,13 @@
   color: white !important;
 }
 
-section {
-  width: 100%;
-}
-
-
-label {
-  display: inline-block;
-}
-
-.modal-box {
-  top: 0;
-  left: 42px;
-  width: 100%;
-  z-index: 300;
-  position: absolute;
-  background-color: black;
-
-  input,
-  option {
-    color: white;
-
-    &::placeholder {
-      color: white;
-    }
-  }
-
-  .box {
-    height: 200px;
-    overflow-y: scroll;
-
-  }
-}
-
 //**** PESTAÑA GENERALES*****************//
 .box {
   height: 260px;
 }
 
-@media(min-width: 992px) {
-
-  .box {
-    justify-content: center !important;
-  }
-
-}
-
 legend {
   text-align: right;
-}
-
-button[type="submit"] {
-  width: 100%;
 }
 
 //**** PESTAÑA IDENTIFICACIONES*****************//

@@ -2,78 +2,34 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Movi1Model } from "../ML/MOVI1";
 import { Observable } from "rxjs";
-import { Result } from "../ML/Result";
-import { TipClModel } from "../ML/FCL_TIPCL";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ClService {
+export class ClService{
     myApi = "https://webmicfx.arashi.solutions/FGR/WsConTipCl.p";
 
-    options =
-        {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        }
-
-    public imprimirdef: any
-
-    constructor(
-        private http: HttpClient,
-        private ClSer: ClService,
-    ) { }
-
-    public GetAll(): Observable<any> {
+    options = 
+    {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+    }
+    constructor(private http:HttpClient){}
+    
+    
+    public GetAll(): Observable<any>
+    {
         let body = new URLSearchParams();
         /*body.set('ACCION', 'Consul');
         body.set('FECHA', '');
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        this.http.get(this.myApi).subscribe((r) => { console.log(r) });
+        this.http.get(this.myApi).subscribe((r) => {console.log(r)});
         return this.http.get(this.myApi);
+        
     }
+    
 
-    GetTipCl(contadorGuardadoSelectores: number, ClienSelect: TipClModel): Result {
-        let result = new Result()
-
-        this.ClSer.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
-
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<TipClModel>();
-
-                let ClInicio = new TipClModel();
-                ClInicio.Cve_TipCl = null
-                ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
-
-                if (contadorGuardadoSelectores > 0) {
-                    ClInicio = ClienSelect
-                }
-
-                for (let index of this.imprimirdef) {
-                    let ClMo = new TipClModel()
-
-                    ClMo.Cve_TipCl = index.CVE_TIPCL;
-                    ClMo.Des_TipCl = index.DES_TIPCL;
-
-                    if (contadorGuardadoSelectores > 0) {
-                        if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) {
-                            result.Objects.push(ClMo)
-                        }
-                    }
-                    else {
-                        result.Objects.push(ClMo)
-                    }
-                }
-
-                //this.ClienSelect = ClInicio
-                result.Objects.unshift(ClInicio)
-                result.Correct = true;
-            }
-        })
-        return result;
-    }
-
+    
 }

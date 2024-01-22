@@ -611,25 +611,31 @@ export class FgrManClienComponent implements OnInit {
     this.ClSer.GetAll().subscribe((r) => 
     {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<TipClModel>();
         let ClInicio = new TipClModel();
         ClInicio.Cve_TipCl = null
         ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
         if (this.
-          contadorGuardadoSelectores > 0) {
+          contadorGuardadoSelectores > 0) 
+          {
           ClInicio = this.ClienSelect
         }
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let ClMo = new TipClModel()
           ClMo.Cve_TipCl = index.CVE_TIPCL;
           ClMo.Des_TipCl = index.DES_TIPCL;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) {
+          if (this.contadorGuardadoSelectores > 0) 
+          {
+            if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) 
+            {
               result.Objects.push(ClMo)
             }
           }
-          else {
+          else 
+          {
             result.Objects.push(ClMo)
           }
         }
@@ -640,30 +646,38 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  GetPais() {
+  GetPais() 
+  {
     let result = new Result()
-    this.PaiSer.GetAll().subscribe((r) => {
+    this.PaiSer.GetAll().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<PaisModel>();
         let PaiInicio = new PaisModel();
         PaiInicio.Cve_Pais = null
         PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.contadorGuardadoSelectores > 0) 
+        {
           PaiInicio = this.PaisSelect
         }
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let PaMo = new PaisModel()
           PaMo.Cve_Pais = index.CVE_PAIS;
           PaMo.Des_Nac = index.DES_CIVIL;
           PaMo.Nom_Pais = index.NOM_PAIS;
 
-          if (this.contadorGuardadoSelectores > 0) {
-            if (PaiInicio.Cve_Pais != PaMo.Cve_Pais) {
+          if (this.contadorGuardadoSelectores > 0) 
+          {
+            if (PaiInicio.Cve_Pais != PaMo.Cve_Pais) 
+            {
               result.Objects.push(PaMo)
             }
           }
-          else {
+          else 
+          {
             result.Objects.push(PaMo)
           }
         }
@@ -675,28 +689,36 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  GetLugna() {
+  GetLugna() 
+  {
     let result = new Result()
-    this.LuSer.GetAll().subscribe((r) => {
+    this.LuSer.GetAll().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<LugnaModel>();
         let LugInicio = new LugnaModel();
         LugInicio.Cve_Lugna = 0
         LugInicio.Des_Lugna = "------------ SELECCIONA UN LUGAR DE NACIMIENTO --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.contadorGuardadoSelectores > 0) 
+        {
           LugInicio = this.LugnaSelect
         }
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let LugMo = new LugnaModel()
           LugMo.Cve_Lugna = index.CVE_LUGNA;
           LugMo.Des_Lugna = index.DES_LUGNA;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
+          if (this.contadorGuardadoSelectores > 0) 
+          {
+            if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) 
+            {
               result.Objects.push(LugMo)
             }
           }
-          else {
+          else 
+          {
             result.Objects.push(LugMo)
           }
         }
@@ -720,23 +742,29 @@ export class FgrManClienComponent implements OnInit {
     if (this.contadorGuardadoSelectores > 0) {
       SeGenInicio = this.TipSexSelect
     }
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++) 
+    {
       let SeGenMo = new SexGenModel()
-      if (i == 0) {
+      if (i == 0) 
+      {
         SeGenMo.Cve_TipSex = "F"
         SeGenMo.Des_TipSex = "Femenino"
       }
-      else {
+      else 
+      {
         SeGenMo.Cve_TipSex = "M"
         SeGenMo.Des_TipSex = "Masculino"
       }
-      if (this.contadorGuardadoSelectores > 0) {
-        if (SeGenInicio.Cve_TipSex != SeGenMo.Cve_TipSex) {
+      if (this.contadorGuardadoSelectores > 0) 
+      {
+        if (SeGenInicio.Cve_TipSex != SeGenMo.Cve_TipSex) 
+        {
           result.Objects.push(SeGenMo)
         }
 
       }
-      else {
+      else 
+      {
         result.Objects.push(SeGenMo)
       }
     }
@@ -744,28 +772,36 @@ export class FgrManClienComponent implements OnInit {
     this.TipSexSelect = SeGenInicio
     this.ente.SexGen.SexGenArray = result.Objects
   }
-  GetNives() {
+  GetNives() 
+  {
     let result = new Result()
-    this.EnteSer.GetNivEst().subscribe((r) => {
+    this.EnteSer.GetNivEst().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<EstuModel>();
         let NivInicio = new EstuModel();
         NivInicio.Cve_Nives = null
         NivInicio.Des_Nives = "------------ SELECCIONA UN NIVEL --------------"
-        if (this.contadorGuardadoSelectores > 0) {
+        if (this.contadorGuardadoSelectores > 0) 
+        {
           NivInicio = this.NivesSelect
         }
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let NivMo = new EstuModel()
           NivMo.Cve_Nives = index.CVE_NIVES;
           NivMo.Des_Nives = index.DES_NIVES;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (NivMo.Cve_Nives != NivInicio.Cve_Nives) {
+          if (this.contadorGuardadoSelectores > 0) 
+          {
+            if (NivMo.Cve_Nives != NivInicio.Cve_Nives) 
+            {
               result.Objects.push(NivMo)
             }
           }
-          else {
+          else 
+          {
             result.Objects.push(NivMo)
           }
 
@@ -871,6 +907,7 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
+
   GetPeriod()
   {
     this.perio2.Perios = new Array<PerioModel>();
@@ -914,16 +951,20 @@ export class FgrManClienComponent implements OnInit {
     this.Perio1Select = this.perio1.Perios[0]
     this.Perio2Select = this.perio2.Perios[0]
   }
-  GetGruso() {
+  GetGruso() 
+  {
     let result = new Result()
-    this.EnteSer.GetGruso().subscribe((r) => {
+    this.EnteSer.GetGruso().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<GrusoModel>();
         let GruInicio = new GrusoModel();
         GruInicio.Cve_Gruso = null
         GruInicio.Des_Gruso = "------------ SELECCIONA UN GRUPO --------------"
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let GruMo = new GrusoModel()
           GruMo.Cve_Gruso = index.CVE_GRUSO
           GruMo.Des_Gruso = index.DES_GRUSO;
@@ -936,16 +977,20 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  GetAegen() {
+  GetAegen() 
+  {
     let result = new Result()
-    this.EnteSer.GetCNB().subscribe((r) => {
+    this.EnteSer.GetCNB().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<AegenModel>();
         let AeInicio = new AegenModel();
         AeInicio.Cve_Aegen = null
         AeInicio.Des_Aegen = "------------ SELECCIONA UN GRUPO --------------"
-        for (let index of this.imprimirdef) {
+        for (let index of this.imprimirdef) 
+        {
           let AeMo = new AegenModel()
           AeMo.Cve_Aegen = index.CVE_AEGEN
           AeMo.Des_Aegen = index.DES_AEGEN;
@@ -958,11 +1003,14 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  public GetEstado() {
+  public GetEstado() 
+  {
     let result = new Result()
-    this.EdoSer.GetAll().subscribe((r) => {
+    this.EdoSer.GetAll().subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<EstadoModel>();
         let EdoInicio = new EstadoModel();
         EdoInicio.Cve_Estdo = null
@@ -986,7 +1034,8 @@ export class FgrManClienComponent implements OnInit {
         this.mdpag.EstadoOp.Estados = result.Objects;
         result.Correct = true;
       }
-      else {
+      else 
+      {
         result.Correct = false;
         result.ErrorMessage = "Sin Estados";
       }
@@ -996,7 +1045,8 @@ export class FgrManClienComponent implements OnInit {
   {
     let result = new Result()
 
-    this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
+    this.MuniSSer.GetAll(EdoProv).subscribe((r) => 
+    {
       this.imprimirdef = r;
       if (this.imprimirdef != null) 
       {
@@ -1035,7 +1085,8 @@ export class FgrManClienComponent implements OnInit {
   {
     let result = new Result()
 
-    this.MuniSSer.GetAll(EdoProv).subscribe((r) => {
+    this.MuniSSer.GetAll(EdoProv).subscribe((r) => 
+    {
       this.imprimirdef = r;
       if (this.imprimirdef != null) 
       {
@@ -1081,9 +1132,11 @@ export class FgrManClienComponent implements OnInit {
 
 
     let result = new Result();
-    this.LocSer.GetAll(MuniProv).subscribe((r) => {
+    this.LocSer.GetAll(MuniProv).subscribe((r) => 
+    {
       this.imprimirdef = r;
-      if (this.imprimirdef != null) {
+      if (this.imprimirdef != null) 
+      {
         result.Objects = new Array<LocalModel>()
         let LocaInicio = new LocalModel();
         LocaInicio.Cve_Local = null
@@ -1103,7 +1156,8 @@ export class FgrManClienComponent implements OnInit {
         this.direc.Localidad.Localidades = result.Objects;
         result.Correct = true;
       }
-      else {
+      else 
+      {
         result.Correct = false;
       }
     },
@@ -1143,7 +1197,8 @@ export class FgrManClienComponent implements OnInit {
     },
       (e) => { console.log(e) })
   }
-  public GetVivienda() {
+  public GetVivienda() 
+  {
     let result = new Result()
     this.TidoSer.GetAll().subscribe((r) => 
     {
@@ -1167,7 +1222,8 @@ export class FgrManClienComponent implements OnInit {
         result.Objects.unshift(VivInicio)
         this.direc.Vivienda.Tidoms = result.Objects
       }
-      else {
+      else 
+      {
         result.Correct = false;
         result.ErrorMessage = "No hay tipo de vivienda existente."
       }
@@ -1541,8 +1597,8 @@ export class FgrManClienComponent implements OnInit {
     this.mdpag.Ente = this.ente
     this.mdpag.Fec_MdPag = "" + new Date()
 
-    this.mdpag.Pagcu1.Sig = this.formPost2.controls['SIG'].value
-    this.mdpag.Pagcu2.Sig = this.formPost2.controls['SIG2'].value
+    this.mdpag.Pagcu1.Sig = this.formPost2.controls['PRC1'].value
+    this.mdpag.Pagcu2.Sig = this.formPost2.controls['PRC2'].value
     this.mdpag.Mon_Gasto = this.formPost2.controls['GAST_MEN'].value
 
     //FIN
