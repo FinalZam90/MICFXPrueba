@@ -200,16 +200,17 @@
 									<label for="nacimientoL" class="form-label">Lugar de Nacimiento</label>
 
 									<div class="input-group mb-3 position-relative">
-
-										<label class="input-group-text" for="nacimientoL" #search>
+										<label class="input-group-text" for="nacimientoL"
+											#search>
 											<i class="bx bx-search"></i>
 										</label>
-
 										<datalist id="listalugnas">
 											<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">{{lug.Des_Lugna}}</option>
 										</datalist>
 										<input type="search" list="listalugnas" id="listalugnas" class="form-control" formNameControl="DES_LUGNA">
-				
+
+										
+
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
@@ -246,6 +247,7 @@
 											<option [ngValue]="suc" *ngFor="let suc of ente.Sucur.Sucurs">{{suc.Des_Sucur}}</option>
 										</datalist>
 										<input type="search" list="listasucurs" id="listasucurs" class="form-control" formNameControl="DES_SUCUR">
+
 										
 									</div>
 								</div><!--Sucursal-->
@@ -496,13 +498,12 @@
 											<div class="input-group mb-3">
 												<label class="input-group-text" for="recursos">Opción</label>
 
-												<select formNameControl="FUE_REC" class="form-select"
-													[ngModel]="FuercSelect" (ngModelChange)="CambioRecursos($event)"
-													name="sel1" [ngModelOptions]="{standalone: true}"
-													class="form-select" id="recursos" required>
-													<option [ngValue]="fu" *ngFor="let fu of fuerc.Fuercs">
-														{{fu.Des_Fuerc}}</option>
-
+												<select formNameControl="FUE_REC" class="form-select" [ngModel]="FuercSelect"
+												(ngModelChange)="CambioRecursos($event)" name="sel1"
+												[ngModelOptions]="{standalone: true}" class="form-select" id="recursos"
+												required>
+													<option [ngValue]="fu" *ngFor="let fu of fuerc.Fuercs">{{fu.Des_Fuerc}}</option>
+												
 												</select>
 											</div>
 
@@ -517,12 +518,13 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select formNameControl="PER" class="form-select"
-														[ngModel]="Perio1Select" (ngModelChange)="CambioPer1($event)"
-														name="sel1" [ngModelOptions]="{standalone: true}"
-														class="form-select" id="per1" required>
-														<option *ngFor="let per of perio1.Perios" [ngValue]="per">
-															{{per.Des}}</option>
+													<select formNameControl="PER" class="form-select" [ngModel]="Perio1Select"
+													(ngModelChange)="CambioPer1($event)" name="sel1"
+													[ngModelOptions]="{standalone: true}" class="form-select"
+													id="per1" required>
+													<option *ngFor="let per of perio1.Perios"
+														[ngValue]="per">
+														{{per.Des}}</option>
 
 													</select>
 												</div>
@@ -533,9 +535,8 @@
 
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG"
-														[(ngModel)]="mdpag.Pagcu1.Sig" (keyup)="GetUti()"
-														(change)="GetUti()" class="form-control">
+													<input id="signo" type="number" formControlName="SIG" [(ngModel)]="mdpag.Pagcu1.Sig" (keyup)="GetUti()" (change) ="GetUti()"
+														class="form-control">
 												</div>
 
 												<div class="py-3 px-2 border-bottom"
@@ -556,11 +557,13 @@
 													<label class="input-group-text" for="per2">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select id="per2" class="form-select" formControlName="PER"
-														[ngModel]="Perio2Select" (ngModelChange)="CambioPer2($event)"
-														name="sel1" class="form-select" id="per2" required>
-														<option *ngFor="let per2 of perio2.Perios" [ngValue]="per2">
-															{{per2.Des}}</option>
+													<select id="per2" class="form-select" formControlName="PER" [ngModel]="Perio2Select"
+													(ngModelChange)="CambioPer2($event)" name="sel1"
+													 class="form-select"
+													id="per2" required>
+													<option *ngFor="let per2 of perio2.Perios"
+														[ngValue]="per2">
+														{{per2.Des}}</option>
 													</select>
 												</div>
 
@@ -569,9 +572,8 @@
 											<div class="col-sm-5 col-md-6 d-flex align-items-end">
 												<div class="d-flex gap-2 align-items-center">
 													<label for="signo" class="form-label">$</label>
-													<input id="signo" type="number" formControlName="SIG2"
-														[(ngModel)]="mdpag.Pagcu2.Sig" (keyup)="GetUti()"
-														(change)="GetUti()" class="form-control" required>
+													<input id="signo" type="number" formControlName="SIG2" [(ngModel)]="mdpag.Pagcu2.Sig" (keyup)="GetUti()" (change) ="GetUti()"
+														class="form-control" required>
 												</div>
 
 												<div class="py-3 px-2 border-bottom"
@@ -592,8 +594,7 @@
 											<div class="mb-3 d-flex gap-2 align-items-center">
 												<label for="gasto" class="form-label col-sm-6 col-md-4">Gasto
 													Mensual</label>
-												<input id="gasto" type="number" formControlName="GAST_MEN"
-													[(ngModel)]="mdpag.Mon_Gasto" (keyup)="GetUti()" (change)="GetUti()"
+												<input id="gasto" type="number" formControlName="GAST_MEN" [(ngModel)]="mdpag.Mon_Gasto" (keyup)="GetUti()" (change) ="GetUti()"
 													class="form-control">
 
 												<div class="py-3 px-2 border-bottom"
@@ -648,11 +649,12 @@
 												</label>
 
 												<select class="form-select" formControlName="INS_MON"
-													[ngModel]="FopaSelect" (ngModelChange)="CambioInstr($event)"
-													name="sel1" class="form-select" id="monetario" required>
-													<option [ngValue]="fop" *ngFor="let fop of fopag.Fopags">
-														{{fop.Nom_Fopag}}</option>
-
+												[ngModel]="FopaSelect"
+												(ngModelChange)="CambioInstr($event)" name="sel1"
+											    class="form-select" id="monetario"
+												required>
+													<option [ngValue]="fop" *ngFor="let fop of fopag.Fopags">{{fop.Nom_Fopag}}</option>
+												
 												</select>
 											</div>
 
@@ -667,11 +669,12 @@
 												</label>
 
 												<select class="form-select" formControlName="APLI_REC"
-													[ngModel]="DestiSelect" (ngModelChange)="CambioDesti($event)"
-													name="sel1" class="form-select" id="recursosA" required>
-													<option [ngValue]="dest" *ngFor="let dest of desti.Destis">
-														{{dest.Des_Desti}}</option>
-
+												[ngModel]="DestiSelect"
+												(ngModelChange)="CambioDesti($event)" name="sel1"
+												 class="form-select" id="recursosA"
+												required>
+													<option [ngValue]="dest" *ngFor="let dest of desti.Destis">{{dest.Des_Desti}}</option>
+												
 												</select>
 											</div>
 
@@ -686,11 +689,12 @@
 												</label>
 
 												<select class="form-select" formControlName="CAN_ENV"
-													[ngModel]="CnvenSelect" (ngModelChange)="CambioCNENV($event)"
-													name="sel1" class="form-select" id="envio" required>
-													<option [ngValue]="cn" *ngFor="let cn of cnen.Cnenvs">
-														{{cn.Des_Cnenv}}</option>
-
+												[ngModel]="CnvenSelect"
+												(ngModelChange)="CambioCNENV($event)" name="sel1"
+											    class="form-select" id="envio"
+												required>
+													<option [ngValue]="cn" *ngFor="let cn of cnen.Cnenvs">{{cn.Des_Cnenv}}</option>
+												
 												</select>
 											</div>
 
@@ -891,11 +895,11 @@
 
 										<div class="input-group mb-3">
 											<label class="input-group-text" for="hogar">Opción</label>
-											<select formControlName="ROL_HOG" class="form-select" id="hogar"
-												[ngModel]="RhogaSelect" (ngModelChange)="CambioRhoga($event)"
-												name="sel1">
-												<option *ngFor="let rho of rhog.Rhogas" [ngValue]="rho">
-													{{rho.Des_Rhoga}}</option>
+											<select formControlName="ROL_HOG" class="form-select" id="hogar"  [ngModel]="RhogaSelect"
+											(ngModelChange)="CambioRhoga($event)" name="sel1">
+											<option *ngFor="let rho of rhog.Rhogas"
+											[ngValue]="rho">
+											{{rho.Des_Rhoga}}</option>
 											</select>
 										</div><!--Rol Hogar-->
 
