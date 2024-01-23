@@ -560,7 +560,6 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetSucurs() {
-    let result = new Result();
     this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect)
       .subscribe(result => {
 
@@ -570,64 +569,41 @@ export class FgrManClienComponent implements OnInit {
           console.log("Error obteniendo sucursales:", result.ErrorMessage)
         }
       })
-
-
   }
 
   GetTipCl() {
-    let result = new Result();
-
-    result = this.ClSer.GetTipCl(this.contadorGuardadoSelectores, this.ClienSelect)
-
-    if (result.Correct) {
-      this.ente.TipCl.TipCls = result.Objects
-    }
-
+    this.ClSer.GetTipCl(this.contadorGuardadoSelectores, this.ClienSelect)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.TipCl.TipCls = result.Objects
+        } else {
+          console.log("Error obteniendo tipo cliente:", result.ErrorMessage)
+        }
+      })
   }
 
   GetPais() {
-    let result = new Result()
+    this.PaiSer.GetPais(this.contadorGrusos, this.PaisSelect)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Pais.Paises = result.Objects
+          this.direc.Pais.Paises = result.Objects
+        } else {
+          console.log("Error obteniendo país:", result.ErrorMessage)
+        }
+      })
 
-    result = this.PaiSer.GetPais(this.contadorGrusos, this.PaisSelect);
 
-    if (result.Correct) {
-      this.ente.Pais.Paises = result.Objects
-      this.direc.Pais.Paises = result.Objects
-    }
 
   }
 
   GetLugna() {
-    let result = new Result()
-    this.LuSer.GetAll().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<LugnaModel>();
-        let LugInicio = new LugnaModel();
-        LugInicio.Cve_Lugna = 0
-        LugInicio.Des_Lugna = "------------ SELECCIONA UN LUGAR DE NACIMIENTO --------------"
-        if (this.contadorGuardadoSelectores > 0) {
-          LugInicio = this.LugnaSelect
+    this.LuSer.GetLugna(this.contadorGuardadoSelectores, this.LugnaSelect)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Lugna.Lugnas = result.Objects
         }
-        for (let index of this.imprimirdef) {
-          let LugMo = new LugnaModel()
-          LugMo.Cve_Lugna = index.CVE_LUGNA;
-          LugMo.Des_Lugna = index.DES_LUGNA;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
-              result.Objects.push(LugMo)
-            }
-          }
-          else {
-            result.Objects.push(LugMo)
-          }
-        }
-        this.LugnaSelect = LugInicio
-        result.Objects.unshift(LugInicio)
-        this.ente.Lugna.Lugnas = result.Objects
-        result.Correct = true;
-      }
-    })
+      })
   }
 
 
@@ -755,13 +731,12 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetRhoga() {
-    let result = new Result();
-
-    result = this.RhoSer.GetRhoga();
-
-    if (result.Correct) {
-      this.rhog.Rhogas = result.Objects
-    }
+    this.RhoSer.GetRhoga()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.rhog.Rhogas = result.Objects
+        }
+      })
   }
 
   GetPeriod() {
@@ -852,15 +827,14 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetEstado() {
-    let result = new Result()
-
-    result = this.EdoSer.GetEstado();
-
-    if (result.Correct) {
-      this.direc.Estado.Estados = result.Objects;
-      this.mdpag.EstadoAc.Estados = result.Objects;
-      this.mdpag.EstadoOp.Estados = result.Objects;
-    }
+    this.EdoSer.GetEstado()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.Estado.Estados = result.Objects;
+          this.mdpag.EstadoAc.Estados = result.Objects;
+          this.mdpag.EstadoOp.Estados = result.Objects;
+        }
+      })
   }
 
   GetMunicipio(EdoProv: EstadoModel) {

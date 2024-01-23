@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { Result } from "../ML/Result";
 import { RhogaModel } from "../ML/FGR_RHOGA";
 
+
 @Injectable({
     providedIn: 'root'
 })
@@ -33,35 +34,43 @@ export class RhogaService {
 
     }
 
-    GetRhoga() {
+    GetRhoga(): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<RhogaModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<RhogaModel>();
 
-                let RhogInicio = new RhogaModel();
-                RhogInicio.Cve_Rhoga = null
-                RhogInicio.Des_Rhoga = "------------ SELECCIONA UN ROL --------------"
+                    let RhogInicio = new RhogaModel();
+                    RhogInicio.Cve_Rhoga = null
+                    RhogInicio.Des_Rhoga = "------------ SELECCIONA UN ROL --------------"
 
-                for (let index of this.imprimirdef) {
-                    let RhogMo = new RhogaModel()
-                    RhogMo.Cve_Rhoga = index.CVE_RHOGA
-                    RhogMo.Des_Rhoga = index.DES_RHOGA;
-                    result.Objects.push(RhogMo)
+                    for (let index of this.imprimirdef) {
+                        let RhogMo = new RhogaModel()
+                        RhogMo.Cve_Rhoga = index.CVE_RHOGA
+                        RhogMo.Des_Rhoga = index.DES_RHOGA;
+                        result.Objects.push(RhogMo)
+                    }
+
+                    //this.RhogaSelect = RhogInicio
+                    result.Objects.unshift(RhogInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-
-                //this.RhogaSelect = RhogInicio
-                result.Objects.unshift(RhogInicio)
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo rol hogar:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo rol hogar";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
-
-
-
 
 }

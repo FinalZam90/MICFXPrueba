@@ -32,41 +32,52 @@ export class EstadoService {
         return this.http.get(this.myApi);
     }
 
-    GetEstado(): Result {
+    GetEstado(): Observable<Result> {
         let result = new Result();
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<EstadoModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<EstadoModel>();
 
-                let EdoInicio = new EstadoModel();
-                EdoInicio.Cve_Estdo = null
-                EdoInicio.Nom_Estdo = "------------ SELECCIONA UN ESTADO --------------"
+                    let EdoInicio = new EstadoModel();
+                    EdoInicio.Cve_Estdo = null
+                    EdoInicio.Nom_Estdo = "------------ SELECCIONA UN ESTADO --------------"
 
-                for (let index of this.imprimirdef) {
-                    let EdoMod = new EstadoModel()
-                    EdoMod.Cve_Estdo = index.CVE_ESTDO;
-                    EdoMod.Nom_Estdo = index.NOM_ESTDO;
-                    EdoMod.Nom_Abrev = index.NOM_ABREV;
-                    result.Objects.push(EdoMod)
+                    for (let index of this.imprimirdef) {
+                        let EdoMod = new EstadoModel()
+                        EdoMod.Cve_Estdo = index.CVE_ESTDO;
+                        EdoMod.Nom_Estdo = index.NOM_ESTDO;
+                        EdoMod.Nom_Abrev = index.NOM_ABREV;
+                        result.Objects.push(EdoMod)
+                    }
+
+                    // this.EstadoSelect = EdoInicio
+                    //this.EstadoSelectOp = EdoInicio
+                    //this.EstadoSelectAc = EdoInicio
+                    result.Objects.unshift(EdoInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
 
-                // this.EstadoSelect = EdoInicio
-                //this.EstadoSelectOp = EdoInicio
-                //this.EstadoSelectAc = EdoInicio
-                result.Objects.unshift(EdoInicio)
-                result.Correct = true;
-            }
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "Sin Estados";
+                }
 
-            else {
+            }, error => {
+                console.error("Error obteniendo estado:", error);
                 result.Correct = false;
-                result.ErrorMessage = "Sin Estados";
-            }
+                result.ErrorMessage = "Error obteniendo estado";
+                observer.next(result);
+                observer.complete();
+             })
+        })
 
-        }, (XD) => { console.log(XD) })
-        return result;
     }
 
 

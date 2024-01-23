@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Movi1Model } from "../ML/MOVI1";
-import { Observable } from "rxjs";
+import { Observable, observable } from 'rxjs';
 import { PaisModel } from "../ML/FGR_PAIS";
 import { Result } from "../ML/Result";
+
 
 @Injectable({
     providedIn: 'root'
@@ -33,46 +34,57 @@ export class PaisService {
     }
 
 
-    GetPais(contador: number, PaisSelect: PaisModel) {
+    GetPais(contador: number, PaisSelect: PaisModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
+        return new Observable(observer => {
 
-            this.imprimirdef = r;
+            this.GetAll().subscribe((r) => {
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<PaisModel>();
+                this.imprimirdef = r;
 
-                let PaiInicio = new PaisModel();
-                PaiInicio.Cve_Pais = null
-                PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<PaisModel>();
 
-                if (contador > 0) {
-                    PaiInicio = PaisSelect
-                }
-
-                for (let index of this.imprimirdef) {
-                    let PaMo = new PaisModel()
-                    PaMo.Cve_Pais = index.CVE_PAIS;
-                    PaMo.Des_Nac = index.DES_CIVIL;
-                    PaMo.Nom_Pais = index.NOM_PAIS;
+                    let PaiInicio = new PaisModel();
+                    PaiInicio.Cve_Pais = null
+                    PaiInicio.Des_Nac = "------------ SELECCIONA UN PAIS --------------"
 
                     if (contador > 0) {
-                        if (PaiInicio.Cve_Pais != PaMo.Cve_Pais) {
+                        PaiInicio = PaisSelect
+                    }
+
+                    for (let index of this.imprimirdef) {
+                        let PaMo = new PaisModel()
+                        PaMo.Cve_Pais = index.CVE_PAIS;
+                        PaMo.Des_Nac = index.DES_CIVIL;
+                        PaMo.Nom_Pais = index.NOM_PAIS;
+
+                        if (contador > 0) {
+                            if (PaiInicio.Cve_Pais != PaMo.Cve_Pais) {
+                                result.Objects.push(PaMo)
+                            }
+                        }
+                        else {
                             result.Objects.push(PaMo)
                         }
                     }
-                    else {
-                        result.Objects.push(PaMo)
-                    }
-                }
 
-                // this.PaisSelect = PaiInicio
-                result.Objects.unshift(PaiInicio)
-                result.Correct = true;
-            }
+                    // this.PaisSelect = PaiInicio
+                    result.Objects.unshift(PaiInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
+                }
+            }, error => {
+                console.error("Error obteniendo país:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo país";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
     }
 
 

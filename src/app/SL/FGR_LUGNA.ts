@@ -4,6 +4,7 @@ import { Movi1Model } from "../ML/MOVI1";
 import { Observable } from "rxjs";
 import { LugnaModel } from "../ML/FGR_LUGNA";
 import { Result } from "../ML/Result";
+//import { error } from "console";
 
 @Injectable({
     providedIn: 'root'
@@ -32,43 +33,51 @@ export class LugnaService {
         return this.http.get(this.myApi);
     }
 
-    GetLugna(contador: number, LugnaSelect: LugnaModel): Result {
+    GetLugna(contador: number, LugnaSelect: LugnaModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<LugnaModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<LugnaModel>();
 
-                let LugInicio = new LugnaModel();
-                LugInicio.Cve_Lugna = 0
-                LugInicio.Des_Lugna = "------------ SELECCIONA UN LUGAR DE NACIMIENTO --------------"
+                    let LugInicio = new LugnaModel();
+                    LugInicio.Cve_Lugna = 0
+                    LugInicio.Des_Lugna = "------------ SELECCIONA UN LUGAR DE NACIMIENTO --------------"
 
-                if (contador > 0) {
-                    LugInicio = LugnaSelect
-                }
-                for (let index of this.imprimirdef) {
-                    let LugMo = new LugnaModel()
-                    LugMo.Cve_Lugna = index.CVE_LUGNA;
-                    LugMo.Des_Lugna = index.DES_LUGNA;
                     if (contador > 0) {
-                        if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
+                        LugInicio = LugnaSelect
+                    }
+                    for (let index of this.imprimirdef) {
+                        let LugMo = new LugnaModel()
+                        LugMo.Cve_Lugna = index.CVE_LUGNA;
+                        LugMo.Des_Lugna = index.DES_LUGNA;
+                        if (contador > 0) {
+                            if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
+                                result.Objects.push(LugMo)
+                            }
+                        }
+                        else {
                             result.Objects.push(LugMo)
                         }
                     }
-                    else {
-                        result.Objects.push(LugMo)
-                    }
+                    //this.LugnaSelect = LugInicio
+                    result.Objects.unshift(LugInicio);
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-                //this.LugnaSelect = LugInicio
-                result.Objects.unshift(LugInicio);
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo lugar nacimiento:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo lugar nacimiento";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
-
-
-
 }

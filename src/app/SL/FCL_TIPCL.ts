@@ -35,45 +35,56 @@ export class ClService {
         return this.http.get(this.myApi);
     }
 
-    GetTipCl(contador: number, ClienSelect: TipClModel): Result {
+    GetTipCl(contador: number, ClienSelect: TipClModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<TipClModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<TipClModel>();
 
-                let ClInicio = new TipClModel();
-                ClInicio.Cve_TipCl = null
-                ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
-
-                if (contador > 0) {
-                    ClInicio = ClienSelect
-                }
-
-                for (let index of this.imprimirdef) {
-                    let ClMo = new TipClModel()
-
-                    ClMo.Cve_TipCl = index.CVE_TIPCL;
-                    ClMo.Des_TipCl = index.DES_TIPCL;
+                    let ClInicio = new TipClModel();
+                    ClInicio.Cve_TipCl = null
+                    ClInicio.Des_TipCl = "------------ SELECCIONA UN TIPO DE CLIENTE --------------"
 
                     if (contador > 0) {
-                        if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) {
+                        ClInicio = ClienSelect
+                    }
+
+                    for (let index of this.imprimirdef) {
+                        let ClMo = new TipClModel()
+
+                        ClMo.Cve_TipCl = index.CVE_TIPCL;
+                        ClMo.Des_TipCl = index.DES_TIPCL;
+
+                        if (contador > 0) {
+                            if (ClMo.Cve_TipCl != ClInicio.Cve_TipCl) {
+                                result.Objects.push(ClMo)
+                            }
+                        }
+                        else {
                             result.Objects.push(ClMo)
                         }
                     }
-                    else {
-                        result.Objects.push(ClMo)
-                    }
-                }
 
-                //this.ClienSelect = ClInicio
-                result.Objects.unshift(ClInicio)
-                result.Correct = true;
-            }
-        })
-        return result;
+                    //this.ClienSelect = ClInicio
+                    result.Objects.unshift(ClInicio)
+                    result.Correct = true;
+
+                    observer.next(result); // Emitir el resultado cuando la operación asíncrona se complete
+                    observer.complete();
+                }
+            }, error => {
+                console.error("Error obteniendo sucursales:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo sucursales";
+                observer.next(result);
+                observer.complete();
+            })
+        });
+
     }
 
 
