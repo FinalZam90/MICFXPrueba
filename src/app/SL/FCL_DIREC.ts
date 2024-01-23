@@ -4,32 +4,34 @@ import { Movi1Model } from "../ML/MOVI1";
 import { Observable } from "rxjs";
 import { EnteModel } from "../ML/FCL_ENTE";
 import { DirecModel } from "../ML/FCL_DIREC";
+import { Result } from "../ML/Result";
+import { TidoModel } from "../ML/FCL_TIDOM";
 @Injectable({
     providedIn: 'root'
 })
 
-export class DirecService{
+export class DirecService {
     myApi = "https://webmicfx.arashi.solutions/FCL/WsDirec.p";
 
-    options = 
-    {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    }
-    constructor(private http:HttpClient){}
-    
-    
-    public GetAll(Direc: DirecModel): Observable<any>
-    {
+    options =
+        {
+            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        }
+
+    public imprimirdef: any
+    constructor(private http: HttpClient) { }
+
+
+    public GetAll(Direc: DirecModel): Observable<any> {
         Direc.Ente.Num_Ente = 9732
         let body = new URLSearchParams();
         body.set('ACCION', "GetDir");
         body.set('NUM', Direc.Ente.Num_Ente.toString());
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public Add(Direc: DirecModel)
-    {
+    public Add(Direc: DirecModel) {
         let body = new URLSearchParams();
         body.set('ACCION', 'AddDir');
         body.set('NUM', Direc.Ente.Num_Ente.toString());
@@ -47,10 +49,42 @@ export class DirecService{
         body.set('CIUDAD', Direc.Des_Ciuda);
         body.set('COL', Direc.Nom_Colon);
         body.set('CALLE', Direc.Des_Calle);
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
     }
-    
 
-    
+    GetDirecsByEnte(direc: DirecModel): Result {
+        let result = new Result()
+
+        this.GetAll(direc).subscribe((r) => {
+            this.imprimirdef = r;
+
+            if (this.imprimirdef != null) {
+                result.Objects = new Array<DirecModel>()
+                let DirecInicio = new DirecModel()
+
+                for (let index of this.imprimirdef) {
+                    let DirMo = new DirecModel()
+                    DirMo.Num_Direc = index.NUM_DIREC;
+                    DirMo.Direc_Com = index.DIREC;
+                    DirMo.Vivienda = new TidoModel();
+                    DirMo.Vivienda.Des_Tidom = index.TIDOM;
+
+                    result.Objects.push(DirMo)
+                }
+
+                result.Correct = true;
+            }
+
+            else {
+                result.Correct = false;
+                result.ErrorMessage = "El cliente no tiene direcciones."
+            }
+        })
+        return result;
+    }
+
+
+
+
 }
