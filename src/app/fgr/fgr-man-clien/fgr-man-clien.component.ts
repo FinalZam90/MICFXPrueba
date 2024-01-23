@@ -561,11 +561,17 @@ export class FgrManClienComponent implements OnInit {
 
   GetSucurs() {
     let result = new Result();
-    result = this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect);
+    this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect)
+      .subscribe(result => {
 
-    if (result.Correct == true) {
-      this.ente.Sucur.Sucurs = result.Objects
-    }
+        if (result.Correct) {
+          this.ente.Sucur.Sucurs = result.Objects
+        } else {
+          console.log("Error obteniendo sucursales:", result.ErrorMessage)
+        }
+      })
+
+
   }
 
   GetTipCl() {
@@ -592,12 +598,36 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetLugna() {
-    let result = new Result();
-    result = this.LuSer.GetLugna(this.contadorGuardadoSelectores, this.LugnaSelect)
-
-    if (result.Correct) {
-      this.ente.Lugna.Lugnas = result.Objects
-    }
+    let result = new Result()
+    this.LuSer.GetAll().subscribe((r) => {
+      this.imprimirdef = r;
+      if (this.imprimirdef != null) {
+        result.Objects = new Array<LugnaModel>();
+        let LugInicio = new LugnaModel();
+        LugInicio.Cve_Lugna = 0
+        LugInicio.Des_Lugna = "------------ SELECCIONA UN LUGAR DE NACIMIENTO --------------"
+        if (this.contadorGuardadoSelectores > 0) {
+          LugInicio = this.LugnaSelect
+        }
+        for (let index of this.imprimirdef) {
+          let LugMo = new LugnaModel()
+          LugMo.Cve_Lugna = index.CVE_LUGNA;
+          LugMo.Des_Lugna = index.DES_LUGNA;
+          if (this.contadorGuardadoSelectores > 0) {
+            if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
+              result.Objects.push(LugMo)
+            }
+          }
+          else {
+            result.Objects.push(LugMo)
+          }
+        }
+        this.LugnaSelect = LugInicio
+        result.Objects.unshift(LugInicio)
+        this.ente.Lugna.Lugnas = result.Objects
+        result.Correct = true;
+      }
+    })
   }
 
 
@@ -997,7 +1027,7 @@ export class FgrManClienComponent implements OnInit {
       }
     })
   }
-  
+
   Form() {
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()

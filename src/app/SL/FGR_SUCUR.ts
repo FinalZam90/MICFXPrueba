@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Movi1Model } from "../ML/MOVI1";
-import { Observable } from "rxjs";
+import { Observable, observable } from "rxjs";
 import { Result } from "../ML/Result";
 import { SucurModel } from "../ML/FGR_SUCUR";
+//import { error } from "console";
 
 @Injectable({
     providedIn: 'root'
@@ -33,56 +34,64 @@ export class SucurService {
         return this.http.get(this.myApi);
     }
 
-    GetSucurs(contador: number, SucurSelect: SucurModel): Result {
+    GetSucurs(contador: number, SucurSelect: SucurModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
+        return new Observable(observer => {
 
-            this.imprimirdef = r;
+            this.GetAll().subscribe((r) => {
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<SucurModel>();
+                this.imprimirdef = r;
 
-                let SucInicio = new SucurModel();
-                SucInicio.Cve_Sucur = null
-                SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<SucurModel>();
 
-                // Si le dio en el boton guardar, aplica en cualquier pestaña
-                if (contador > 0) {
-                    // Recibe información del usuario y formatea la data inicial
-                    SucInicio.Cve_Sucur = SucurSelect.Cve_Sucur
-                    SucInicio.Des_Sucur = SucurSelect.Des_Sucur
-                }
+                    let SucInicio = new SucurModel();
+                    SucInicio.Cve_Sucur = null
+                    SucInicio.Des_Sucur = "------------ SELECCIONA UNA SUCURSAL --------------"
 
-                // LLenado de los datos del datalist
-                // objeto como esta, array más de un registro
-                for (let index of this.imprimirdef) {
-                    //Crea objetos de sucurModel 
-                    let SucMo = new SucurModel()
-                    SucMo.Cve_Sucur = index.CVE_SUCUR;
-                    SucMo.Des_Sucur = index.DES_SUCUR;
-
+                    // Si le dio en el boton guardar, aplica en cualquier pestaña
                     if (contador > 0) {
-                        //Llena el formulario con la información anterior del usuario al dar guardar
-                        if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
+                        // Recibe información del usuario y formatea la data inicial
+                        SucInicio.Cve_Sucur = SucurSelect.Cve_Sucur
+                        SucInicio.Des_Sucur = SucurSelect.Des_Sucur
+                    }
+
+                    // LLenado de los datos del datalist
+                    // objeto como esta, array más de un registro
+                    for (let index of this.imprimirdef) {
+                        //Crea objetos de sucurModel 
+                        let SucMo = new SucurModel()
+                        SucMo.Cve_Sucur = index.CVE_SUCUR;
+                        SucMo.Des_Sucur = index.DES_SUCUR;
+
+                        if (contador > 0) {
+                            //Llena el formulario con la información anterior del usuario al dar guardar
+                            if (SucInicio.Cve_Sucur != SucMo.Cve_Sucur) {
+                                result.Objects.push(SucMo)
+                            }
+                        }
+                        else {
                             result.Objects.push(SucMo)
                         }
                     }
-                    else {
-                        result.Objects.push(SucMo)
-                    }
+
+                    //SucurSelect = SucInicio
+                    //Agrega al inicio de la lista el predeterminado
+                    result.Objects.unshift(SucInicio)
+                    //Si aprobó cambia bandera a correcto
+                    result.Correct = true;
+
+                    observer.next(result); // Emitir el resultado cuando la operación asíncrona se complete
+                    observer.complete();
                 }
-
-                //SucurSelect = SucInicio
-                //Agrega al inicio de la lista el predeterminado
-                result.Objects.unshift(SucInicio)
-                //Si aprobó cambia bandera a correcto
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo sucursales:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo sucursales";
+                observer.next(result);
+                observer.complete();
+            });
         });
-
-        return result;
     }
-
-
 }
