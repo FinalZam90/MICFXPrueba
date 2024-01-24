@@ -4,23 +4,30 @@ import { Movi1Model } from "../ML/MOVI1";
 import { Observable } from "rxjs";
 import { EnteModel } from "../ML/FCL_ENTE";
 import { DirecModel } from "../ML/FCL_DIREC";
+import { Result } from "../ML/Result";
+import { EstuModel } from "../ML/NivEstu";
+
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class EnteService{
+export class EnteService {
     myApi = "https://webmicfx.arashi.solutions/FCL/WsEnte.p";
 
-    options = 
-    {
-      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-    }
-    constructor(private http:HttpClient){}
-    
-    
-    public GetAll(): Observable<any>
-    {
+    options =
+        {
+            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        }
+
+    public imprimirdef: any
+    public ente: EnteModel
+
+
+    constructor(private http: HttpClient) { }
+
+
+    public GetAll(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'ConTodos');
         /*
@@ -28,12 +35,11 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public GetEdoCiv(): Observable<any>
-    {
+    public GetEdoCiv(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetEdoCiv');
         /*
@@ -41,12 +47,11 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public GetNivEst(): Observable<any>
-    {
+    public GetNivEst(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetNivEstu');
         /*
@@ -54,12 +59,65 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
     }
-    public GetNivIng(): Observable<any>
-    {
+
+    GetNives(contador: number, NivesSelect: EstuModel): Observable<Result> {
+        let result = new Result()
+
+        return new Observable(observer => {
+
+            this.GetNivEst().subscribe((r) => {
+                this.imprimirdef = r;
+
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<EstuModel>();
+
+                    let NivInicio = new EstuModel();
+                    NivInicio.Cve_Nives = null
+                    NivInicio.Des_Nives = "------------ SELECCIONA UN NIVEL --------------"
+
+                    if (contador > 0) {
+                        NivInicio = NivesSelect
+                    }
+
+                    for (let index of this.imprimirdef) {
+                        let NivMo = new EstuModel()
+                        NivMo.Cve_Nives = index.CVE_NIVES;
+                        NivMo.Des_Nives = index.DES_NIVES;
+
+                        if (contador > 0) {
+                            if (NivMo.Cve_Nives != NivInicio.Cve_Nives) {
+                                result.Objects.push(NivMo)
+                            }
+                        }
+
+                        else {
+                            result.Objects.push(NivMo)
+                        }
+
+                    }
+
+                    // NivesSelect = NivInicio
+                    result.Objects.unshift(NivInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
+                }
+            },
+                error => {
+                    console.error("Error obteniendo nivel de estudio:", error);
+                    result.Correct = false;
+                    result.ErrorMessage = "Error obteniendo nivel de estudio";
+                    observer.next(result);
+                    observer.complete();
+                })
+        })
+
+    }
+    public GetNivIng(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetNivIng');
         /*
@@ -67,12 +125,11 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public GetGruso(): Observable<any>
-    {
+    public GetGruso(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetGruso');
         /*
@@ -80,12 +137,11 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public GetCNB(): Observable<any>
-    {
+    public GetCNB(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetCNB');
         /*
@@ -93,12 +149,11 @@ export class EnteService{
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
-        
+
     }
-    public MaPaso3(Ente: EnteModel, Direc: DirecModel)
-    {
+    public MaPaso3(Ente: EnteModel, Direc: DirecModel) {
         let body = new URLSearchParams();
         body.set('ACCION', 'ManDirec');
         body.set('NUM', Ente.Num_Ente.toString());
@@ -116,11 +171,10 @@ export class EnteService{
         body.set('CIUDAD', Direc.Des_Ciuda);
         body.set('COL', Direc.Nom_Colon);
         body.set('CALLE', Direc.Des_Calle);
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
     }
-    public MaPaso2(Ente: EnteModel)
-    {
+    public MaPaso2(Ente: EnteModel) {
         let body = new URLSearchParams();
         body.set('ACCION', 'ManClie2');
         body.set('NUM', Ente.Num_Ente.toString())
@@ -144,9 +198,8 @@ export class EnteService{
         body.set('HOGAR', Ente.Num_Lirpe.toString());
         return this.http.post(this.myApi, body.toString(), this.options);
     }
-    
-    public Validacion(Ente: EnteModel)
-    {
+
+    public Validacion(Ente: EnteModel) {
         let body = new URLSearchParams();
         body.set('ACCION', 'Valida');
         body.set('RFC', Ente.RFC);
@@ -162,9 +215,9 @@ export class EnteService{
         body.set('CVELUGNA', Ente.Lugna.Cve_Lugna.toString());
         body.set('CVESUCUR', Ente.Sucur.Cve_Sucur.toString());
         body.set('CVECL', Ente.TipCl.Cve_TipCl.toString());
-        
+
         return this.http.post(this.myApi, body.toString(), this.options);
     }
 
-    
+
 }

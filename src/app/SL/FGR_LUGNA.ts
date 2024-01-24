@@ -54,6 +54,7 @@ export class LugnaService {
                         let LugMo = new LugnaModel()
                         LugMo.Cve_Lugna = index.CVE_LUGNA;
                         LugMo.Des_Lugna = index.DES_LUGNA;
+                        
                         if (contador > 0) {
                             if (LugMo.Cve_Lugna != LugInicio.Cve_Lugna) {
                                 result.Objects.push(LugMo)

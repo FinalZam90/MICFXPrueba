@@ -593,9 +593,6 @@ export class FgrManClienComponent implements OnInit {
           console.log("Error obteniendo país:", result.ErrorMessage)
         }
       })
-
-
-
   }
 
   GetLugna() {
@@ -606,8 +603,6 @@ export class FgrManClienComponent implements OnInit {
         }
       })
   }
-
-
 
   GetSexGen() {
     let result = new Result()
@@ -642,39 +637,16 @@ export class FgrManClienComponent implements OnInit {
     this.TipSexSelect = SeGenInicio
     this.ente.SexGen.SexGenArray = result.Objects
   }
-  GetNives() {
-    let result = new Result()
-    this.EnteSer.GetNivEst().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<EstuModel>();
-        let NivInicio = new EstuModel();
-        NivInicio.Cve_Nives = null
-        NivInicio.Des_Nives = "------------ SELECCIONA UN NIVEL --------------"
-        if (this.contadorGuardadoSelectores > 0) {
-          NivInicio = this.NivesSelect
-        }
-        for (let index of this.imprimirdef) {
-          let NivMo = new EstuModel()
-          NivMo.Cve_Nives = index.CVE_NIVES;
-          NivMo.Des_Nives = index.DES_NIVES;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (NivMo.Cve_Nives != NivInicio.Cve_Nives) {
-              result.Objects.push(NivMo)
-            }
-          }
-          else {
-            result.Objects.push(NivMo)
-          }
 
+  GetNives() {
+    this.EnteSer.GetNives(this.contadorGuardadoSelectores, this.NivesSelect)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Nives.Estus = result.Objects
         }
-        this.NivesSelect = NivInicio
-        result.Objects.unshift(NivInicio)
-        this.ente.Nives.Estus = result.Objects
-        result.Correct = true;
-      }
-    })
+      })
   }
+
   GetEdoCi() {
     let result = new Result()
     this.EnteSer.GetEdoCiv().subscribe((r) => {
