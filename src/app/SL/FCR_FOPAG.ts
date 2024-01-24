@@ -33,32 +33,43 @@ export class FopagService {
 
     }
 
-    GetFopag(): Result {
+    GetFopag(): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<FopagModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<FopagModel>();
 
-                let FopaInicio = new FopagModel();
-                FopaInicio.Cve_Fopag = null
-                FopaInicio.Nom_Fopag = "------------ SELECCIONA UN INSTR. --------------"
+                    let FopaInicio = new FopagModel();
+                    FopaInicio.Cve_Fopag = null
+                    FopaInicio.Nom_Fopag = "------------ SELECCIONA UN INSTR. --------------"
 
-                for (let index of this.imprimirdef) {
-                    let FopMo = new FopagModel()
-                    FopMo.Cve_Fopag = index.CVE_FOPAG;
-                    FopMo.Nom_Fopag = index.NOM_FOPAG;
-                    result.Objects.push(FopMo);
+                    for (let index of this.imprimirdef) {
+                        let FopMo = new FopagModel()
+                        FopMo.Cve_Fopag = index.CVE_FOPAG;
+                        FopMo.Nom_Fopag = index.NOM_FOPAG;
+                        result.Objects.push(FopMo);
+                    }
+
+                    //this.FopaSelect = FopaInicio
+                    result.Objects.unshift(FopaInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-
-                //this.FopaSelect = FopaInicio
-                result.Objects.unshift(FopaInicio)
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo INSTR:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo INSTR";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
 
 

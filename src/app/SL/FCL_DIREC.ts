@@ -53,35 +53,45 @@ export class DirecService {
         return this.http.post(this.myApi, body.toString(), this.options);
     }
 
-    GetDirecsByEnte(direc: DirecModel): Result {
+    GetDirecsByEnte(direc: DirecModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll(direc).subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll(direc).subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<DirecModel>()
-                let DirecInicio = new DirecModel()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<DirecModel>()
+                    let DirecInicio = new DirecModel()
 
-                for (let index of this.imprimirdef) {
-                    let DirMo = new DirecModel()
-                    DirMo.Num_Direc = index.NUM_DIREC;
-                    DirMo.Direc_Com = index.DIREC;
-                    DirMo.Vivienda = new TidoModel();
-                    DirMo.Vivienda.Des_Tidom = index.TIDOM;
+                    for (let index of this.imprimirdef) {
+                        let DirMo = new DirecModel()
+                        DirMo.Num_Direc = index.NUM_DIREC;
+                        DirMo.Direc_Com = index.DIREC;
+                        DirMo.Vivienda = new TidoModel();
+                        DirMo.Vivienda.Des_Tidom = index.TIDOM;
 
-                    result.Objects.push(DirMo)
+                        result.Objects.push(DirMo)
+                    }
+
+                    result.Correct = true;
+                    observer.next(result);
+                    observer.complete();
                 }
 
-                result.Correct = true;
-            }
-
-            else {
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "El cliente no tiene direcciones."
+                }
+            }, error => {
+                console.error("Error obteniendo direcciones:", error);
                 result.Correct = false;
-                result.ErrorMessage = "El cliente no tiene direcciones."
-            }
+                result.ErrorMessage = "Error obteniendo direcciones";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
 
 

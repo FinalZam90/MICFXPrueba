@@ -33,82 +33,98 @@ export class MunicService {
 
     }
 
-    GetMunicipio(EdoProv: EstadoModel): Result {
+    GetMunicipio(EdoProv: EstadoModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll(EdoProv).subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll(EdoProv).subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<MunicModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<MunicModel>()
 
-                let MunInicio = new MunicModel();
-                MunInicio.Cve_Munic = null
-                MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
+                    let MunInicio = new MunicModel();
+                    MunInicio.Cve_Munic = null
+                    MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
 
-                for (let index of this.imprimirdef) {
-                    let MunicMod = new MunicModel()
-                    MunicMod.Cve_Munic = index.CVE_MUNIC;
-                    MunicMod.Nom_Munic = index.NOM_MUNIC;
+                    for (let index of this.imprimirdef) {
+                        let MunicMod = new MunicModel()
+                        MunicMod.Cve_Munic = index.CVE_MUNIC;
+                        MunicMod.Nom_Munic = index.NOM_MUNIC;
 
-                    result.Objects.push(MunicMod)
+                        result.Objects.push(MunicMod)
+                    }
+                    result.Correct = true;
+
+                    //this.MunicSelect = MunInicio
+                    //this.MunicSelectAc = MunInicio
+                    //this.MunicSelectOp = MunInicio
+                    result.Objects.unshift(MunInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-                result.Correct = true;
 
-                //this.MunicSelect = MunInicio
-                //this.MunicSelectAc = MunInicio
-                //this.MunicSelectOp = MunInicio
-                result.Objects.unshift(MunInicio)
-                result.Correct = true;
-            }
-
-            else {
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "Sin Municipios";
+                }
+            }, error => {
+                console.error("Error obteniendo municipio:", error);
                 result.Correct = false;
-                result.ErrorMessage = "Sin Municipios";
-            }
-        }, (e) => { console.log(e) })
+                result.ErrorMessage = "Error obteniendo municipio";
+                observer.next(result);
+                observer.complete();
+            })
+        })
 
-        return result;
     }
 
-    public GetMunicipioM(EdoProv: EstadoModel): Result {
+    public GetMunicipioM(EdoProv: EstadoModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll(EdoProv).subscribe((r) => {
+        return new Observable(observer => {
+            this.GetAll(EdoProv).subscribe((r) => {
 
-            this.imprimirdef = r;
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<MunicModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<MunicModel>()
 
-                let MunInicio = new MunicModel();
-                MunInicio.Cve_Munic = null
-                MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
+                    let MunInicio = new MunicModel();
+                    MunInicio.Cve_Munic = null
+                    MunInicio.Nom_Munic = "------------ SELECCIONA UN MUNICIPIO --------------"
 
-                for (let index of this.imprimirdef) {
-                    let MunicMod = new MunicModel()
-                    MunicMod.Cve_Munic = index.CVE_MUNIC;
-                    MunicMod.Nom_Munic = index.NOM_MUNIC;
+                    for (let index of this.imprimirdef) {
+                        let MunicMod = new MunicModel()
+                        MunicMod.Cve_Munic = index.CVE_MUNIC;
+                        MunicMod.Nom_Munic = index.NOM_MUNIC;
 
-                    result.Objects.push(MunicMod)
+                        result.Objects.push(MunicMod)
+                    }
+
+                    result.Correct = true;
+                    result.Objects.unshift(MunInicio)
+
+                    observer.next(result);
+                    observer.complete();
+
                 }
 
-                result.Correct = true;
-                result.Objects.unshift(MunInicio)
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "Sin Municipios";
+                }
 
-            }
-
-            else {
+            }, error => {
+                console.error("Error obteniendo municipioM:", error);
                 result.Correct = false;
-                result.ErrorMessage = "Sin Municipios";
-            }
+                result.ErrorMessage = "Error obteniendo municipioM";
+                observer.next(result);
+                observer.complete();
+            })
+        })
 
-        }, (e) => { console.log(e) })
-
-        return result;
     }
-
-
-
-
 }

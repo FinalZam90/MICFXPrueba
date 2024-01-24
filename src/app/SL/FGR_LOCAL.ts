@@ -34,42 +34,48 @@ export class LocalService {
 
     }
 
-    GetLocalidad(MuniProv: MunicModel): Result {
+    GetLocalidad(MuniProv: MunicModel): Observable<Result> {
 
         let result = new Result();
+        return new Observable(observer => {
+            this.GetAll(MuniProv).subscribe((r) => {
+                this.imprimirdef = r;
 
-        this.GetAll(MuniProv).subscribe((r) => {
-            this.imprimirdef = r;
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<LocalModel>()
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<LocalModel>()
+                    let LocaInicio = new LocalModel();
+                    LocaInicio.Cve_Local = null
+                    LocaInicio.Nom_Local = "------------ SELECCIONA UNA LOCALIDAD --------------"
 
-                let LocaInicio = new LocalModel();
-                LocaInicio.Cve_Local = null
-                LocaInicio.Nom_Local = "------------ SELECCIONA UNA LOCALIDAD --------------"
+                    for (let index of this.imprimirdef) {
+                        let LocalMo = new LocalModel()
+                        LocalMo.Cve_Local = index.CVE_LOCAL;
+                        LocalMo.Nom_Local = index.NOM_LOCAL;
+                        result.Objects.push(LocalMo)
+                    }
 
-                for (let index of this.imprimirdef) {
-                    let LocalMo = new LocalModel()
-                    LocalMo.Cve_Local = index.CVE_LOCAL;
-                    LocalMo.Nom_Local = index.NOM_LOCAL;
-                    result.Objects.push(LocalMo)
+                    //this.LocalSelect = LocaInicio
+                    result.Objects.unshift(LocaInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
 
-                //this.LocalSelect = LocaInicio
-                result.Objects.unshift(LocaInicio)
-                result.Correct = true;
-            }
+                else {
+                    result.Correct = false;
+                }
+            },
+                error => {
+                    console.error("Error obteniendo localidad:", error);
+                    result.Correct = false;
+                    result.ErrorMessage = "Error obteniendo localidad";
+                    observer.next(result);
+                    observer.complete();
+                })
+        })
 
-            else {
-                result.Correct = false;
-            }
-        },
-            (e) => { console.log(e) })
-
-        return result;
     }
-
-
-
 
 }

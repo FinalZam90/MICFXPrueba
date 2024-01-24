@@ -34,32 +34,43 @@ export class DestiService {
     }
 
 
-    GetDesti(): Result {
+    GetDesti(): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<DestiModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<DestiModel>();
 
-                let DestInicio = new DestiModel();
-                DestInicio.Cve_Desti = null
-                DestInicio.Des_Desti = "------------ SELECCIONA UNA APLICACIÓN DE RECURSOS --------------"
+                    let DestInicio = new DestiModel();
+                    DestInicio.Cve_Desti = null
+                    DestInicio.Des_Desti = "------------ SELECCIONA UNA APLICACIÓN DE RECURSOS --------------"
 
-                for (let index of this.imprimirdef) {
-                    let DestMo = new DestiModel()
-                    DestMo.Cve_Desti = index.CVE_DESTI;
-                    DestMo.Des_Desti = index.DES_DESTI;
-                    result.Objects.push(DestMo);
+                    for (let index of this.imprimirdef) {
+                        let DestMo = new DestiModel()
+                        DestMo.Cve_Desti = index.CVE_DESTI;
+                        DestMo.Des_Desti = index.DES_DESTI;
+                        result.Objects.push(DestMo);
 
+                    }
+                    // this.DestiSelect = DestInicio
+                    result.Objects.unshift(DestInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-                // this.DestiSelect = DestInicio
-                result.Objects.unshift(DestInicio)
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo aplicacion de recursos:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo aplicacion de recursos";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result
+
     }
 
 

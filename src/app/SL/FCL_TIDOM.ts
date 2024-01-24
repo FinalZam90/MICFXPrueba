@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from "@angular/common/http";
 import { Movi1Model } from "../ML/MOVI1";
-import { Observable } from "rxjs";
+import { Observable, observable } from "rxjs";
 import { Result } from "../ML/Result";
 import { TidoModel } from "../ML/FCL_TIDOM";
 
@@ -33,38 +33,46 @@ export class TidomService {
 
     }
 
-    public GetVivienda(): Result {
-        let result = new Result()
+    public GetVivienda(): Observable<Result> {
+        let result = new Result();
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<TidoModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<TidoModel>()
 
-                let VivInicio = new TidoModel()
-                VivInicio.Cve_Tidom = null
-                VivInicio.Des_Tidom = "------------ SELECCIONA UNA VIVIENDA --------------"
+                    let VivInicio = new TidoModel()
+                    VivInicio.Cve_Tidom = null
+                    VivInicio.Des_Tidom = "------------ SELECCIONA UNA VIVIENDA --------------"
 
-                for (let index of this.imprimirdef) {
-                    let TidoMo = new TidoModel()
-                    TidoMo.Cve_Tidom = index.CVE_TIDOM;
-                    TidoMo.Des_Tidom = index.DES_TIDOM;
-                    result.Objects.push(TidoMo)
+                    for (let index of this.imprimirdef) {
+                        let TidoMo = new TidoModel()
+                        TidoMo.Cve_Tidom = index.CVE_TIDOM;
+                        TidoMo.Des_Tidom = index.DES_TIDOM;
+                        result.Objects.push(TidoMo)
+                    }
+
+                    result.Correct = true;
+                    // this.ViviendaSelect = VivInicio
+                    result.Objects.unshift(VivInicio)
+
+                    observer.next(result);
+                    observer.complete();
                 }
-
-                result.Correct = true;
-                // this.ViviendaSelect = VivInicio
-                result.Objects.unshift(VivInicio)
-            }
-            else {
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "No hay tipo de vivienda existente."
+                }
+            }, error => {
+                console.error("Error obteniendo vivienda:", error);
                 result.Correct = false;
-                result.ErrorMessage = "No hay tipo de vivienda existente."
-            }
+                result.ErrorMessage = "Error obteniendo vivienda";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
     }
-
-
 
 }

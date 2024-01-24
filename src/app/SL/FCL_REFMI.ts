@@ -56,40 +56,41 @@ export class RefmiService {
         return this.http.post(this.myApi, body.toString(), this.options);
     }
 
-    GetRefmi(refmi: RefmiModel): Result {
+    GetRefmi(refmi: RefmiModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll(refmi).subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll(refmi).subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<RefmiModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<RefmiModel>()
 
-                let RefmiInicio = new RefmiModel()
+                    let RefmiInicio = new RefmiModel()
 
-                for (let index of this.imprimirdef) {
-                    for (let i = 0; i < 5; i++) {
-                        let RefmiMo = new RefmiModel()
-                        RefmiMo.Nom_Refer = index.NOM_REFER[i];
-                        RefmiMo.Des_Dirre = index.DES_DIRRE[i];
-                        RefmiMo.Num_TelRe = index.NUM_TELRE[i];
-                        RefmiMo.Num_AnoCo = index.Num_AnoCo[i];
-                        RefmiMo.Ban_Reco = index.BAN_Recom[i];
-                        RefmiMo.Des_Comen = index.Des_Comen;
-                        result.Objects.push(RefmiMo)
+                    for (let index of this.imprimirdef) {
+                        for (let i = 0; i < 5; i++) {
+                            let RefmiMo = new RefmiModel()
+                            RefmiMo.Nom_Refer = index.NOM_REFER[i];
+                            RefmiMo.Des_Dirre = index.DES_DIRRE[i];
+                            RefmiMo.Num_TelRe = index.NUM_TELRE[i];
+                            RefmiMo.Num_AnoCo = index.Num_AnoCo[i];
+                            RefmiMo.Ban_Reco = index.BAN_Recom[i];
+                            RefmiMo.Des_Comen = index.Des_Comen;
+                            result.Objects.push(RefmiMo)
+                        }
                     }
+                    result.Correct = true;
+                    observer.next(result);
+                    observer.complete();
                 }
-                result.Correct = true;
-            }
-            else {
-                result.Correct = false;
-                result.ErrorMessage = "El cliente no tiene Referenciados."
-            }
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "El cliente no tiene Referenciados."
+                }
+            })
         })
-        return result;
+
     }
-
-
-
 
 }

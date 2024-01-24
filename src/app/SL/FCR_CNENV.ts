@@ -33,32 +33,43 @@ export class CnenvService {
 
     }
 
-    GetCnenv(): Result {
+    GetCnenv(): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<CnenvModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<CnenvModel>();
 
-                let CneInicio = new CnenvModel();
-                CneInicio.Cve_Cnenv = null
-                CneInicio.Des_Cnenv = "------------ SELECCIONA UN CANAL DE ENVÍO --------------"
+                    let CneInicio = new CnenvModel();
+                    CneInicio.Cve_Cnenv = null
+                    CneInicio.Des_Cnenv = "------------ SELECCIONA UN CANAL DE ENVÍO --------------"
 
-                for (let index of this.imprimirdef) {
-                    let CneMo = new CnenvModel()
-                    CneMo.Cve_Cnenv = index.CVE_CNENV;
-                    CneMo.Des_Cnenv = index.DES_CNENV;
-                    result.Objects.push(CneMo)
+                    for (let index of this.imprimirdef) {
+                        let CneMo = new CnenvModel()
+                        CneMo.Cve_Cnenv = index.CVE_CNENV;
+                        CneMo.Des_Cnenv = index.DES_CNENV;
+                        result.Objects.push(CneMo)
+                    }
+
+                    //this.CnvenSelect = CneInicio
+                    result.Objects.unshift(CneInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-
-                //this.CnvenSelect = CneInicio
-                result.Objects.unshift(CneInicio)
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo canal de envío:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo canal de envío";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
 
 

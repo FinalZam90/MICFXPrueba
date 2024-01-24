@@ -34,41 +34,45 @@ export class LocalCNBService {
 
     }
 
-    GetLocalidadCNB(MunicCons: MunicModel): Result {
+    GetLocalidadCNB(MunicCons: MunicModel): Observable<Result> {
         let result = new Result();
 
-        this.GetAll(MunicCons).subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll(MunicCons).subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<FldLocalModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<FldLocalModel>()
 
-                let LocalCNBInicio = new FldLocalModel()
-                LocalCNBInicio.Cve_LoPLD = null
-                LocalCNBInicio.Des_LoPLD = "------------ SELECCIONA UNA LOCALIDAD --------------"
+                    let LocalCNBInicio = new FldLocalModel()
+                    LocalCNBInicio.Cve_LoPLD = null
+                    LocalCNBInicio.Des_LoPLD = "------------ SELECCIONA UNA LOCALIDAD --------------"
 
-                for (let index of this.imprimirdef) {
-                    let LocCNBMo = new FldLocalModel()
-                    LocCNBMo.Cve_LoPLD = index.CVE_LOCAL;
-                    LocCNBMo.Des_LoPLD = index.DES_LOCAL;
-                    result.Objects.push(LocCNBMo)
+                    for (let index of this.imprimirdef) {
+                        let LocCNBMo = new FldLocalModel()
+                        LocCNBMo.Cve_LoPLD = index.CVE_LOCAL;
+                        LocCNBMo.Des_LoPLD = index.DES_LOCAL;
+                        result.Objects.push(LocCNBMo)
+                    }
+
+                    result.Correct = true;
+                    // this.LocalCNBSelect = LocalCNBInicio
+                    result.Objects.unshift(LocalCNBInicio)
+                    observer.next(result);
+                    observer.complete();
+
                 }
-
-                result.Correct = true;
-                // this.LocalCNBSelect = LocalCNBInicio
-                result.Objects.unshift(LocalCNBInicio)
-
-            }
-
-            else {
+                else {
+                    result.Correct = false;
+                }
+                
+            }, error => {
+                console.error("Error obteniendo localidad:", error);
                 result.Correct = false;
-            }
-        },
-            (e) => { console.log(e) })
-
-        return result;
+                result.ErrorMessage = "Error obteniendo localidad";
+                observer.next(result);
+                observer.complete();
+            })
+        })
     }
-
-
-
 }

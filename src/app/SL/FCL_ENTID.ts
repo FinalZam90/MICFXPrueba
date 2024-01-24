@@ -55,66 +55,77 @@ export class EntIdService {
         return this.http.post(this.myApi, body.toString(), this.options);
     }
 
-    GetTipId2(): Result {
+    GetTipId2(): Observable<Result> {
         let result = new Result()
 
-        this.GetTipId().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetTipId().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<EntIdModel>()
-                let EntIdInicio = new EntIdModel()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<EntIdModel>()
+                    let EntIdInicio = new EntIdModel()
 
-                for (let index of this.imprimirdef) {
-                    let EntIdMo = new EntIdModel()
-                    EntIdMo.Cve_TipId = index.CVE_TIPID;
-                    EntIdMo.Des_Identi = index.DES_TIPID;
-                    result.Objects.push(EntIdMo)
+                    for (let index of this.imprimirdef) {
+                        let EntIdMo = new EntIdModel()
+                        EntIdMo.Cve_TipId = index.CVE_TIPID;
+                        EntIdMo.Des_Identi = index.DES_TIPID;
+                        result.Objects.push(EntIdMo)
+                    }
+
+                    result.Correct = true;
+                    observer.next(result);
+                    observer.complete();
                 }
 
-                result.Correct = true;
-            }
-
-            else {
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "No hay tipo de Identificación existente."
+                }
+            }, error => {
+                console.error("Error obteniendo Tipo ID:", error);
                 result.Correct = false;
-                result.ErrorMessage = "No hay tipo de Identificación existente."
-            }
+                result.ErrorMessage = "Error obteniendo Tipo ID";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
 
-    GetIdenti(entid: EntIdModel): Result {
+    GetIdenti(entid: EntIdModel): Observable<Result> {
         let result = new Result()
 
-        this.GetAll(entid).subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll(entid).subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<EntIdModel>()
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<EntIdModel>()
 
-                let EntIdInicio = new EntIdModel()
+                    let EntIdInicio = new EntIdModel()
 
-                for (let index of this.imprimirdef) {
-                    let EntIdMo = new EntIdModel()
-                    EntIdMo.Fec_Venci = index.FEC_VENCI;
-                    EntIdMo.Des_Identi = index.DES_TIPID;
-                    EntIdMo.Fec_AddRec = index.FEC_ADDREC;
-                    EntIdMo.Num_Identi = index.NUM_IDENTI;
-                    EntIdMo.Cve_Identi = index.CVE_IDENT;
-                    result.Objects.push(EntIdMo)
+                    for (let index of this.imprimirdef) {
+                        let EntIdMo = new EntIdModel()
+                        EntIdMo.Fec_Venci = index.FEC_VENCI;
+                        EntIdMo.Des_Identi = index.DES_TIPID;
+                        EntIdMo.Fec_AddRec = index.FEC_ADDREC;
+                        EntIdMo.Num_Identi = index.NUM_IDENTI;
+                        EntIdMo.Cve_Identi = index.CVE_IDENT;
+                        result.Objects.push(EntIdMo)
+                    }
+                    result.Correct = true;
+                    observer.next(result);
+                    observer.complete();
                 }
-                result.Correct = true;
-            }
 
-            else {
-                result.Correct = false;
-                result.ErrorMessage = "El cliente no tiene Identificación existente."
-            }
+                else {
+                    result.Correct = false;
+                    result.ErrorMessage = "El cliente no tiene Identificación existente."
+                }
+            })
         })
-        return result;
+
     }
-
-
-
 
 }

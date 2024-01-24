@@ -33,34 +33,43 @@ export class FuercService {
 
     }
 
-    GetFuerc(): Result {
+    GetFuerc(): Observable<Result> {
         let result = new Result()
 
-        this.GetAll().subscribe((r) => {
-            this.imprimirdef = r;
+        return new Observable(observer => {
+            this.GetAll().subscribe((r) => {
+                this.imprimirdef = r;
 
-            if (this.imprimirdef != null) {
-                result.Objects = new Array<FuercModel>();
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<FuercModel>();
 
-                let FuerInicio = new FuercModel();
-                FuerInicio.Cve_Fuerc = null
-                FuerInicio.Des_Fuerc = "------------ SELECCIONA UNA FUENTE DE RECURSOS --------------"
+                    let FuerInicio = new FuercModel();
+                    FuerInicio.Cve_Fuerc = null
+                    FuerInicio.Des_Fuerc = "------------ SELECCIONA UNA FUENTE DE RECURSOS --------------"
 
-                for (let index of this.imprimirdef) {
-                    let FuerMo = new FuercModel()
-                    FuerMo.Cve_Fuerc = index.CVE_FUERC;
-                    FuerMo.Des_Fuerc = index.DES_FUERC;
-                    result.Objects.push(FuerMo);
+                    for (let index of this.imprimirdef) {
+                        let FuerMo = new FuercModel()
+                        FuerMo.Cve_Fuerc = index.CVE_FUERC;
+                        FuerMo.Des_Fuerc = index.DES_FUERC;
+                        result.Objects.push(FuerMo);
+                    }
+
+                    //this.FuercSelect = FuerInicio
+                    result.Objects.unshift(FuerInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
                 }
-
-                //this.FuercSelect = FuerInicio
-                result.Objects.unshift(FuerInicio)
-                result.Correct = true;
-            }
+            }, error => {
+                console.error("Error obteniendo fuente de recursos:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo fuente de recursos";
+                observer.next(result);
+                observer.complete();
+            })
         })
-        return result;
+
     }
-
-
 
 }

@@ -68,6 +68,7 @@ import {
 
 import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
 import { event } from 'jquery';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-fgr-man-clien',
@@ -838,151 +839,132 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetMunicipio(EdoProv: EstadoModel) {
-    let result = new Result()
-
-    result = this.MuniSSer.GetMunicipio(EdoProv);
-
-    if (result.Correct) {
-      this.direc.Municipio.Municipios = result.Objects;
-      this.mdpag.MunicOp.Municipios = result.Objects
-      this.mdpag.MunicAc.Municipios = result.Objects
-    }
+    this.MuniSSer.GetMunicipio(EdoProv)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.Municipio.Municipios = result.Objects;
+          this.mdpag.MunicOp.Municipios = result.Objects
+          this.mdpag.MunicAc.Municipios = result.Objects
+        }
+      })
   }
 
   GetMunicipioM(EdoProv: EstadoModel, n: number) {
-    let result = new Result()
+    this.MuniSSer.GetMunicipioM(EdoProv)
+      .subscribe(result => {
+        if (result.Correct) {
 
-    result = this.MuniSSer.GetMunicipioM(EdoProv);
+          if (n = 1) {
+            //this.MunicSelectOp = MunInicio
+            this.mdpag.MunicOp.Municipios = result.Objects
+          }
 
-    if (result.Correct) {
+          if (n = 2) {
+            //this.MunicSelectAc = MunInicio
+            this.mdpag.MunicAc.Municipios = result.Objects
+          }
 
-      if (n = 1) {
-        //this.MunicSelectOp = MunInicio
-        this.mdpag.MunicOp.Municipios = result.Objects
-      }
-
-      if (n = 2) {
-        //this.MunicSelectAc = MunInicio
-        this.mdpag.MunicAc.Municipios = result.Objects
-      }
-
-    }
+        }
+      })
   }
 
   GetLocalidad(MuniProv: MunicModel) {
-
-    let result = new Result();
-
-    result = this.LocSer.GetLocalidad(MuniProv);
-
-    if (result.Correct) {
-      this.direc.Localidad.Localidades = result.Objects;
-    }
-
+    this.LocSer.GetLocalidad(MuniProv)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.Localidad.Localidades = result.Objects;
+        }
+      })
   }
 
   GetLocalidadCNB(MunicCons: MunicModel) {
-
-    let result = new Result();
-
-    result = this.LocCNBSer.GetLocalidadCNB(MunicCons);
-
-    if (result.Correct) {
-      this.direc.LocalCNB.FLDLocalis = result.Objects;
-    }
-
+    this.LocCNBSer.GetLocalidadCNB(MunicCons)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.LocalCNB.FLDLocalis = result.Objects;
+        }
+      })
   }
 
   GetVivienda() {
-    let result = new Result()
-    result = this.TidoSer.GetVivienda();
-
-    if (result.Correct) {
-      this.direc.Vivienda.Tidoms = result.Objects
-    }
+    this.TidoSer.GetVivienda()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.Vivienda.Tidoms = result.Objects
+        }
+      })
   }
 
   GetTipId() {
-    let result = new Result()
-
-    result = this.EntIdSer.GetTipId2();
-
-    if (result.Correct) {
-      this.entid.TipIds = result.Objects
-    }
+    this.EntIdSer.GetTipId2()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.entid.TipIds = result.Objects
+        }
+      })
   }
 
   GetIdenti() {
-    let result = new Result()
-
-    result = this.EntIdSer.GetIdenti(this.entid);
-
-    if (result.Correct) {
-      this.entid.EntIds = result.Objects;
-    }
+    this.EntIdSer.GetIdenti(this.entid)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.entid.EntIds = result.Objects;
+        }
+      })
   }
 
   GetRefmi() {
-    let result = new Result()
-
-    result = this.RefSer.GetRefmi(this.refmi);
-
-    if (result.Correct) {
-      this.refmi.Refs = result.Objects
-    }
-
+    this.RefSer.GetRefmi(this.refmi)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.refmi.Refs = result.Objects
+        }
+      })
   }
 
   GetDirecsByEnte() {
-    let result = new Result()
-
-    result = this.DirSer.GetDirecsByEnte(this.direc);
-
-    if (result.Correct) {
-      this.direc.Direcciones = result.Objects
-    }
-
+    this.DirSer.GetDirecsByEnte(this.direc)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.direc.Direcciones = result.Objects
+        }
+      })
   }
 
   GetFuerc() {
-    let result = new Result()
-
-    result = this.FuerSer.GetFuerc();
-
-    if (result.Correct) {
-      this.fuerc.Fuercs = result.Objects
-    }
+    this.FuerSer.GetFuerc()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.fuerc.Fuercs = result.Objects
+        }
+      })
   }
 
   GetFopag() {
-    let result = new Result()
-
-    result = this.FopSer.GetFopag();
-
-    if (result.Correct) {
-      this.fopag.Fopags = result.Objects
-    }
+    this.FopSer.GetFopag()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.fopag.Fopags = result.Objects
+        }
+      })
   }
 
   GetDesti() {
-    let result = new Result()
-
-    result = this.DestiSer.GetDesti();
-
-    if (result.Correct) {
-      this.desti.Destis = result.Objects
-    }
-
+    this.DestiSer.GetDesti()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.desti.Destis = result.Objects
+        }
+      });
   }
 
   GetCnenv() {
-    let result = new Result()
-
-    result = this.CnvSer.GetCnenv();
-
-    if (result.Correct) {
-      this.cnen.Cnenvs = result.Objects
-    }
+    this.CnvSer.GetCnenv()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.cnen.Cnenvs = result.Objects
+        }
+      })
   }
 
   GetUti() {
