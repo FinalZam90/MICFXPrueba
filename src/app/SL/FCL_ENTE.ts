@@ -6,6 +6,10 @@ import { EnteModel } from "../ML/FCL_ENTE";
 import { DirecModel } from "../ML/FCL_DIREC";
 import { Result } from "../ML/Result";
 import { EstuModel } from "../ML/NivEstu";
+import { CivModel } from "../ML/EdoCiv";
+import { IngreModel } from "../ML/NivIngreso";
+import { GrusoModel } from "../ML/FCL_GRUSO";
+import { AegenModel } from "../ML/FCR_AEGEN";
 
 
 @Injectable({
@@ -37,9 +41,10 @@ export class EnteService {
         //body.set('ACCION', "ConDep");
 
         return this.http.post(this.myApi, body.toString(), this.options);
-
     }
-    public GetEdoCiv(): Observable<any> {
+
+    // ESTADO CIVIL
+    GetEdoCiv(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetEdoCiv');
         /*
@@ -49,9 +54,63 @@ export class EnteService {
         //body.set('ACCION', "ConDep");
 
         return this.http.post(this.myApi, body.toString(), this.options);
+    }
+    GetEdoCi(contador: number, EdoCivSelect: CivModel): Observable<Result> {
+        let result = new Result()
+
+        return new Observable(observer => {
+            this.GetEdoCiv().subscribe((r) => {
+
+                this.imprimirdef = r;
+
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<CivModel>();
+
+                    let CivInicio = new CivModel();
+                    CivInicio.Cve_EdoCi = null
+                    CivInicio.Tip_EdoCi = "------------ SELECCIONA UN ESTADO CIVIL --------------"
+
+                    if (contador > 0) {
+                        CivInicio = EdoCivSelect
+                    }
+
+                    for (let index of this.imprimirdef) {
+                        let CivMo = new CivModel()
+                        CivMo.Cve_EdoCi = index.CveTipEdoCi;
+                        CivMo.Tip_EdoCi = index.TIP_EDOCI;
+
+                        if (contador > 0) {
+
+                            if (CivMo.Cve_EdoCi == CivInicio.Cve_EdoCi) {
+                                result.Objects.push(CivMo)
+                            }
+
+                        } else {
+                            result.Objects.push(CivMo)
+                        }
+
+                    }
+                    //EdoCivSelect = CivInicio
+                    result.Objects.unshift(CivInicio)
+
+                    result.Correct = true;
+                    observer.next(result);
+                    observer.complete();
+                }
+
+            }, error => {
+                console.error("Error obteniendo estado civil:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo estado civil";
+                observer.next(result);
+                observer.complete();
+            })
+        })
 
     }
-    public GetNivEst(): Observable<any> {
+
+    //NIVEL DE ESTUDIOS
+    GetNivEst(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetNivEstu');
         /*
@@ -62,7 +121,6 @@ export class EnteService {
 
         return this.http.post(this.myApi, body.toString(), this.options);
     }
-
     GetNives(contador: number, NivesSelect: EstuModel): Observable<Result> {
         let result = new Result()
 
@@ -117,7 +175,9 @@ export class EnteService {
         })
 
     }
-    public GetNivIng(): Observable<any> {
+
+    //NIVEL DE INGRESO
+    GetNivIng(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetNivIng');
         /*
@@ -125,11 +185,47 @@ export class EnteService {
         body.set('ORACS', '');
         */
         //body.set('ACCION', "ConDep");
-
         return this.http.post(this.myApi, body.toString(), this.options);
-
     }
-    public GetGruso(): Observable<any> {
+    GetNivIngOb(): Observable<Result> {
+        let result = new Result()
+
+        return new Observable(observer => {
+            this.GetNivIng().subscribe((r) => {
+
+                this.imprimirdef = r;
+
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<IngreModel>();
+                    let IngInicio = new IngreModel();
+
+                    IngInicio.Des_Nivel = "------------ SELECCIONA UN NIVEL --------------"
+
+                    for (let index of this.imprimirdef) {
+                        let IngMo = new IngreModel()
+                        IngMo.Des_Nivel = index.DesNivPD;
+                        result.Objects.push(IngMo)
+                    }
+
+                    //this.IngSelect = IngInicio
+                    result.Objects.unshift(IngInicio)
+
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
+                }
+            }, error => {
+                console.error("Error obteniendo nivel de ingreso:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo nivel de ingreso";
+                observer.next(result);
+                observer.complete();
+            })
+        })
+    }
+
+    GetGruso(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetGruso');
         /*
@@ -141,7 +237,49 @@ export class EnteService {
         return this.http.post(this.myApi, body.toString(), this.options);
 
     }
-    public GetCNB(): Observable<any> {
+    GetGrusoOb(): Observable<Result> {
+
+        let result = new Result()
+        return new Observable(observer => {
+
+            this.GetGruso().subscribe((r) => {
+
+                this.imprimirdef = r;
+
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<GrusoModel>();
+
+                    let GruInicio = new GrusoModel();
+                    GruInicio.Cve_Gruso = null
+                    GruInicio.Des_Gruso = "------------ SELECCIONA UN GRUPO --------------"
+
+                    for (let index of this.imprimirdef) {
+                        let GruMo = new GrusoModel()
+                        GruMo.Cve_Gruso = index.CVE_GRUSO
+                        GruMo.Des_Gruso = index.DES_GRUSO;
+                        result.Objects.push(GruMo)
+                    }
+
+                    // this.GrusoSelect = GruInicio
+                    result.Objects.unshift(GruInicio);
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete();
+                }
+            }, error => {
+                console.error("Error obteniendo grupo social:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo grupo social";
+                observer.next(result);
+                observer.complete();
+            })
+        })
+
+    }
+
+    // CNB
+    GetCNB(): Observable<any> {
         let body = new URLSearchParams();
         body.set('ACCION', 'GetCNB');
         /*
@@ -151,8 +289,45 @@ export class EnteService {
         //body.set('ACCION', "ConDep");
 
         return this.http.post(this.myApi, body.toString(), this.options);
+    }
+    GetAegen(): Observable<Result> {
+        let result = new Result()
+
+        return new Observable(observer => {
+            this.GetCNB().subscribe((r) => {
+                this.imprimirdef = r;
+
+                if (this.imprimirdef != null) {
+                    result.Objects = new Array<AegenModel>();
+
+                    let AeInicio = new AegenModel();
+                    AeInicio.Cve_Aegen = null
+                    AeInicio.Des_Aegen = "------------ SELECCIONA UN GRUPO --------------"
+
+                    for (let index of this.imprimirdef) {
+                        let AeMo = new AegenModel()
+                        AeMo.Cve_Aegen = index.CVE_AEGEN
+                        AeMo.Des_Aegen = index.DES_AEGEN;
+                        result.Objects.push(AeMo)
+                    }
+                    //this.AegenSelect = AeInicio
+                    result.Objects.unshift(AeInicio)
+                    result.Correct = true;
+
+                    observer.next(result);
+                    observer.complete()
+                }
+            }, error => {
+                console.error("Error obteniendo CNB:", error);
+                result.Correct = false;
+                result.ErrorMessage = "Error obteniendo CNB";
+                observer.next(result);
+                observer.complete();
+            })
+        })
 
     }
+
     public MaPaso3(Ente: EnteModel, Direc: DirecModel) {
         let body = new URLSearchParams();
         body.set('ACCION', 'ManDirec');

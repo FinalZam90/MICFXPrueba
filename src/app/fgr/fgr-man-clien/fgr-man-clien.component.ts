@@ -560,6 +560,9 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
+  
+
+  // SECCIÓN PROYECCIÓN DE DATOS
   GetSucurs() {
     this.SucSer.GetSucurs(this.contadorGuardadoSelectores, this.SucurSelect)
       .subscribe(result => {
@@ -648,59 +651,21 @@ export class FgrManClienComponent implements OnInit {
   }
 
   GetEdoCi() {
-    let result = new Result()
-    this.EnteSer.GetEdoCiv().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<CivModel>();
-        let CivInicio = new CivModel();
-        CivInicio.Cve_EdoCi = null
-        CivInicio.Tip_EdoCi = "------------ SELECCIONA UN ESTADO CIVIL --------------"
-        if (this.contadorGuardadoSelectores > 0) {
-          CivInicio = this.EdoCivSelect
+    this.EnteSer.GetEdoCi(this.contadorGuardadoSelectores, this.EdoCivSelect)
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.EdoCi.EdoCivs = result.Objects
         }
-        for (let index of this.imprimirdef) {
-          let CivMo = new CivModel()
-          CivMo.Cve_EdoCi = index.CveTipEdoCi;
-          CivMo.Tip_EdoCi = index.TIP_EDOCI;
-          if (this.contadorGuardadoSelectores > 0) {
-            if (CivMo.Cve_EdoCi == CivInicio.Cve_EdoCi) {
-              result.Objects.push(CivMo)
-            }
-          }
-          else {
-            result.Objects.push(CivMo)
-          }
-
-        }
-        this.EdoCivSelect = CivInicio
-        result.Objects.unshift(CivInicio)
-        this.ente.EdoCi.EdoCivs = result.Objects
-        result.Correct = true;
-      }
-    })
+      })
   }
+
   GetNivIng() {
-    let result = new Result()
-    this.EnteSer.GetNivIng().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<IngreModel>();
-        let IngInicio = new IngreModel();
-
-        IngInicio.Des_Nivel = "------------ SELECCIONA UN NIVEL --------------"
-        for (let index of this.imprimirdef) {
-          let IngMo = new IngreModel()
-
-          IngMo.Des_Nivel = index.DesNivPD;
-          result.Objects.push(IngMo)
+    this.EnteSer.GetNivIngOb()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Ingr.Ingres = result.Objects
         }
-        this.IngSelect = IngInicio
-        result.Objects.unshift(IngInicio)
-        this.ente.Ingr.Ingres = result.Objects
-        result.Correct = true;
-      }
-    })
+      })
   }
 
   GetRhoga() {
@@ -754,49 +719,23 @@ export class FgrManClienComponent implements OnInit {
     this.Perio1Select = this.perio1.Perios[0]
     this.Perio2Select = this.perio2.Perios[0]
   }
+
   GetGruso() {
-    let result = new Result()
-    this.EnteSer.GetGruso().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<GrusoModel>();
-        let GruInicio = new GrusoModel();
-        GruInicio.Cve_Gruso = null
-        GruInicio.Des_Gruso = "------------ SELECCIONA UN GRUPO --------------"
-        for (let index of this.imprimirdef) {
-          let GruMo = new GrusoModel()
-          GruMo.Cve_Gruso = index.CVE_GRUSO
-          GruMo.Des_Gruso = index.DES_GRUSO;
-          result.Objects.push(GruMo)
+    this.EnteSer.GetGrusoOb()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Gruso.Grusos = result.Objects
         }
-        this.GrusoSelect = GruInicio
-        result.Objects.unshift(GruInicio)
-        this.ente.Gruso.Grusos = result.Objects
-        result.Correct = true;
-      }
-    })
+      })
   }
+
   GetAegen() {
-    let result = new Result()
-    this.EnteSer.GetCNB().subscribe((r) => {
-      this.imprimirdef = r;
-      if (this.imprimirdef != null) {
-        result.Objects = new Array<AegenModel>();
-        let AeInicio = new AegenModel();
-        AeInicio.Cve_Aegen = null
-        AeInicio.Des_Aegen = "------------ SELECCIONA UN GRUPO --------------"
-        for (let index of this.imprimirdef) {
-          let AeMo = new AegenModel()
-          AeMo.Cve_Aegen = index.CVE_AEGEN
-          AeMo.Des_Aegen = index.DES_AEGEN;
-          result.Objects.push(AeMo)
+    this.EnteSer.GetAegen()
+      .subscribe(result => {
+        if (result.Correct) {
+          this.ente.Aegen.Aegens = result.Objects
         }
-        this.AegenSelect = AeInicio
-        result.Objects.unshift(AeInicio)
-        this.ente.Aegen.Aegens = result.Objects
-        result.Correct = true;
-      }
-    })
+      }) 
   }
 
   GetEstado() {
@@ -956,6 +895,9 @@ export class FgrManClienComponent implements OnInit {
     })
   }
 
+
+
+  // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
