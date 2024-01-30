@@ -14,6 +14,21 @@
   color: white !important;
 }
 
+.view {
+  position: relative;
+}
+
+.aviso {
+  bottom: 0;
+  width: 100%;
+  padding: 15px;
+  z-index: 2000;
+  min-height: 170px;
+  position: absolute;
+  background: rgb(203, 203, 203);
+  background: linear-gradient(355deg, rgba(203, 203, 203, 1) 0%, rgba(170, 180, 180, 1) 100%);
+}
+
 //**** PESTAÑA GENERALES*****************//
 .box {
   height: 260px;
