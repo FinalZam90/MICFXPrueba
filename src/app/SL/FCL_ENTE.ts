@@ -386,7 +386,7 @@ export class EnteService {
         body.set('NOMCOM', Ente.Nom_Com);
         body.set('FECHANAC', Ente.Fec_Nac);
         body.set('CVESEX', Ente.SexGen.Cve_TipSex);
-        body.set('CVEPAIS', Ente.Pais.Paises[0].Cve_Pais.toString());
+        body.set('CVEPAIS', Ente.Pais.Cve_Pais.toString());
         body.set('CVELUGNA', Ente.Lugna.Cve_Lugna.toString());
         body.set('CVESUCUR', Ente.Sucur.Cve_Sucur.toString());
         body.set('CVECL', Ente.TipCl.Cve_TipCl.toString());

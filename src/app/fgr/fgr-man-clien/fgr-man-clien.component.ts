@@ -965,7 +965,10 @@ export class FgrManClienComponent implements OnInit {
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     
     let CadenaMsg = '';
-
+    this.ente.Pais.Cve_Pais = 1;
+    this.ente.Lugna.Cve_Lugna = 1;
+    this.ente.Sucur.Cve_Sucur = 1;
+    this.ente.TipCl.Cve_TipCl = 1
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
 
       console.log('bandera')
@@ -988,7 +991,7 @@ export class FgrManClienComponent implements OnInit {
 
         this.msg.message = CadenaMsg + "  " + this.imprimirdef.Mensaje; this.mostrarModal = true;
         this.errorBanner = true;
-        alert(this.msg.message)
+        //alert(this.msg.message)
       }
 
       this.ente.Num_Ente = this.imprimirdef.Numero;
