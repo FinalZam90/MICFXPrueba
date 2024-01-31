@@ -1513,7 +1513,7 @@
 					<!--<button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>-->
 				</div><!--botones-->
 
-				<div class="aviso d-flex justify-content-center align-items-center">
+				<div *ngIf="errorBanner"  class="aviso d-flex justify-content-center align-items-center">
 					<p class="text-center mt-0">No se pudo validar el formulario. Verifique sus datos.</p>
 				</div>
 

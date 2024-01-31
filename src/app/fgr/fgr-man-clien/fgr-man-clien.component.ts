@@ -533,9 +533,12 @@ export class FgrManClienComponent implements OnInit {
   public contadorGrusos = 0;
   public contadorGuardadoSelectores: number;
 
+  public errorBanner: boolean = false;
+
   ngOnInit(): void {
     this.contadorGuardadoSelectores = 0;
     $('#next-btn').prop('disabled', true);
+
     this.ente = new EnteModel();
     this.direc = new DirecModel();
     this.entid = new EntIdModel();
@@ -552,6 +555,7 @@ export class FgrManClienComponent implements OnInit {
 
     this.LlenarListas();
     this.LlenarLista2();
+
     $.getScript('./assets/plugins/smartwizard/dist/js/jquery.smartWizard.min.js');
     $.getScript('./assets/js/custom-smartWizard.js');
     $.getScript('./assets/plugins/select2/select2.min.js');
@@ -560,7 +564,33 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
-  
+
+  public LlenarListas() {
+    this.GetSucurs()
+    this.GetPais()
+    this.GetLugna()
+    this.GetSexGen()
+    this.GetTipCl()
+  }
+  public LlenarLista2() {
+    this.GetAegen()
+    this.GetNivIng()
+    this.GetGruso()
+    this.GetEdoCi()
+    this.GetNives()
+    this.GetEstado()
+    this.GetVivienda()
+    this.GetTipId()
+    this.GetDirecsByEnte()
+    this.GetRefmi()
+    this.GetIdenti()
+    this.GetCnenv()
+    this.GetDesti()
+    this.GetFopag()
+    this.GetFuerc()
+    this.GetRhoga()
+    this.GetPeriod()
+  }
 
   // SECCIÓN PROYECCIÓN DE DATOS
   GetSucurs() {
@@ -735,7 +765,7 @@ export class FgrManClienComponent implements OnInit {
         if (result.Correct) {
           this.ente.Aegen.Aegens = result.Objects
         }
-      }) 
+      })
   }
 
   GetEstado() {
@@ -895,8 +925,6 @@ export class FgrManClienComponent implements OnInit {
     })
   }
 
-
-
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
     let Cadena = this.formPost.controls['FEC_NAC'].value
@@ -922,70 +950,56 @@ export class FgrManClienComponent implements OnInit {
     this.ente.Pais.Paises = this.arregloPaisesSelect
     this.ente.TipCl = this.ClienSelect
     this.ente.Sucur = this.SucurSelect
+
     this.contadorNacionalidades = 0;
+
     this.ente.Nom_Ente1 = this.formPost.controls['NOM1_ENTE'].value
     this.ente.Nom_Ente2 = this.formPost.controls['NOM2_ENTE'].value
     this.ente.Ape_Ente1 = this.formPost.controls['APE1_ENTE'].value
     this.ente.Ape_Ente2 = this.formPost.controls['APE2_ENTE'].value
+
     this.ente.Fec_Nac = CadenaFecha[2] + "-" + CadenaFecha[1] + "-" + CadenaFecha[0];
     //this.ente.Fec_Nac = CadenaFecha[1] + "-" + CadenaFecha[2] + "-" + CadenaFecha[0]
     this.ente.RFC = this.formPost.controls['RFC'].value
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
+    
     let CadenaMsg = '';
+
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
+
+      console.log('bandera')
+
       console.log(r);
       this.imprimirdef = r;
+      console.log(this.imprimirdef.BAN)
+
       if (this.imprimirdef.BAN == true) {
         $('#next-btn').prop('disabled', false);
         this.LlenarLista2();
 
-      }
-      else {
+        this.errorBanner = false;
+        
+      } else {
+
         for (let x of this.imprimirdef.Errores) {
           CadenaMsg += x.DES_TERROR + ". "
         }
-        this.msg.message = CadenaMsg + "  " + this.imprimirdef.Mensaje; this.mostrarModal = true
+
+        this.msg.message = CadenaMsg + "  " + this.imprimirdef.Mensaje; this.mostrarModal = true;
+        this.errorBanner = true;
         alert(this.msg.message)
       }
+
       this.ente.Num_Ente = this.imprimirdef.Numero;
       this.ente.RFC = this.imprimirdef.RFC;
       this.ente.CURP = this.imprimirdef.CURP
-
     })
+
     this.contadorGuardadoSelectores = 1;
-
-    this.LlenarListas()
-
+    this.LlenarListas();
   }
-  public LlenarListas() {
-    this.GetSucurs()
-    this.GetPais()
-    this.GetLugna()
-    this.GetSexGen()
-    this.GetTipCl()
-
-  }
-  public LlenarLista2() {
-    this.GetAegen()
-    this.GetNivIng()
-    this.GetGruso()
-    this.GetEdoCi()
-    this.GetNives()
-    this.GetEstado()
-    this.GetVivienda()
-    this.GetTipId()
-    this.GetDirecsByEnte()
-    this.GetRefmi()
-    this.GetIdenti()
-    this.GetCnenv()
-    this.GetDesti()
-    this.GetFopag()
-    this.GetFuerc()
-    this.GetRhoga()
-    this.GetPeriod()
-  }
-  public Form2() {
+  Form2() {
 
     this.ente.EdoCi = this.formPost2.controls['EDO_CIV'].value
     this.ente.Nives = this.formPost2.controls['NIV_ES'].value
@@ -1023,7 +1037,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.MaPaso2(this.ente).subscribe((r) => { console.log(r) }, (e) => { console.log(e) })
 
   }
-  public Form3() {
+  Form3() {
     this.direc.Ente = this.ente;
     this.direc.Pais = this.formPost3.controls['CVE_PAIS'].value
     this.direc.Estado = this.formPost3.controls['CVE_ESTDO'].value
@@ -1041,9 +1055,8 @@ export class FgrManClienComponent implements OnInit {
     this.direc.Num_Appos = this.formPost3.controls['APPOS'].value
     this.direc.Num_Resen = this.formPost3.controls['AÑRES'].value
     this.direc.Num_Cpent = this.formPost3.controls['REFERENCIAS'].value
-
   }
-  public FormIdenti() {
+  FormIdenti() {
     this.entid.Ente = this.ente;
 
     this.entid.An_Venci = this.formPostIdenti.controls['AN_VENC'].value;
@@ -1055,7 +1068,7 @@ export class FgrManClienComponent implements OnInit {
 
     this.GetIdenti()
   }
-  public FormRefmi() {
+  FormRefmi() {
     this.refmi.Ente = this.ente;
 
     this.refmi.Nom_Refer = this.formPostRefmi.controls['NOMBRE'].value;
@@ -1066,9 +1079,12 @@ export class FgrManClienComponent implements OnInit {
 
     this.RefSer.Add(this.refmi).subscribe()
   }
+
   public Regresar(): void {
     this.location.back();
   }
+
+
   CambioCl(newCl) {
     this.ClienSelect = newCl
     this.formPost.setControl('DES_TIPCL', new FormControl(this.ClienSelect))
@@ -1194,6 +1210,8 @@ export class FgrManClienComponent implements OnInit {
   CambioPer2(newPer2) {
     this.Perio2Select = newPer2
   }
+
+  // FUNCIONES SELECCIÓN MÚLTIPLE
   PaisSelec(event) {
     if (this.contadorNacionalidades <= 4) {
       if (event.isUserInput == true) {
