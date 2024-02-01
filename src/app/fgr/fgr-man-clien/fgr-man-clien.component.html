@@ -182,6 +182,7 @@
 											<option [ngValue]="pais" *ngFor="let pais of ente.Pais.Paises">
 												{{pais.Des_Nac}}</option>
 										</datalist>
+
 										<input type="search" list="listapaises" id="listapaises" class="form-control"
 											formNameControl="DES_NAC">
 
@@ -208,11 +209,13 @@
 											<i class="bx bx-search"></i>
 										</label>
 										<datalist id="listalugnas">
-											<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">
-												{{lug.Des_Lugna}}</option>
+											<option *ngFor="let lug of ente.Lugna.Lugnas" formNameControl="DES_LUGNA"
+												[ngValue]="lug"> {{lug.Des_Lugna}}
+											</option>
+
 										</datalist>
-										<input type="search" list="listalugnas" id="listalugnas" class="form-control"
-											formNameControl="DES_LUGNA">
+
+										<input type="search" list="listalugnas" id="listalugnas" class="form-control">
 
 
 
@@ -254,8 +257,6 @@
 										</datalist>
 										<input type="search" list="listasucurs" id="listasucurs" class="form-control"
 											formNameControl="DES_SUCUR">
-
-
 									</div>
 								</div><!--Sucursal-->
 
@@ -280,7 +281,14 @@
 								</div><!--Tipo cliente-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
-									<button type="submit" class="btn btn-light px-5">Guardar datos</button>
+									<button type="submit" class="btn btn-light px-5"
+										[disabled]="!formPost.valid">Guardar datos</button>
+									<span>valid</span><br>
+									{{formPost.valid}}
+									<span>touche</span><br>
+									{{formPost.touched}}
+									<span>value</span><br>
+									{{formPost.value | json}}
 								</div><!--Submit-->
 							</form><!--Captura Datos-->
 
@@ -1513,13 +1521,13 @@
 					<!--<button class="btn btn-danger" id="reset-btn" type="button">Reset Wizard</button>-->
 				</div><!--botones-->
 
-				<div *ngIf="errorBanner"  class="aviso d-flex justify-content-center align-items-center">
+				<div *ngIf="errorBanner" class="aviso d-flex justify-content-center align-items-center">
 					<p class="text-center mt-0">{{msg.message}}</p>
 				</div>
 
 			</div><!--card-body-->
 
-			
+
 		</div><!--card-->
 	</div>
 </div>

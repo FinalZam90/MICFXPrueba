@@ -927,6 +927,7 @@ export class FgrManClienComponent implements OnInit {
 
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
+    console.log('ey: ' +this.formPost);
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
@@ -963,26 +964,24 @@ export class FgrManClienComponent implements OnInit {
     this.ente.RFC = this.formPost.controls['RFC'].value
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
-    
+
     let CadenaMsg = '';
     this.ente.Pais.Cve_Pais = 1;
     this.ente.Lugna.Cve_Lugna = 1;
     this.ente.Sucur.Cve_Sucur = 1;
     this.ente.TipCl.Cve_TipCl = 1
-    this.EnteSer.Validacion(this.ente).subscribe((r) => {
 
-      console.log('bandera')
+    this.EnteSer.Validacion(this.ente).subscribe((r) => {
 
       console.log(r);
       this.imprimirdef = r;
-      console.log(this.imprimirdef.BAN)
 
       if (this.imprimirdef.BAN == true) {
         $('#next-btn').prop('disabled', false);
         this.LlenarLista2();
 
         this.errorBanner = false;
-        
+
       } else {
 
         for (let x of this.imprimirdef.Errores) {
