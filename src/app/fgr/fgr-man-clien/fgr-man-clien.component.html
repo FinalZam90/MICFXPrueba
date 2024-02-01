@@ -184,7 +184,7 @@
 										</datalist>
 
 										<input type="search" list="listapaises" id="listapaises" class="form-control"
-											formNameControl="DES_NAC">
+											formControlName="DES_NAC">
 
 									</div>
 								</div>
@@ -193,7 +193,7 @@
 									<label class="form-label">Nacionalidad</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="DES_NAC" [ngModel]="PaisSelect" (ngModelChange)="CambioPais($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="inputGroupSelect01" required>
+										<select formControlName="DES_NAC" [ngModel]="PaisSelect" (ngModelChange)="CambioPais($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="inputGroupSelect01" required>
 											<option [ngValue]="pais" *ngFor ="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
 											<option value="1">Norteamericana</option>
 											<option value="2">FGR_PAIS</option>
@@ -208,22 +208,23 @@
 										<label class="input-group-text" for="nacimientoL" #search>
 											<i class="bx bx-search"></i>
 										</label>
+
 										<datalist id="listalugnas">
-											<option *ngFor="let lug of ente.Lugna.Lugnas" formNameControl="DES_LUGNA"
-												[ngValue]="lug"> {{lug.Des_Lugna}}
+
+											<option *ngFor="let lug of ente.Lugna.Lugnas" [ngValue]="lug">
+												{{lug.Des_Lugna}}
 											</option>
 
 										</datalist>
 
-										<input type="search" list="listalugnas" id="listalugnas" class="form-control">
-
-
+										<input formControlName="DES_LUGNA" list="listalugnas" type="search" 
+											class="form-control" [(ngModel)]="prueba.value" #prueba> <br>
+										
+										<label for="">{{formPost.controls['DES_LUGNA'].errors | json}}</label>	
 
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
-
-
 
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -256,7 +257,7 @@
 												{{suc.Des_Sucur}}</option>
 										</datalist>
 										<input type="search" list="listasucurs" id="listasucurs" class="form-control"
-											formNameControl="DES_SUCUR">
+											formControlName="DES_SUCUR">
 									</div>
 								</div><!--Sucursal-->
 
@@ -448,11 +449,11 @@
 													{{gpo.Des_Gruso}}</option>
 											</datalist>
 											<input type="search" list="listagruso" id="listagruso" class="form-control"
-												formNameControl="GPO_ECO">
+												formControlName="GPO_ECO">
 
 
 											<!--
-											<select formNameControl="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="grupo" required>
+											<select formControlName="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="grupo" required>
 												<option [ngValue]="gpo" *ngFor ="let gpo of ente.Gruso.Grusos">{{gpo.Des_Gruso}}</option>
 												<option value="1">Primaria</option>
 												<option value="2">Secundaria</option>
@@ -487,7 +488,7 @@
 													{{gpo.Des_Gruso}}</option>
 											</datalist>
 											<input type="search" list="listacnb" id="listacnb" class="form-control"
-												formNameControl="CNB">
+												formControlName="CNB">
 
 
 
@@ -741,7 +742,7 @@
 														</datalist>
 
 														<input type="search" list="listaedop" id="listaedop"
-															class="form-control" formNameControl="LGRO_ESTDO">
+															class="form-control" formControlName="LGRO_ESTDO">
 
 													</div>
 												</div><!--Estado-->
@@ -761,7 +762,7 @@
 														</datalist>
 
 														<input type="search" list="listamuniop" id="listamuniop"
-															class="form-control" formNameControl="LGRO_MUNIC">
+															class="form-control" formControlName="LGRO_MUNIC">
 
 
 													</div>
@@ -786,7 +787,7 @@
 														</datalist>
 
 														<input type="search" list="listaedoac" id="listaedoac"
-															class="form-control" formNameControl="LGRO_ESTDO2">
+															class="form-control" formControlName="LGRO_ESTDO2">
 													</div>
 												</div><!--Estado-->
 
@@ -806,7 +807,7 @@
 														</datalist>
 
 														<input type="search" list="listamuniac" id="listamuniac"
-															class="form-control" formNameControl="LGRO_MUNIC2">
+															class="form-control" formControlName="LGRO_MUNIC2">
 
 													</div>
 												</div><!--municipio-->
@@ -971,7 +972,7 @@
 										</datalist>
 
 										<input type="search" list="listapaises2" id="listapaises2" class="form-control"
-											formNameControl="CVE_PAIS">
+											formControlName="CVE_PAIS">
 
 
 									</div>
@@ -989,7 +990,7 @@
 										</datalist>
 
 										<input type="search" list="listaestados" id="listaestados" class="form-control"
-											formNameControl="CVE_ESTDO">
+											formControlName="CVE_ESTDO">
 
 									</div>
 								</div><!--Estado-->
@@ -1006,7 +1007,7 @@
 										</datalist>
 
 										<input type="search" list="listamuni" id="listamuni" class="form-control"
-											formNameControl="CVE_MUNIC">
+											formControlName="CVE_MUNIC">
 
 									</div>
 								</div><!--Municipio-->
@@ -1023,7 +1024,7 @@
 										</datalist>
 
 										<input type="search" list="listalocal" id="listalocal" class="form-control"
-											formNameControl="LOCALIDAD">
+											formControlName="LOCALIDAD">
 
 
 									</div>
@@ -1041,7 +1042,7 @@
 										</datalist>
 
 										<input type="search" list="listalocalcnb" id="localcnb" class="form-control"
-											formNameControl="LOCALCNB">
+											formControlName="LOCALCNB">
 
 
 									</div>
