@@ -160,10 +160,10 @@
 										<label class="input-group-text" for="genero">
 											<i class="bx bxs-user"></i>
 										</label>
-										<select formNameControl="TIP_SEX" [ngModel]="TipSexSelect"
-											(ngModelChange)="CambioSexGen($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="genero"
-											required>
+										<!--(ngModelChange)="CambioSexGen($event)": Esta es una directiva de evento de Angular que se dispara cuando cambia el valor del modelo (ngModel).-->
+										<select formControlName="TIP_SEX" [ngModel]="TipSexSelect"
+											(ngModelChange)="CambioSexGen($event)" name="sel1" class="form-select"
+											id="genero" required>
 											<option [ngValue]="Gen" *ngFor="let Gen of ente.SexGen.SexGenArray">
 												{{Gen.Des_TipSex}}</option>
 										</select>
@@ -217,10 +217,8 @@
 
 										</datalist>
 
-										<input formControlName="DES_LUGNA" list="listalugnas" type="search" 
-											class="form-control" [(ngModel)]="prueba.value" #prueba> <br>
-										
-										<label for="">{{formPost.controls['DES_LUGNA'].errors | json}}</label>	
+										<input formControlName="DES_LUGNA" [ngModel]="LugnaSelect" list="listalugnas" type="search"
+											class="form-control"> 
 
 									</div>
 
@@ -267,10 +265,9 @@
 										<label class="input-group-text" for="tcliente">
 											<i class="bx bxs-user"></i>
 										</label>
-										<select formNameControl="DES_TIPCL" [ngModel]="ClienSelect"
-											(ngModelChange)="CambioCl($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="tcliente"
-											required>
+										<select formControlName="DES_TIPCL" [ngModel]="ClienSelect"
+											(ngModelChange)="CambioCl($event)" name="sel1" class="form-select"
+											id="tcliente" required>
 											<option [ngValue]="cl" *ngFor="let cl of ente.TipCl.TipCls">{{cl.Des_TipCl}}
 											</option>
 											<!--<option value="1">Persona física</option>
@@ -283,11 +280,10 @@
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<button type="submit" class="btn btn-light px-5"
-										[disabled]="!formPost.valid">Guardar datos</button>
+										[disabled]="!formPost.valid">Guardar datos</button><br>
 									<span>valid</span><br>
 									{{formPost.valid}}
-									<span>touche</span><br>
-									{{formPost.touched}}
+								
 									<span>value</span><br>
 									{{formPost.value | json}}
 								</div><!--Submit-->
@@ -310,9 +306,9 @@
 											<label class="input-group-text" for="ec">
 												<i class="bx bx-home-heart"></i>
 											</label>
-											<select formNameControl="EDO_CIV" [ngModel]="EdoCivSelect"
-												(ngModelChange)="CambioEdoCi($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="ec">
+											<select formControlName="EDO_CIV" [ngModel]="EdoCivSelect"
+												(ngModelChange)="CambioEdoCi($event)" name="sel1" class="form-select"
+												id="ec">
 												<option [ngValue]="ci" *ngFor="let ci of ente.EdoCi.EdoCivs">
 													{{ci.Tip_EdoCi}}</option>
 												<!--<option value="1">Casado</option>
@@ -342,9 +338,9 @@
 											<label class="input-group-text" for="estudios">
 												<i class="bx bxs-graduation"></i>
 											</label>
-											<select formNameControl="NIV_ES" [ngModel]="NivesSelect"
-												(ngModelChange)="CambioNives($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="estudios">
+											<select formControlName="NIV_ES" [ngModel]="NivesSelect"
+												(ngModelChange)="CambioNives($event)" name="sel1" class="form-select"
+												id="estudios">
 												<option [ngValue]="niv" *ngFor="let niv of ente.Nives.Estus">
 													{{niv.Des_Nives}}</option>
 												<!--<option value="1">Primaria</option>
@@ -413,9 +409,9 @@
 											<label class="input-group-text" for="ingreso">
 												<i class="bx bx-stats"></i>
 											</label>
-											<select formNameControl="NIV_ING" [ngModel]="IngSelect"
-												(ngModelChange)="CambioIng($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="ingreso">
+											<select formControlName="NIV_ING" [ngModel]="IngSelect"
+												(ngModelChange)="CambioIng($event)" name="sel1" class="form-select"
+												id="ingreso">
 												<option [ngValue]="ing" *ngFor="let ing of ente.Ingr.Ingres">
 													{{ing.Des_Nivel}}</option>
 												<!--<option value="1">Primaria</option>
@@ -520,10 +516,9 @@
 													<i class="bx bxs-shield"></i>
 												</label>
 
-												<select formNameControl="FUE_REC" class="form-select"
+												<select formControlName="FUE_REC" class="form-select"
 													[ngModel]="FuercSelect" (ngModelChange)="CambioRecursos($event)"
-													name="sel1" [ngModelOptions]="{standalone: true}"
-													class="form-select" id="recursos" required>
+													name="sel1" class="form-select" id="recursos" required>
 													<option [ngValue]="fu" *ngFor="let fu of fuerc.Fuercs">
 														{{fu.Des_Fuerc}}</option>
 
@@ -541,10 +536,9 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select formNameControl="PER" class="form-select"
+													<select formControlName="PER" class="form-select"
 														[ngModel]="Perio1Select" (ngModelChange)="CambioPer1($event)"
-														name="sel1" [ngModelOptions]="{standalone: true}"
-														class="form-select" id="per1" required>
+														name="sel1" class="form-select" id="per1" required>
 														<option *ngFor="let per of perio1.Perios" [ngValue]="per">
 															{{per.Des}}</option>
 
@@ -741,7 +735,7 @@
 																{{edo1.Nom_Estdo}}</option>
 														</datalist>
 
-														<input type="search" list="listaedop" id="listaedop"
+														<input type="search" list="listaedop"
 															class="form-control" formControlName="LGRO_ESTDO">
 
 													</div>
@@ -1108,10 +1102,9 @@
 										<label class="input-group-text" for="vivienda">
 											<i class="bx bx-map-pin"></i>
 										</label>
-										<select formNameControl="VIVIENDA" [ngModel]="ViviendaSelect"
-											(ngModelChange)="CambioVivienda($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="vivienda"
-											required>
+										<select formControlName="VIVIENDA" [ngModel]="ViviendaSelect"
+											(ngModelChange)="CambioVivienda($event)" name="sel1" class="form-select"
+											id="vivienda" required>
 											<option *ngFor="let vivi of direc.Vivienda.Tidoms" [ngValue]="vivi">
 												{{vivi.Des_Tidom}}</option>
 

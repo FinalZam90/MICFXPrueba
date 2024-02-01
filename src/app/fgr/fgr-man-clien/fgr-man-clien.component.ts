@@ -927,7 +927,7 @@ export class FgrManClienComponent implements OnInit {
 
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
-    console.log('ey: ' +this.formPost);
+   
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
