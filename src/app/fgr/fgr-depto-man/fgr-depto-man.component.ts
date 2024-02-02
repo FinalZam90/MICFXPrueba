@@ -10,6 +10,7 @@ import { HttpErrorResponse, HttpResponse, HttpResponseBase } from '@angular/comm
 import { Messg } from "../../ML/Message";
 import { FgrDeptoComponent } from "../fgr-depto/fgr-depto.component";
 import  *  as ut from "utf8";
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 @Component({
   selector: 'app-fgr-depto-man',
   templateUrl: './fgr-depto-man.component.html',

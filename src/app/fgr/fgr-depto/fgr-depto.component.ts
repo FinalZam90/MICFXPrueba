@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Depto } from "../../ML/FGR_DEPTO";
 import { DeptoService } from "../../SL/DeptoP";
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 

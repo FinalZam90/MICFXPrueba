@@ -215,7 +215,14 @@
 											id="listalugnas" class="form-control" formNameControl="DES_LUGNA">
 
 
-
+											<mat-select class="form-control" placeholder="Ingresa">
+												<mat-option>
+													<ngx-mat-select-search [ngModel]="ente.Lugna.Lugnas"></ngx-mat-select-search>
+												</mat-option>
+												<mat-option *ngFor="let lug of ente.Lugna.Lugnas" [value]="lug">
+												{{ lug.Des_Lugna }}
+												</mat-option>
+											</mat-select>
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
