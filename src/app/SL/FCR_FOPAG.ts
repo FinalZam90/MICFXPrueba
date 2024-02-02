@@ -54,7 +54,7 @@ export class FopagService {
                         result.Objects.push(FopMo);
                     }
 
-                    //this.FopaSelect = FopaInicio
+                    result.Object = FopaInicio
                     result.Objects.unshift(FopaInicio)
                     result.Correct = true;
 

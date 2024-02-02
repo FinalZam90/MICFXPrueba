@@ -90,7 +90,7 @@ export class EnteService {
                         }
 
                     }
-                    //EdoCivSelect = CivInicio
+                    result.Object = CivInicio
                     result.Objects.unshift(CivInicio)
 
                     result.Correct = true;
@@ -157,7 +157,7 @@ export class EnteService {
 
                     }
 
-                    // NivesSelect = NivInicio
+                    result.Object = NivInicio
                     result.Objects.unshift(NivInicio)
                     result.Correct = true;
 
@@ -207,7 +207,7 @@ export class EnteService {
                         result.Objects.push(IngMo)
                     }
 
-                    //this.IngSelect = IngInicio
+                    result.Object = IngInicio
                     result.Objects.unshift(IngInicio)
 
                     result.Correct = true;
@@ -260,7 +260,7 @@ export class EnteService {
                         result.Objects.push(GruMo)
                     }
 
-                    // this.GrusoSelect = GruInicio
+                    result.Object = GruInicio
                     result.Objects.unshift(GruInicio);
                     result.Correct = true;
 
@@ -310,7 +310,7 @@ export class EnteService {
                         AeMo.Des_Aegen = index.DES_AEGEN;
                         result.Objects.push(AeMo)
                     }
-                    //this.AegenSelect = AeInicio
+                    result.Object = AeInicio
                     result.Objects.unshift(AeInicio)
                     result.Correct = true;
 

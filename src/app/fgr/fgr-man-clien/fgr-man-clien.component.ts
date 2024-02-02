@@ -569,6 +569,7 @@ export class FgrManClienComponent implements OnInit {
 
         if (result.Correct) {
           this.ente.Sucur.Sucurs = result.Objects
+          this.SucurSelect = <SucurModel>result.Object
         } else {
           console.log("Error obteniendo sucursales:", result.ErrorMessage)
         }
@@ -579,6 +580,7 @@ export class FgrManClienComponent implements OnInit {
     this.ClSer.GetTipCl(this.contadorGuardadoSelectores, this.ClienSelect)
       .subscribe(result => {
         if (result.Correct) {
+          this.ClienSelect = <TipClModel>result.Object;
           this.ente.TipCl.TipCls = result.Objects
         } else {
           console.log("Error obteniendo tipo cliente:", result.ErrorMessage)
@@ -590,6 +592,7 @@ export class FgrManClienComponent implements OnInit {
     this.PaiSer.GetPais(this.contadorGrusos, this.PaisSelect)
       .subscribe(result => {
         if (result.Correct) {
+          this.PaisSelect = <PaisModel>result.Object;
           this.ente.Pais.Paises = result.Objects
           this.direc.Pais.Paises = result.Objects
         } else {
@@ -602,6 +605,7 @@ export class FgrManClienComponent implements OnInit {
     this.LuSer.GetLugna(this.contadorGuardadoSelectores, this.LugnaSelect)
       .subscribe(result => {
         if (result.Correct) {
+          this.LugnaSelect = <LugnaModel>result.Object;
           this.ente.Lugna.Lugnas = result.Objects
         }
       })
@@ -645,6 +649,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.GetNives(this.contadorGuardadoSelectores, this.NivesSelect)
       .subscribe(result => {
         if (result.Correct) {
+          this.NivesSelect = <EstuModel>result.Object;
           this.ente.Nives.Estus = result.Objects
         }
       })
@@ -654,6 +659,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.GetEdoCi(this.contadorGuardadoSelectores, this.EdoCivSelect)
       .subscribe(result => {
         if (result.Correct) {
+          this.EdoCivSelect = <CivModel>result.Object;
           this.ente.EdoCi.EdoCivs = result.Objects
         }
       })
@@ -663,6 +669,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.GetNivIngOb()
       .subscribe(result => {
         if (result.Correct) {
+          this.IngSelect = <IngreModel>result.Object;
           this.ente.Ingr.Ingres = result.Objects
         }
       })
@@ -672,6 +679,7 @@ export class FgrManClienComponent implements OnInit {
     this.RhoSer.GetRhoga()
       .subscribe(result => {
         if (result.Correct) {
+          this.RhogaSelect = <RhogaModel>result.Object
           this.rhog.Rhogas = result.Objects
         }
       })
@@ -724,6 +732,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.GetGrusoOb()
       .subscribe(result => {
         if (result.Correct) {
+          this.GrusoSelect = <GrusoModel>result.Object
           this.ente.Gruso.Grusos = result.Objects
         }
       })
@@ -733,6 +742,7 @@ export class FgrManClienComponent implements OnInit {
     this.EnteSer.GetAegen()
       .subscribe(result => {
         if (result.Correct) {
+          this.AegenSelect = <AegenModel>result.Object
           this.ente.Aegen.Aegens = result.Objects
         }
       }) 
@@ -742,6 +752,9 @@ export class FgrManClienComponent implements OnInit {
     this.EdoSer.GetEstado()
       .subscribe(result => {
         if (result.Correct) {
+          this.EstadoSelect = <EstadoModel>result.Object
+          this.EstadoSelectAc = <EstadoModel>result.Object
+          this.EstadoSelectOp = <EstadoModel>result.Object
           this.direc.Estado.Estados = result.Objects;
           this.mdpag.EstadoAc.Estados = result.Objects;
           this.mdpag.EstadoOp.Estados = result.Objects;
@@ -753,6 +766,9 @@ export class FgrManClienComponent implements OnInit {
     this.MuniSSer.GetMunicipio(EdoProv)
       .subscribe(result => {
         if (result.Correct) {
+          this.MunicSelect = <MunicModel>result.Object
+          this.MunicSelectAc = <MunicModel>result.Object
+          this.MunicSelectOp = <MunicModel>result.Object
           this.direc.Municipio.Municipios = result.Objects;
           this.mdpag.MunicOp.Municipios = result.Objects
           this.mdpag.MunicAc.Municipios = result.Objects
@@ -766,12 +782,12 @@ export class FgrManClienComponent implements OnInit {
         if (result.Correct) {
 
           if (n = 1) {
-            //this.MunicSelectOp = MunInicio
+            this.MunicSelectOp = <MunicModel>result.Object
             this.mdpag.MunicOp.Municipios = result.Objects
           }
 
           if (n = 2) {
-            //this.MunicSelectAc = MunInicio
+            this.MunicSelectAc = <MunicModel>result.Object
             this.mdpag.MunicAc.Municipios = result.Objects
           }
 
@@ -783,6 +799,7 @@ export class FgrManClienComponent implements OnInit {
     this.LocSer.GetLocalidad(MuniProv)
       .subscribe(result => {
         if (result.Correct) {
+          this.LocalSelect = <LocalModel>result.Object
           this.direc.Localidad.Localidades = result.Objects;
         }
       })
@@ -792,6 +809,7 @@ export class FgrManClienComponent implements OnInit {
     this.LocCNBSer.GetLocalidadCNB(MunicCons)
       .subscribe(result => {
         if (result.Correct) {
+          this.LocalCNBSelect = <FldLocalModel>result.Object
           this.direc.LocalCNB.FLDLocalis = result.Objects;
         }
       })
@@ -801,6 +819,7 @@ export class FgrManClienComponent implements OnInit {
     this.TidoSer.GetVivienda()
       .subscribe(result => {
         if (result.Correct) {
+          this.ViviendaSelect = <TidoModel>result.Object
           this.direc.Vivienda.Tidoms = result.Objects
         }
       })
@@ -810,6 +829,7 @@ export class FgrManClienComponent implements OnInit {
     this.EntIdSer.GetTipId2()
       .subscribe(result => {
         if (result.Correct) {
+       
           this.entid.TipIds = result.Objects
         }
       })
@@ -819,6 +839,7 @@ export class FgrManClienComponent implements OnInit {
     this.EntIdSer.GetIdenti(this.entid)
       .subscribe(result => {
         if (result.Correct) {
+          //this.EntIdSelect = <EntIdModel>result.Object;
           this.entid.EntIds = result.Objects;
         }
       })
@@ -846,6 +867,7 @@ export class FgrManClienComponent implements OnInit {
     this.FuerSer.GetFuerc()
       .subscribe(result => {
         if (result.Correct) {
+          this.FuercSelect = <FuercModel>result.Object
           this.fuerc.Fuercs = result.Objects
         }
       })
@@ -855,6 +877,7 @@ export class FgrManClienComponent implements OnInit {
     this.FopSer.GetFopag()
       .subscribe(result => {
         if (result.Correct) {
+          this.FopaSelect = <FopagModel>result.Object
           this.fopag.Fopags = result.Objects
         }
       })
@@ -864,6 +887,7 @@ export class FgrManClienComponent implements OnInit {
     this.DestiSer.GetDesti()
       .subscribe(result => {
         if (result.Correct) {
+          this.DestiSelect = <DestiModel>result.Object
           this.desti.Destis = result.Objects
         }
       });
@@ -873,6 +897,7 @@ export class FgrManClienComponent implements OnInit {
     this.CnvSer.GetCnenv()
       .subscribe(result => {
         if (result.Correct) {
+          this.CnvenSelect = <CnenvModel>result.Object;
           this.cnen.Cnenvs = result.Objects
         }
       })
@@ -881,9 +906,11 @@ export class FgrManClienComponent implements OnInit {
   GetUti() {
     this.mdpag.Pagcu1 = this.Perio1Select
     this.mdpag.Pagcu2 = this.Perio2Select
+    /*
     this.mdpag.Pagcu1.Sig = this.formPost2.controls['SIG'].value
     this.mdpag.Pagcu2.Sig = this.formPost2.controls['SIG2'].value
     this.mdpag.Mon_Gasto = this.formPost2.controls['GAST_MEN'].value
+    */
     this.MdPSer.GetUtil(this.mdpag).subscribe((r) => {
       this.imprimirdef = r;
       if (this.imprimirdef != null) {
@@ -1118,7 +1145,8 @@ export class FgrManClienComponent implements OnInit {
     this.formPost3.setControl('CVE_ESTDO', new FormControl(this.EstadoSelect))
     let EdoEnvio = new EstadoModel()
     EdoEnvio = this.EstadoSelect;
-    EdoEnvio.Pais = this.PaisSelect;
+
+    EdoEnvio.Pais.Cve_Pais = 1;
     this.GetMunicipio(EdoEnvio)
   }
   CambioEstadoM(newEstado, n) {

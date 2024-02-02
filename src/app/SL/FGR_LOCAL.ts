@@ -55,7 +55,7 @@ export class LocalService {
                         result.Objects.push(LocalMo)
                     }
 
-                    //this.LocalSelect = LocaInicio
+                    result.Object = LocaInicio
                     result.Objects.unshift(LocaInicio)
                     result.Correct = true;
 

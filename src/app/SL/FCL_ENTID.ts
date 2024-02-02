@@ -72,7 +72,7 @@ export class EntIdService {
                         EntIdMo.Des_Identi = index.DES_TIPID;
                         result.Objects.push(EntIdMo)
                     }
-
+                    result.Object = result.Objects[0]
                     result.Correct = true;
                     observer.next(result);
                     observer.complete();

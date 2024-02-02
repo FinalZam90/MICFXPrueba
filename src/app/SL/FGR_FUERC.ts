@@ -54,7 +54,7 @@ export class FuercService {
                         result.Objects.push(FuerMo);
                     }
 
-                    //this.FuercSelect = FuerInicio
+                    result.Object = FuerInicio
                     result.Objects.unshift(FuerInicio)
                     result.Correct = true;
 

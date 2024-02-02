@@ -54,7 +54,7 @@ export class CnenvService {
                         result.Objects.push(CneMo)
                     }
 
-                    //this.CnvenSelect = CneInicio
+                    result.Object = CneInicio
                     result.Objects.unshift(CneInicio)
                     result.Correct = true;
 

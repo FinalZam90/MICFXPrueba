@@ -64,7 +64,7 @@ export class LugnaService {
                             result.Objects.push(LugMo)
                         }
                     }
-                    //this.LugnaSelect = LugInicio
+                    result.Object = LugInicio
                     result.Objects.unshift(LugInicio);
                     result.Correct = true;
 

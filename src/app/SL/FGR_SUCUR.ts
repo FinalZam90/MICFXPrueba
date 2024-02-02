@@ -76,7 +76,7 @@ export class SucurService {
                         }
                     }
 
-                    //SucurSelect = SucInicio
+                    result.Object = SucInicio
                     //Agrega al inicio de la lista el predeterminado
                     result.Objects.unshift(SucInicio)
                     //Si aprobó cambia bandera a correcto

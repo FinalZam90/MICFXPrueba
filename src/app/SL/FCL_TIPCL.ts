@@ -69,7 +69,7 @@ export class ClService {
                         }
                     }
 
-                    //this.ClienSelect = ClInicio
+                    result.Object = ClInicio
                     result.Objects.unshift(ClInicio)
                     result.Correct = true;
 

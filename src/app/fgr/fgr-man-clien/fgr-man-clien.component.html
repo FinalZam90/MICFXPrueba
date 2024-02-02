@@ -183,7 +183,7 @@
 												{{pais.Des_Nac}}</option>
 										</datalist>
 										<input type="search" list="listapaises" id="listapaises" class="form-control"
-											formNameControl="DES_NAC">
+											placeholder="{{PaisSelect.Des_Nac}}" formNameControl="DES_NAC">
 
 									</div>
 								</div>
@@ -211,8 +211,8 @@
 											<option [ngValue]="lug" *ngFor="let lug of ente.Lugna.Lugnas">
 												{{lug.Des_Lugna}}</option>
 										</datalist>
-										<input type="search" list="listalugnas" id="listalugnas" class="form-control"
-											formNameControl="DES_LUGNA">
+										<input type="search" list="listalugnas" placeholder="{{LugnaSelect.Des_Lugna}}"
+											id="listalugnas" class="form-control" formNameControl="DES_LUGNA">
 
 
 
@@ -253,7 +253,7 @@
 												{{suc.Des_Sucur}}</option>
 										</datalist>
 										<input type="search" list="listasucurs" id="listasucurs" class="form-control"
-											formNameControl="DES_SUCUR">
+											formNameControl="DES_SUCUR" placeholder="{{SucurSelect.Des_Sucur}}">
 
 
 									</div>
@@ -440,7 +440,7 @@
 													{{gpo.Des_Gruso}}</option>
 											</datalist>
 											<input type="search" list="listagruso" id="listagruso" class="form-control"
-												formNameControl="GPO_ECO">
+												formNameControl="GPO_ECO" placeholder="{{GrusoSelect.Des_Gruso}}">
 
 
 											<!--
@@ -733,7 +733,8 @@
 														</datalist>
 
 														<input type="search" list="listaedop" id="listaedop"
-															class="form-control" formNameControl="LGRO_ESTDO">
+															class="form-control" formNameControl="LGRO_ESTDO"
+															placeholder="{{EstadoSelectOp.Nom_Estdo}}">
 
 													</div>
 												</div><!--Estado-->
@@ -753,7 +754,8 @@
 														</datalist>
 
 														<input type="search" list="listamuniop" id="listamuniop"
-															class="form-control" formNameControl="LGRO_MUNIC">
+															class="form-control" formNameControl="LGRO_MUNIC"
+															placeholder="{{MunicSelectOp.Nom_Munic}}">
 
 
 													</div>
@@ -778,7 +780,8 @@
 														</datalist>
 
 														<input type="search" list="listaedoac" id="listaedoac"
-															class="form-control" formNameControl="LGRO_ESTDO2">
+															class="form-control" formNameControl="LGRO_ESTDO2"
+															placeholder="{{EstadoSelectAc.Nom_Estdo}}">
 													</div>
 												</div><!--Estado-->
 
@@ -798,7 +801,8 @@
 														</datalist>
 
 														<input type="search" list="listamuniac" id="listamuniac"
-															class="form-control" formNameControl="LGRO_MUNIC2">
+															class="form-control" formNameControl="LGRO_MUNIC2"
+															placeholder="{{MunicSelectAc.Nom_Munic}}">
 
 													</div>
 												</div><!--municipio-->
@@ -963,7 +967,7 @@
 										</datalist>
 
 										<input type="search" list="listapaises2" id="listapaises2" class="form-control"
-											formNameControl="CVE_PAIS">
+											formNameControl="CVE_PAIS" placeholder="{{PaisSelect.Des_Nac}}">
 
 
 									</div>
@@ -976,12 +980,17 @@
 											<i class="bx bx-search"></i>
 										</label>
 										<datalist id="listaestados">
-											<option *ngFor="let edo of direc.Estado.Estados" [ngValue]="edo">
-												{{edo.Nom_Estdo}}</option>
+
+											<select>
+												<option *ngFor="let edo of direc.Estado.Estados" [ngValue]="edo" id= "OpcEdo{{edo.Cve_Estdo}}">
+													{{edo.Nom_Estdo}}</option>
+											</select>
+
 										</datalist>
 
-										<input type="search" list="listaestados" id="listaestados" class="form-control"
-											formNameControl="CVE_ESTDO">
+										<input type="search" list="listaestados" name="edo" id="listaestados" class="form-control"
+											formNameControl="CVE_ESTDO" placeholder="{{EstadoSelect.Nom_Estdo}}"
+											(search)="CambioEstado($event)">
 
 									</div>
 								</div><!--Estado-->
@@ -998,7 +1007,7 @@
 										</datalist>
 
 										<input type="search" list="listamuni" id="listamuni" class="form-control"
-											formNameControl="CVE_MUNIC">
+											formNameControl="CVE_MUNIC" placeholder="{{MunicSelect.Nom_Munic}}">
 
 									</div>
 								</div><!--Municipio-->
@@ -1015,7 +1024,7 @@
 										</datalist>
 
 										<input type="search" list="listalocal" id="listalocal" class="form-control"
-											formNameControl="LOCALIDAD">
+											formNameControl="LOCALIDAD" placeholder="{{LocalSelect.Nom_Local}}">
 
 
 									</div>
@@ -1033,7 +1042,7 @@
 										</datalist>
 
 										<input type="search" list="listalocalcnb" id="localcnb" class="form-control"
-											formNameControl="LOCALCNB">
+											formNameControl="LOCALCNB" placeholder="{{LocalCNBSelect.Des_LoPLD}}">
 
 
 									</div>

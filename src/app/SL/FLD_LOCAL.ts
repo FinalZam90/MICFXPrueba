@@ -56,7 +56,7 @@ export class LocalCNBService {
                     }
 
                     result.Correct = true;
-                    // this.LocalCNBSelect = LocalCNBInicio
+                    result.Object = LocalCNBInicio
                     result.Objects.unshift(LocalCNBInicio)
                     observer.next(result);
                     observer.complete();

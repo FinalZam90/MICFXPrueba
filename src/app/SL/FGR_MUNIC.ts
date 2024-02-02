@@ -56,7 +56,7 @@ export class MunicService {
                     }
                     result.Correct = true;
 
-                    //this.MunicSelect = MunInicio
+                    result.Object = MunInicio
                     //this.MunicSelectAc = MunInicio
                     //this.MunicSelectOp = MunInicio
                     result.Objects.unshift(MunInicio)
@@ -103,7 +103,7 @@ export class MunicService {
 
                         result.Objects.push(MunicMod)
                     }
-
+                    result.Object = MunInicio
                     result.Correct = true;
                     result.Objects.unshift(MunInicio)
 

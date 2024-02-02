@@ -70,7 +70,7 @@ export class PaisService {
                         }
                     }
 
-                    // this.PaisSelect = PaiInicio
+                    result.Object = PaiInicio
                     result.Objects.unshift(PaiInicio)
                     result.Correct = true;
 

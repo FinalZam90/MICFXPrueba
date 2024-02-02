@@ -55,7 +55,7 @@ export class TidomService {
                     }
 
                     result.Correct = true;
-                    // this.ViviendaSelect = VivInicio
+                    result.Object = VivInicio
                     result.Objects.unshift(VivInicio)
 
                     observer.next(result);

@@ -55,7 +55,7 @@ export class RhogaService {
                         result.Objects.push(RhogMo)
                     }
 
-                    //this.RhogaSelect = RhogInicio
+                    result.Object = RhogInicio
                     result.Objects.unshift(RhogInicio)
                     result.Correct = true;
 

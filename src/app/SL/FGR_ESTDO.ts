@@ -54,7 +54,7 @@ export class EstadoService {
                         result.Objects.push(EdoMod)
                     }
 
-                    // this.EstadoSelect = EdoInicio
+                    result.Object = EdoInicio
                     //this.EstadoSelectOp = EdoInicio
                     //this.EstadoSelectAc = EdoInicio
                     result.Objects.unshift(EdoInicio)
