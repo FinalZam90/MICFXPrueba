@@ -180,7 +180,9 @@
 										</label>
 										<datalist id="listapaises">
 											<option [ngValue]="pais" *ngFor="let pais of ente.Pais.Paises">
-												{{pais.Des_Nac}}</option>
+												{{pais.Des_Nac}}
+											</option>
+
 										</datalist>
 
 										<input type="search" list="listapaises" id="listapaises" class="form-control"
@@ -209,7 +211,7 @@
 											<i class="bx bx-search"></i>
 										</label>
 
-										<datalist id="listalugnas">
+										<datalist id="listalugnas" #prueba>
 
 											<option *ngFor="let lug of ente.Lugna.Lugnas" [ngValue]="lug">
 												{{lug.Des_Lugna}}
@@ -217,12 +219,38 @@
 
 										</datalist>
 
-										<input formControlName="DES_LUGNA" [ngModel]="LugnaSelect" list="listalugnas" type="search"
-											class="form-control"> 
+										<input formControlName="DES_LUGNA" list="listalugnas" type="search"
+											class="form-control" #prueba>
+
+										<select [ngModel]="prueba"></select>
 
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
+
+								<!--
+								<div class="col-sm-12 col-lg-6 col-xl-4">
+
+									<div class="select-box">
+
+										<div class="select-option">
+											<input type="text" placeholder="Selec" id="soValue" readonly>
+										</div>
+
+										<div class="content">
+
+											<div class="search">
+												<input type="text" id="optionSearch" placeholder="Search">
+											</div>
+
+											<ul class="options">
+												<li *ngFor="let lug of ente.Lugna.Lugnas">{{lug.Des_Lugna}}</li>
+											</ul>
+										</div>
+
+									</div>
+
+								</div>-->
 
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
@@ -283,7 +311,7 @@
 										[disabled]="!formPost.valid">Guardar datos</button><br>
 									<span>valid</span><br>
 									{{formPost.valid}}
-								
+
 									<span>value</span><br>
 									{{formPost.value | json}}
 								</div><!--Submit-->
@@ -317,6 +345,7 @@
 										</div>
 
 									</div><!--Estado Civil-->
+
 
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="dependiente" class="form-label">Número de dependientes</label>
@@ -735,8 +764,8 @@
 																{{edo1.Nom_Estdo}}</option>
 														</datalist>
 
-														<input type="search" list="listaedop"
-															class="form-control" formControlName="LGRO_ESTDO">
+														<input type="search" list="listaedop" class="form-control"
+															formControlName="LGRO_ESTDO">
 
 													</div>
 												</div><!--Estado-->
