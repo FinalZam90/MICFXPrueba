@@ -467,6 +467,10 @@ export class FgrManClienComponent implements OnInit {
     return null;
   }
 
+  close() {
+    this.errorBanner = false;
+  }
+
   // Variables
   public formPost: FormGroup
   public formPost2: FormGroup
@@ -533,7 +537,7 @@ export class FgrManClienComponent implements OnInit {
   public contadorGrusos = 0;
   public contadorGuardadoSelectores: number;
 
-  public errorBanner: boolean = false;
+  public errorBanner: boolean = true;
 
   ngOnInit(): void {
     this.contadorGuardadoSelectores = 0;
@@ -927,7 +931,7 @@ export class FgrManClienComponent implements OnInit {
 
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
-   
+
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)

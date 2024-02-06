@@ -23,6 +23,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- MODAL ERRORES-->
 <div class="modal fade" *ngIf="mostrarModal == true" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="true">
@@ -1546,6 +1547,7 @@
 
 				<div *ngIf="errorBanner" class="aviso d-flex justify-content-center align-items-center">
 					<p class="text-center mt-0">{{msg.message}}</p>
+					<button (click)="close()"><i class="bx bxs-x-circle"></i></button>
 				</div>
 
 			</div><!--card-body-->
