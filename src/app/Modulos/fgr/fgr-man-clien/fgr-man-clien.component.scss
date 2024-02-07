@@ -1,0 +1,65 @@
+//**** ESTILOS GENERALES*****************//
+.was-validated .form-control:valid,
+.form-control.is-valid {
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.tab-content {
+  height: auto !important;
+}
+
+.row span,
+.form-control {
+  color: white !important;
+}
+
+//**** PESTAÑA GENERALES*****************//
+.box {
+  height: 260px;
+}
+
+legend {
+  text-align: right;
+}
+
+//**** PESTAÑA IDENTIFICACIONES*****************//
+.file-select {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &::before {
+    content: 'Seleccionar';
+    display: flex;
+    color: white;
+    border-radius: 3px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.15);
+
+    /* texto por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+
+  input[type="file"] {
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+  }
+
+}
+
+textarea {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.15);
+}
