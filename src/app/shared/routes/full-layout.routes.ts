@@ -13,9 +13,15 @@ export const Full_ROUTES: Routes = [
         loadChildren: () => import('../../application/application.module').then(m => m.ApplicationModule)
 
     },
+    /*
     {
         path: ':CVE/fgr',
         loadChildren: () => import('../../Modulos/fgr/fgr.module').then(m => m.FgrModule)
+
+    },*/
+    {
+        path: 'tabien',
+        loadChildren: () => import('../../CredIndividual/creditos.module').then(m => m.CreditosModule)
 
     },
     /*{

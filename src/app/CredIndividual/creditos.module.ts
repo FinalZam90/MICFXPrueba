@@ -14,22 +14,25 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormsModule }
 import { FgrDeptoComponent } from "../Modulos/fgr/fgr-depto/fgr-depto.component";
 import { FgrDeptoManComponent } from "../Modulos/fgr/fgr-depto-man/fgr-depto-man.component";
 import { FgrRoutingModule } from "../Modulos/fgr/fgr-routing.module";
+import { FgrModule } from "../Modulos/fgr/fgr.module";
 import { FormModule } from 'src/app/form/form.module';
 import { FgrManClienComponent } from "../Modulos/fgr/fgr-man-clien/fgr-man-clien.component";
+import { CreditosComponent } from "./creditos.component";
+import { CreditosRoutingModule } from "./creditos-routing.module";
 @NgModule({
   declarations: [
-    FgrDeptoComponent,
-    FgrDeptoManComponent,
-    FgrManClienComponent
+   
+    CreditosComponent
   ],
   imports: [
     CommonModule,
-    FgrRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    FgrModule,
+    CreditosRoutingModule,
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule
   ]
 })
-export class FgrModule { }
+export class CreditosModule { }

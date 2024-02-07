@@ -36,13 +36,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 import * as $ from 'jquery';
+import { CreditosComponent } from './CredIndividual/creditos.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FullLayoutComponent,
-    ContentLayoutComponent,
+    ContentLayoutComponent
 
  
   ],

@@ -30,6 +30,13 @@ import { FgrManClienComponent } from "./fgr-man-clien/fgr-man-clien.component";
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule
-  ]
+  ],
+  exports: [
+    CommonModule,
+    FgrDeptoComponent,
+    FgrDeptoManComponent,
+    FgrManClienComponent,
+    NgbModule
+]
 })
 export class FgrModule { }

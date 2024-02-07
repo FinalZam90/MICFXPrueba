@@ -1,0 +1,19 @@
+<ng-container [ngSwitch]="contador">
+
+    <ng-container *ngSwitchCase="1">
+        <app-fgr-man-clien></app-fgr-man-clien>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="2">
+        <app-fgr-depto-man></app-fgr-depto-man>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="3">
+        <app-fgr-depto></app-fgr-depto>
+    </ng-container>
+
+    <ng-container *ngSwitchDefault>Sin módulos</ng-container>
+</ng-container>
+
+
+<button (click)="next()">Siguiente sección</button>
