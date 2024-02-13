@@ -7,8 +7,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartsModule } from 'ng2-charts';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MatSelectModule } from "@angular/material/select";
 import { MatDialogModule } from '@angular/material/dialog';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,11 +29,14 @@ import { FgrManClienComponent } from "./fgr-man-clien/fgr-man-clien.component";
     FormsModule,
     MatFormFieldModule,
     MatSelectModule,
-    NgxMatSelectSearchModule,
     MatDialogModule
   ],
-  exports:[
-    
-  ]
+  exports: [
+    CommonModule,
+    FgrDeptoComponent,
+    FgrDeptoManComponent,
+    FgrManClienComponent,
+    NgbModule
+]
 })
 export class FgrModule { }

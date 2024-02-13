@@ -13,9 +13,15 @@ export const Full_ROUTES: Routes = [
         loadChildren: () => import('../../application/application.module').then(m => m.ApplicationModule)
 
     },
+    /*
     {
         path: ':CVE/fgr',
-        loadChildren: () => import('../../fgr/fgr.module').then(m => m.FgrModule)
+        loadChildren: () => import('../../Modulos/fgr/fgr.module').then(m => m.FgrModule)
+
+    },*/
+    {
+        path: 'tabien',
+        loadChildren: () => import('../../CredIndividual/creditos.module').then(m => m.CreditosModule)
 
     },
     /*{
@@ -30,12 +36,12 @@ export const Full_ROUTES: Routes = [
     },*/
     {
         path: ':CVE/fad',
-        loadChildren: () => import('../../fad/fad.module').then(m => m.FadModule)
+        loadChildren: () => import('../../Modulos/fad/fad.module').then(m => m.FadModule)
 
     },
     {
         path: ':CVE/fad/usuarios',
-        loadChildren: () => import('../../fad/fad-con-usuar/fadusuar.module').then(m => m.FadModule)
+        loadChildren: () => import('../../Modulos/fad/fad-con-usuar/fadusuar.module').then(m => m.FadModule)
 
       },
     {
