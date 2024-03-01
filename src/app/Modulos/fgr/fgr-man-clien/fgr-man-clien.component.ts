@@ -560,7 +560,7 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
-  
+
 
   // SECCIÓN PROYECCIÓN DE DATOS
   GetSucurs() {
@@ -735,7 +735,7 @@ export class FgrManClienComponent implements OnInit {
         if (result.Correct) {
           this.ente.Aegen.Aegens = result.Objects
         }
-      }) 
+      })
   }
 
   GetEstado() {
@@ -896,9 +896,15 @@ export class FgrManClienComponent implements OnInit {
   }
 
 
-
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
+    console.log('prueba');
+    console.log(this.formPost.value);
+    console.log(this.formPost.valid);
+    console.log(this.formPost.untouched);
+    console.log(this.formPost.getError);
+    console.log(this.formPost.controls);
+
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
@@ -933,9 +939,12 @@ export class FgrManClienComponent implements OnInit {
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
-    
+
+
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
+
       console.log(r);
+
       this.imprimirdef = r;
       if (this.imprimirdef.BAN == true) {
         $('#next-btn').prop('disabled', false);
@@ -959,6 +968,7 @@ export class FgrManClienComponent implements OnInit {
     this.LlenarListas()
 
   }
+  
   public LlenarListas() {
     this.GetSucurs()
     this.GetPais()
