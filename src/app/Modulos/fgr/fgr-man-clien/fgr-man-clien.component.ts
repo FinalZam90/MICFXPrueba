@@ -933,6 +933,7 @@ export class FgrManClienComponent implements OnInit {
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
+    
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
       console.log(r);
       this.imprimirdef = r;
