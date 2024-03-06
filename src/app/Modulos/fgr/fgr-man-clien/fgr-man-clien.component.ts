@@ -148,7 +148,7 @@ export class FgrManClienComponent implements OnInit {
 
         FEC_NAC: new FormControl('',
           [
-            Validators.required
+            Validators.required,
           ]),
 
         TIP_SEX: new FormControl(new Array<SexGenModel>(), [
@@ -467,6 +467,26 @@ export class FgrManClienComponent implements OnInit {
     return null;
   }
 
+  validYear(): boolean {
+
+    let Cadena = this.formPost.controls['FEC_NAC'].value
+
+    let date = new Date().getTime() - new Date(Cadena).getTime();
+
+    // Convertir la diferencia de milisegundos a días
+    let dias = Math.floor(date / (1000 * 60 * 60 * 24));
+    // Convertir la diferencia en días a años
+    let years = Math.floor(dias / 365.25);
+
+    if (years < 18) {
+      return true
+
+    } else {
+      return false
+    }
+
+  }
+
   // Variables
   public formPost: FormGroup
   public formPost2: FormGroup
@@ -559,7 +579,6 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
-
 
 
   // SECCIÓN PROYECCIÓN DE DATOS
@@ -898,17 +917,14 @@ export class FgrManClienComponent implements OnInit {
 
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
-    console.log('prueba');
-    console.log(this.formPost.value);
-    console.log(this.formPost.valid);
-    console.log(this.formPost.untouched);
-    console.log(this.formPost.getError);
-    console.log(this.formPost.controls);
 
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
     let CadenaFecha = Cadena.split("-")
+
+    console.log("bla:" + this.ente)
+
     /*
     this.ente.Lugna = new LugnaModel()
     this.ente.Pais = new PaisModel()
@@ -940,9 +956,16 @@ export class FgrManClienComponent implements OnInit {
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
 
+    console.log('prueba');
+    console.log(this.formPost.value);
 
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
 
+      console.log('prueba');
+      console.log(this.formPost.value);
+      console.log(this.formPost.valid);
+      console.log(this.formPost.getError);
+      console.log(this.formPost.controls);
       console.log(r);
 
       this.imprimirdef = r;
@@ -968,7 +991,7 @@ export class FgrManClienComponent implements OnInit {
     this.LlenarListas()
 
   }
-  
+
   public LlenarListas() {
     this.GetSucurs()
     this.GetPais()

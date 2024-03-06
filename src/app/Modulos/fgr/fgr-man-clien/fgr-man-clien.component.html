@@ -157,6 +157,10 @@
 									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('FEC_NAC', formPost)">
 										<label>{{textError('FEC_NAC', formPost)}}</label>
 									</div><!--msj error-->
+
+									<div class="py-3 px-2 border-bottom" *ngIf="validYear()">
+										<label>{{'*La fecha ingresada no es mayor de edad'}}</label>
+									</div><!--msj error-->
 								</div><!--Fecha Nacimiento-->
 
 								<div class="col-md-12 col-lg-6 col-xl-4">
