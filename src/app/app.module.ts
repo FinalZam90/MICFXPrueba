@@ -29,7 +29,7 @@ import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -44,8 +44,6 @@ import { CreditosComponent } from './CredIndividual/creditos.component';
     AppComponent,
     FullLayoutComponent,
     ContentLayoutComponent
-
- 
   ],
   imports: [
     BrowserModule,

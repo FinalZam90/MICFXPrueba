@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, HostListener, Renderer2, ChangeDetectorRef } from '@angular/core';
-
+import html2canvas from 'html2canvas';
 import { ClService } from '../../../SL/FCL_TIPCL';
 import { EnteService } from '../../../SL/FCL_ENTE';
 import { SucurService } from '../../../SL/FGR_SUCUR';
@@ -69,6 +69,8 @@ import {
 import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
 import { event } from 'jquery';
 import { Subject } from 'rxjs';
+import { WordService } from 'src/app/SL/Word';
+import { PdfService } from 'src/app/SL/PDF';
 
 @Component({
   selector: 'app-fgr-man-clien',
@@ -76,7 +78,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./fgr-man-clien.component.scss']
 })
 export class FgrManClienComponent implements OnInit {
-
+  @ViewChild('elementoParaCaptura') elementoParaCaptura: ElementRef;
   constructor(
     private SucSer: SucurService,
     private ClSer: ClService,
@@ -98,6 +100,8 @@ export class FgrManClienComponent implements OnInit {
     private RhoSer: RhogaService,
     private MdPSer: MdPagService,
     private cook: CookieService,
+    private wordService: WordService,
+    private pdfService: PdfService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private location: Location,
@@ -560,7 +564,7 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
-  
+
 
   // SECCIÓN PROYECCIÓN DE DATOS
   GetSucurs() {
@@ -735,7 +739,7 @@ export class FgrManClienComponent implements OnInit {
         if (result.Correct) {
           this.ente.Aegen.Aegens = result.Objects
         }
-      }) 
+      })
   }
 
   GetEstado() {
@@ -896,9 +900,15 @@ export class FgrManClienComponent implements OnInit {
   }
 
 
-
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
+    console.log('prueba');
+    console.log(this.formPost.value);
+    console.log(this.formPost.valid);
+    console.log(this.formPost.untouched);
+    console.log(this.formPost.getError);
+    console.log(this.formPost.controls);
+
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
@@ -933,8 +943,12 @@ export class FgrManClienComponent implements OnInit {
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
+
+
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
+
       console.log(r);
+
       this.imprimirdef = r;
       if (this.imprimirdef.BAN == true) {
         $('#next-btn').prop('disabled', false);
@@ -958,6 +972,7 @@ export class FgrManClienComponent implements OnInit {
     this.LlenarListas()
 
   }
+  
   public LlenarListas() {
     this.GetSucurs()
     this.GetPais()
@@ -984,6 +999,30 @@ export class FgrManClienComponent implements OnInit {
     this.GetFuerc()
     this.GetRhoga()
     this.GetPeriod()
+  }
+  public Word()
+  {
+    this.wordService.generateWord(this.ente).then((blob: Blob) => {
+      
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'documento.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+  public PDF()
+  {
+    //this.pdfService.generatePDF(this.ente);
+    const element = this.elementoParaCaptura.nativeElement;
+
+    html2canvas(element).then((canvas) => 
+    {
+      const ImagenBiteada = canvas.toDataURL('image/jpeg');
+      this.pdfService.PDFCaptura(ImagenBiteada);
+    });
+    
   }
   public Form2() {
 

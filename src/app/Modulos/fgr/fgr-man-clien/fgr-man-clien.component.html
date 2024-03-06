@@ -55,10 +55,16 @@
 </div>
 <!--end breadcrumb-->
 
-<div class="row">
+<div class="row" #elementoParaCaptura>
 
-	<div class="col-xl-12 mx-auto">
-		<h6 class="mb-0">{{'Mantenimiento de Clientes' | uppercase}}</h6>
+	<div class="col-xl-12 mx-auto" >
+		<div class="d-flex align-items-center gap-2">
+			<h6 class="mb-0">{{'Mantenimiento de Clientes' | uppercase}}</h6>
+			<button title="Download PDF" class="input-group-text" (click)="PDF()"><i class="bx bxs-file-pdf"></i> </button>
+			<button title="Download Word" class="input-group-text" (click)="Word()"><i class="bx bxs-file-doc"></i> </button>
+		</div>
+
+
 		<hr />
 
 		<div class="card">
@@ -110,7 +116,7 @@
 
 								<div class="col-md-12 col-lg-6">
 									<input type="text" class="form-control" id="nombre" [(ngModel)]="ente.Nom_Ente1"
-										formControlName="NOM1_ENTE">
+										formControlName="NOM1_ENTE" required>
 
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NOM1_ENTE', formPost)">
 										<label>{{textError('NOM1_ENTE', formPost)}}</label>
@@ -119,13 +125,13 @@
 
 								<div class="col-md-12 col-lg-6">
 									<input type="text" class="form-control" id="nombre2" [(ngModel)]="ente.Nom_Ente2"
-										formControlName="NOM2_ENTE" required>
+										formControlName="NOM2_ENTE">
 								</div><!--Nombre2-->
 
 								<div class="col-md-12  col-lg-6">
 									<label for="apellidoP" class="form-label">Apellido Paterno</label>
 									<input type="text" class="form-control" id="apellidoP" [(ngModel)]="ente.Ape_Ente1"
-										formControlName="APE1_ENTE">
+										formControlName="APE1_ENTE" required>
 
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APE1_ENTE', formPost)">
 										<label>{{textError('APE1_ENTE', formPost)}}</label>
@@ -136,7 +142,7 @@
 								<div class="col-md-12 col-lg-6">
 									<label for="apellidoM" class="form-label">Apellido Materno</label>
 									<input type="text" class="form-control" id="apellidoM" [(ngModel)]="ente.Ape_Ente2"
-										formControlName="APE2_ENTE">
+										formControlName="APE2_ENTE" required>
 
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('APE2_ENTE', formPost)">
 										<label>{{textError('APE2_ENTE', formPost)}}</label>
@@ -146,7 +152,7 @@
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="nacimiento" class="form-label">Fecha de Nacimiento:</label>
 									<input id="nacimiento" type="date" class="form-control" [(ngModel)]="ente.Fec_Na2"
-										formControlName="FEC_NAC">
+										formControlName="FEC_NAC" required>
 
 									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('FEC_NAC', formPost)">
 										<label>{{textError('FEC_NAC', formPost)}}</label>
@@ -160,12 +166,14 @@
 										<label class="input-group-text" for="genero">
 											<i class="bx bxs-user"></i>
 										</label>
-										<select formNameControl="TIP_SEX" [ngModel]="TipSexSelect"
-											(ngModelChange)="CambioSexGen($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="genero"
-											required>
+
+										<select formControlName="TIP_SEX" [ngModel]="TipSexSelect"
+											(ngModelChange)="CambioSexGen($event)" name="sel1" class="form-select"
+											id="genero" required>
+
 											<option [ngValue]="Gen" *ngFor="let Gen of ente.SexGen.SexGenArray">
-												{{Gen.Des_TipSex}}</option>
+												{{Gen.Des_TipSex}}
+											</option>
 										</select>
 									</div>
 
@@ -183,7 +191,7 @@
 												{{pais.Des_Nac}}</option>
 										</datalist>
 										<input type="search" list="listapaises" id="listapaises" class="form-control"
-											formNameControl="DES_NAC">
+											formControlName="DES_NAC" required>
 
 									</div>
 								</div>
@@ -192,7 +200,7 @@
 									<label class="form-label">Nacionalidad</label>
 									<div class="input-group mb-3">
 										<label class="input-group-text" for="inputGroupSelect01">Opción</label>
-										<select formNameControl="DES_NAC" [ngModel]="PaisSelect" (ngModelChange)="CambioPais($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="inputGroupSelect01" required>
+										<select formControlName="DES_NAC" [ngModel]="PaisSelect" (ngModelChange)="CambioPais($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="inputGroupSelect01" required>
 											<option [ngValue]="pais" *ngFor ="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>
 											<option value="1">Norteamericana</option>
 											<option value="2">FGR_PAIS</option>
@@ -212,21 +220,17 @@
 												{{lug.Des_Lugna}}</option>
 										</datalist>
 										<input type="search" list="listalugnas" id="listalugnas" class="form-control"
-											formNameControl="DES_LUGNA">
-
-
+											formControlName="DES_LUGNA" required>
 
 									</div>
 
 								</div><!--Lugar de Nacimiento-->
 
 
-
-
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="rfc" class="form-label">RFC</label>
 									<input type="text" class="form-control" id="rfc" [(ngModel)]="ente.RFC"
-										formControlName="RFC">
+										formControlName="RFC" required>
 
 									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('RFC', formPost)">
 										<label>{{textError('RFC', formPost)}}</label>
@@ -236,7 +240,7 @@
 								<div class="col-md-12 col-lg-6 col-xl-4">
 									<label for="curp" class="form-label">CURP</label>
 									<input type="text" class="form-control" id="curp" [(ngModel)]="ente.CURP"
-										formControlName="CURP">
+										formControlName="CURP" required>
 									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('CURP', formPost)">
 										<label>{{textError('CURP', formPost)}}</label>
 									</div><!--msj error-->
@@ -253,7 +257,7 @@
 												{{suc.Des_Sucur}}</option>
 										</datalist>
 										<input type="search" list="listasucurs" id="listasucurs" class="form-control"
-											formNameControl="DES_SUCUR">
+											formControlName="DES_SUCUR" required>
 
 
 									</div>
@@ -265,10 +269,9 @@
 										<label class="input-group-text" for="tcliente">
 											<i class="bx bxs-user"></i>
 										</label>
-										<select formNameControl="DES_TIPCL" [ngModel]="ClienSelect"
-											(ngModelChange)="CambioCl($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="tcliente"
-											required>
+										<select formControlName="DES_TIPCL" [ngModel]="ClienSelect"
+											(ngModelChange)="CambioCl($event)" name="sel1" class="form-select"
+											id="tcliente" required>
 											<option [ngValue]="cl" *ngFor="let cl of ente.TipCl.TipCls">{{cl.Des_TipCl}}
 											</option>
 											<!--<option value="1">Persona física</option>
@@ -301,9 +304,10 @@
 											<label class="input-group-text" for="ec">
 												<i class="bx bx-home-heart"></i>
 											</label>
-											<select formNameControl="EDO_CIV" [ngModel]="EdoCivSelect"
-												(ngModelChange)="CambioEdoCi($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="ec">
+
+											<select formControlName="EDO_CIV" [ngModel]="EdoCivSelect"
+												(ngModelChange)="CambioEdoCi($event)" name="sel1" class="form-select"
+												id="ec" required>
 												<option [ngValue]="ci" *ngFor="let ci of ente.EdoCi.EdoCivs">
 													{{ci.Tip_EdoCi}}</option>
 												<!--<option value="1">Casado</option>
@@ -317,7 +321,7 @@
 										<label for="dependiente" class="form-label">Número de dependientes</label>
 
 										<input id="dependiente" type="number" class="form-control" placeholder="0"
-											[(ngModel)]="ente.NumDependientes" formControlName="NUM_DECLI">
+											[(ngModel)]="ente.NumDependientes" formControlName="NUM_DECLI" required>
 
 										<div class="py-3 px-2 border-bottom"
 											*ngIf="errorHandle('NUM_DECLI', formPost2)">
@@ -333,9 +337,9 @@
 											<label class="input-group-text" for="estudios">
 												<i class="bx bxs-graduation"></i>
 											</label>
-											<select formNameControl="NIV_ES" [ngModel]="NivesSelect"
-												(ngModelChange)="CambioNives($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="estudios">
+											<select formControlName="NIV_ES" [ngModel]="NivesSelect"
+												(ngModelChange)="CambioNives($event)" name="sel1" class="form-select"
+												id="estudios" required>
 												<option [ngValue]="niv" *ngFor="let niv of ente.Nives.Estus">
 													{{niv.Des_Nives}}</option>
 												<!--<option value="1">Primaria</option>
@@ -349,7 +353,7 @@
 										<label for="correo" class="form-label">Correo electrónico</label>
 										<input id="correo" type="email" class="form-control"
 											placeholder="correo@dominio.com" [(ngModel)]="ente.Email"
-											formControlName="EMAIL">
+											formControlName="EMAIL" required>
 
 										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('EMAIL', formPost2)">
 											<label>{{textError('EMAIL', formPost2)}}</label>
@@ -360,7 +364,7 @@
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="telP" class="form-label">Teléfono particular</label>
 										<input id="telP" type="tel" class="form-control" placeholder="55"
-											[(ngModel)]="ente.Tel_1" formControlName="TEL1">
+											[(ngModel)]="ente.Tel_1" formControlName="TEL1" required>
 
 										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('TEL1', formPost2)">
 											<label>{{textError('TEL1', formPost2)}}</label>
@@ -371,7 +375,7 @@
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="telc" class="form-label">Teléfono celular</label>
 										<input id="telc" type="tel" class="form-control" placeholder="55"
-											[(ngModel)]="ente.Tel_2" formControlName="TEL2">
+											[(ngModel)]="ente.Tel_2" formControlName="TEL2" required>
 
 										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('TEL2', formPost2)">
 											<label>{{textError('TEL2', formPost2)}}</label>
@@ -382,7 +386,7 @@
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="teln" class="form-label">Teléfono de negocio</label>
 										<input id="teln" type="tel" class="form-control" placeholder="55"
-											[(ngModel)]="ente.Tel_3" formControlName="TEL3">
+											[(ngModel)]="ente.Tel_3" formControlName="TEL3" required>
 
 										<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('TEL3', formPost2)">
 											<label>{{textError('TEL3', formPost2)}}</label>
@@ -404,9 +408,9 @@
 											<label class="input-group-text" for="ingreso">
 												<i class="bx bx-stats"></i>
 											</label>
-											<select formNameControl="NIV_ING" [ngModel]="IngSelect"
-												(ngModelChange)="CambioIng($event)" name="sel1"
-												[ngModelOptions]="{standalone: true}" class="form-select" id="ingreso">
+											<select formControlName="NIV_ING" [ngModel]="IngSelect"
+												(ngModelChange)="CambioIng($event)" name="sel1" class="form-select"
+												id="ingreso" required>
 												<option [ngValue]="ing" *ngFor="let ing of ente.Ingr.Ingres">
 													{{ing.Des_Nivel}}</option>
 												<!--<option value="1">Primaria</option>
@@ -419,7 +423,7 @@
 									<div class="col-sm-12 col-lg-6 col-xl-4">
 										<label for="act" class="form-label">Fec. Inicio Act. Económica:</label>
 										<input id="act" type="date" class="form-control" [(ngModel)]="ente.Fec_Inicio"
-											formControlName="FEC_INICIO">
+											formControlName="FEC_INICIO" required>
 
 										<div class="py-3 px-2 border-bottom"
 											*ngIf="errorHandle('FEC_INICIO', formPost2)">
@@ -440,11 +444,11 @@
 													{{gpo.Des_Gruso}}</option>
 											</datalist>
 											<input type="search" list="listagruso" id="listagruso" class="form-control"
-												formNameControl="GPO_ECO">
+												formControlName="GPO_ECO" required>
 
 
 											<!--
-											<select formNameControl="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="grupo" required>
+											<select formControlName="GPO_ECO" [ngModel]="GrusoSelect" (ngModelChange)="CambioGruso($event)" name="sel1" [ngModelOptions]="{standalone: true}" class="form-select" id="grupo" required>
 												<option [ngValue]="gpo" *ngFor ="let gpo of ente.Gruso.Grusos">{{gpo.Des_Gruso}}</option>
 												<option value="1">Primaria</option>
 												<option value="2">Secundaria</option>
@@ -479,9 +483,7 @@
 													{{gpo.Des_Gruso}}</option>
 											</datalist>
 											<input type="search" list="listacnb" id="listacnb" class="form-control"
-												formNameControl="CNB">
-
-
+												formControlName="CNB" required>
 
 										</div>
 
@@ -511,10 +513,9 @@
 													<i class="bx bxs-shield"></i>
 												</label>
 
-												<select formNameControl="FUE_REC" class="form-select"
+												<select formControlName="FUE_REC" class="form-select"
 													[ngModel]="FuercSelect" (ngModelChange)="CambioRecursos($event)"
-													name="sel1" [ngModelOptions]="{standalone: true}"
-													class="form-select" id="recursos" required>
+													name="sel1" class="form-select" id="recursos" required>
 													<option [ngValue]="fu" *ngFor="let fu of fuerc.Fuercs">
 														{{fu.Des_Fuerc}}</option>
 
@@ -532,10 +533,9 @@
 													<label class="input-group-text" for="per1">
 														<i class="bx bxs-time"></i>
 													</label>
-													<select formNameControl="PER" class="form-select"
+													<select formControlName="PER" class="form-select"
 														[ngModel]="Perio1Select" (ngModelChange)="CambioPer1($event)"
-														name="sel1" [ngModelOptions]="{standalone: true}"
-														class="form-select" id="per1" required>
+														name="sel1" class="form-select" id="per1" required>
 														<option *ngFor="let per of perio1.Perios" [ngValue]="per">
 															{{per.Des}}</option>
 
@@ -550,7 +550,7 @@
 													<label for="signo" class="form-label">$</label>
 													<input id="signo" type="number" formControlName="SIG"
 														[(ngModel)]="mdpag.Pagcu1.Sig" (keyup)="GetUti()"
-														(change)="GetUti()" class="form-control">
+														(change)="GetUti()" class="form-control" required>
 												</div>
 
 												<div class="py-3 px-2 border-bottom"
@@ -609,7 +609,7 @@
 													Mensual</label>
 												<input id="gasto" type="number" formControlName="GAST_MEN"
 													[(ngModel)]="mdpag.Mon_Gasto" (keyup)="GetUti()" (change)="GetUti()"
-													class="form-control">
+													class="form-control" required>
 
 												<div class="py-3 px-2 border-bottom"
 													*ngIf="errorHandle('GAST_MEN', formPost2)">
@@ -639,6 +639,7 @@
 
 									</div><!--col2-->
 								</form>
+
 							</div><!--Formas de Percepción de Ingreso-->
 
 							<div class="mb-5">
@@ -733,7 +734,7 @@
 														</datalist>
 
 														<input type="search" list="listaedop" id="listaedop"
-															class="form-control" formNameControl="LGRO_ESTDO">
+															class="form-control" formControlName="LGRO_ESTDO" required>
 
 													</div>
 												</div><!--Estado-->
@@ -753,7 +754,7 @@
 														</datalist>
 
 														<input type="search" list="listamuniop" id="listamuniop"
-															class="form-control" formNameControl="LGRO_MUNIC">
+															class="form-control" formControlName="LGRO_MUNIC" required>
 
 
 													</div>
@@ -778,7 +779,7 @@
 														</datalist>
 
 														<input type="search" list="listaedoac" id="listaedoac"
-															class="form-control" formNameControl="LGRO_ESTDO2">
+															class="form-control" formControlName="LGRO_ESTDO2" required>
 													</div>
 												</div><!--Estado-->
 
@@ -798,7 +799,7 @@
 														</datalist>
 
 														<input type="search" list="listamuniac" id="listamuniac"
-															class="form-control" formNameControl="LGRO_MUNIC2">
+															class="form-control" formControlName="LGRO_MUNIC2" required>
 
 													</div>
 												</div><!--municipio-->
@@ -920,7 +921,7 @@
 											<label class="input-group-text" for="hogar">Opción</label>
 											<select formControlName="ROL_HOG" class="form-select" id="hogar"
 												[ngModel]="RhogaSelect" (ngModelChange)="CambioRhoga($event)"
-												name="sel1">
+												name="sel1" required>
 												<option *ngFor="let rho of rhog.Rhogas" [ngValue]="rho">
 													{{rho.Des_Rhoga}}</option>
 											</select>
@@ -939,12 +940,13 @@
 						<section id="direcciones" class="tab-pane" role="tabpanel" aria-labelledby="direcciones">
 
 							<h3>Direcciones</h3>
-							<form class="row g-3" novalidate [formGroup]="formPost3" (ngSubmit)="Form3()">
+							<form class="row g-3 needs-validation" novalidate [formGroup]="formPost3"
+								(ngSubmit)="Form3()">
 
 								<div class="col-sm-12 col-md-6 col-lg-4">
 									<label for="cp" class="form-label">Código Postal</label>
 									<input type="text" class="form-control" id="cp" [(ngModel)]="direc.Cve_CP"
-										formControlName="CP">
+										formControlName="CP" required>
 
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CP', formPost3)">
 										<label>{{textError('CP', formPost3)}}</label>
@@ -963,7 +965,7 @@
 										</datalist>
 
 										<input type="search" list="listapaises2" id="listapaises2" class="form-control"
-											formNameControl="CVE_PAIS">
+											formControlName="CVE_PAIS" required>
 
 
 									</div>
@@ -981,7 +983,7 @@
 										</datalist>
 
 										<input type="search" list="listaestados" id="listaestados" class="form-control"
-											formNameControl="CVE_ESTDO">
+											formControlName="CVE_ESTDO" required>
 
 									</div>
 								</div><!--Estado-->
@@ -998,7 +1000,7 @@
 										</datalist>
 
 										<input type="search" list="listamuni" id="listamuni" class="form-control"
-											formNameControl="CVE_MUNIC">
+											formControlName="CVE_MUNIC" required>
 
 									</div>
 								</div><!--Municipio-->
@@ -1015,7 +1017,7 @@
 										</datalist>
 
 										<input type="search" list="listalocal" id="listalocal" class="form-control"
-											formNameControl="LOCALIDAD">
+											formControlName="LOCALIDAD" required>
 
 
 									</div>
@@ -1033,7 +1035,7 @@
 										</datalist>
 
 										<input type="search" list="listalocalcnb" id="localcnb" class="form-control"
-											formNameControl="LOCALCNB">
+											formControlName="LOCALCNB" required>
 
 
 									</div>
@@ -1042,7 +1044,7 @@
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="ciudad" class="form-label">Ciudad</label>
 									<input type="text" class="form-control" id="ciudad" [(ngModel)]="direc.Des_Ciuda"
-										formControlName="CIUDAD">
+										formControlName="CIUDAD" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CIUDAD', formPost3)">
 										<label>{{textError('CIUDAD', formPost3)}}</label>
 									</div><!--msj error-->
@@ -1051,7 +1053,7 @@
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="colonia" class="form-label">Colonia</label>
 									<input type="text" class="form-control" id="colonia" [(ngModel)]="direc.Nom_Colon"
-										formControlName="COLONIA">
+										formControlName="COLONIA" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('COLONIA', formPost3)">
 										<label>{{textError('COLONIA', formPost3)}}</label>
 									</div><!--msj error-->
@@ -1060,7 +1062,7 @@
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="calle" class="form-label">Calle</label>
 									<input type="text" class="form-control" id="calle" [(ngModel)]="direc.Des_Calle"
-										formControlName="CALLE">
+										formControlName="CALLE" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('CALLE', formPost3)">
 										<label>{{textError('CALLE', formPost3)}}</label>
 									</div><!--msj error-->
@@ -1099,13 +1101,11 @@
 										<label class="input-group-text" for="vivienda">
 											<i class="bx bx-map-pin"></i>
 										</label>
-										<select formNameControl="VIVIENDA" [ngModel]="ViviendaSelect"
-											(ngModelChange)="CambioVivienda($event)" name="sel1"
-											[ngModelOptions]="{standalone: true}" class="form-select" id="vivienda"
-											required>
+										<select formControlName="VIVIENDA" [ngModel]="ViviendaSelect"
+											(ngModelChange)="CambioVivienda($event)" name="sel1" class="form-select"
+											id="vivienda" required>
 											<option *ngFor="let vivi of direc.Vivienda.Tidoms" [ngValue]="vivi">
 												{{vivi.Des_Tidom}}</option>
-
 										</select>
 									</div>
 								</div><!--vivienda-->
@@ -1113,7 +1113,7 @@
 								<div class="col-sm-12 col-lg-6 col-xl-4">
 									<label for="residenciaA" class="form-label">Años de residencia</label>
 									<input type="number" class="form-control" id="residenciaA"
-										[(ngModel)]="direc.Num_Resen" formControlName="AÑRES">
+										[(ngModel)]="direc.Num_Resen" formControlName="AÑRES" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('AÑRES', formPost3)">
 										<label>{{textError('AÑRES', formPost3)}}</label>
 									</div><!--msj error-->
@@ -1175,16 +1175,15 @@
 							</div>
 						</section><!--direcciones-->
 
-						<section id="identificaciones" class="tab-pane" role="tabpanel"
-							aria-labelledby="identificaciones">
+						<section id="identificaciones" class="tab-pane" role="tabpanel"	aria-labelledby="identificaciones">
 							<h3>Identificaciones</h3>
 
-							<form class="row" novalidate [formGroup]="formPostIdenti" (ngSubmit)="FormIdenti()">
+							<form class="row needs-validation" novalidate [formGroup]="formPostIdenti" (ngSubmit)="FormIdenti()">
 
 								<div class="col-md-6 mb-3">
 									<label for="credencial" class="form-label">Tipo ID:</label>
 									<div id="credencial" class="input-group">
-										<mat-select multiple class="form-control" placeholder="Seleccione">
+										<mat-select multiple class="form-control" placeholder="Seleccione" required>
 											<mat-option (onSelectionChange)="TipIdSelect($event)"
 												*ngFor="let enti of entid.TipIds" [value]="enti">
 												{{ enti.Des_Identi }}
@@ -1293,11 +1292,12 @@
 						<section id="referencias" class="tab-pane" role="tabpanel" aria-labelledby="referencias">
 							<h3>Referencias</h3>
 
-							<form class="row" novalidate [formGroup]="formPostRefmi" (ngSubmit)="FormRefmi()">
+							<form class="row needs-validation" novalidate [formGroup]="formPostRefmi" (ngSubmit)="FormRefmi()">
+								
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Nombre Completo</label>
 									<input type="text" class="form-control" formControlName="NOMBRE"
-										[(ngModel)]="refmi.Nom_Refer">
+										[(ngModel)]="refmi.Nom_Refer" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('NOMBRE', formPostRefmi)">
 										<label>{{textError('NOMBRE', formPostRefmi)}}</label>
 									</div><!--msj error-->
@@ -1306,7 +1306,7 @@
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Teléfono</label>
 									<input type="tel" class="form-control" formControlName="TEL"
-										[(ngModel)]="refmi.Num_TelRe">
+										[(ngModel)]="refmi.Num_TelRe" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('TEL', formPostRefmi)">
 										<label>{{textError('TEL', formPostRefmi)}}</label>
 									</div><!--msj error-->
@@ -1315,7 +1315,7 @@
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Dirección</label>
 									<input type="text" class="form-control" formControlName="DIREC"
-										[(ngModel)]="refmi.Des_Dirre">
+										[(ngModel)]="refmi.Des_Dirre" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('DIREC', formPostRefmi)">
 										<label>{{textError('DIREC', formPostRefmi)}}</label>
 									</div><!--msj error-->
@@ -1324,7 +1324,7 @@
 								<div class="col-sm-12 col-xl-4 mb-3">
 									<label class="form-label">Años de conocerlo/a</label>
 									<input type="number" class="form-control" min="1" formControlName="AN_CON"
-										[(ngModel)]="refmi.Num_AnoCo">
+										[(ngModel)]="refmi.Num_AnoCo" required>
 									<div class="py-2 px-2 border-bottom" *ngIf="errorHandle('AN_CON', formPostRefmi)">
 										<label>{{textError('AN_CON', formPostRefmi)}}</label>
 									</div><!--msj error-->
