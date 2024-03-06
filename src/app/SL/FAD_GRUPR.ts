@@ -8,7 +8,7 @@ import { CookieService } from "ngx-cookie-service";
 })
 
 export class GruprService{
-    myApi = "/prueba/FGR/WsConProce.p";
+    myApi = "https://webmicfx.arashi.solutions/FGR/WsConProce.p";
     myApiGrupr = "/prueba/FAD/WsGrupr.p";
     myApiLogin = "https://webmicfx.arashi.solutions/FAD/WsLogin2.p"
     options = 
