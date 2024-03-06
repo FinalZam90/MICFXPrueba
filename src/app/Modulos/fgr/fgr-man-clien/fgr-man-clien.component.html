@@ -55,13 +55,13 @@
 </div>
 <!--end breadcrumb-->
 
-<div class="row">
+<div class="row" #elementoParaCaptura>
 
-	<div class="col-xl-12 mx-auto">
+	<div class="col-xl-12 mx-auto" >
 		<div class="d-flex align-items-center gap-2">
 			<h6 class="mb-0">{{'Mantenimiento de Clientes' | uppercase}}</h6>
-			<button title="Download PDF" class="input-group-text"><i class="bx bxs-file-pdf"></i> </button>
-			<button title="Download Word" class="input-group-text"><i class="bx bxs-file-doc"></i> </button>
+			<button title="Download PDF" class="input-group-text" (click)="PDF()"><i class="bx bxs-file-pdf"></i> </button>
+			<button title="Download Word" class="input-group-text" (click)="Word()"><i class="bx bxs-file-doc"></i> </button>
 		</div>
 
 
@@ -156,10 +156,6 @@
 
 									<div class="py-3 px-2 border-bottom" *ngIf="errorHandle('FEC_NAC', formPost)">
 										<label>{{textError('FEC_NAC', formPost)}}</label>
-									</div><!--msj error-->
-
-									<div class="py-3 px-2 border-bottom" *ngIf="validYear()">
-										<label>{{'*La fecha ingresada no es mayor de edad'}}</label>
 									</div><!--msj error-->
 								</div><!--Fecha Nacimiento-->
 

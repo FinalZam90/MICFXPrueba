@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, HostListener, Renderer2, ChangeDetectorRef } from '@angular/core';
-
+import html2canvas from 'html2canvas';
 import { ClService } from '../../../SL/FCL_TIPCL';
 import { EnteService } from '../../../SL/FCL_ENTE';
 import { SucurService } from '../../../SL/FGR_SUCUR';
@@ -69,6 +69,8 @@ import {
 import { FgrDeptoComponent } from '../fgr-depto/fgr-depto.component';
 import { event } from 'jquery';
 import { Subject } from 'rxjs';
+import { WordService } from 'src/app/SL/Word';
+import { PdfService } from 'src/app/SL/PDF';
 
 @Component({
   selector: 'app-fgr-man-clien',
@@ -76,7 +78,7 @@ import { Subject } from 'rxjs';
   styleUrls: ['./fgr-man-clien.component.scss']
 })
 export class FgrManClienComponent implements OnInit {
-
+  @ViewChild('elementoParaCaptura') elementoParaCaptura: ElementRef;
   constructor(
     private SucSer: SucurService,
     private ClSer: ClService,
@@ -98,6 +100,8 @@ export class FgrManClienComponent implements OnInit {
     private RhoSer: RhogaService,
     private MdPSer: MdPagService,
     private cook: CookieService,
+    private wordService: WordService,
+    private pdfService: PdfService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private location: Location,
@@ -148,7 +152,7 @@ export class FgrManClienComponent implements OnInit {
 
         FEC_NAC: new FormControl('',
           [
-            Validators.required,
+            Validators.required
           ]),
 
         TIP_SEX: new FormControl(new Array<SexGenModel>(), [
@@ -467,26 +471,6 @@ export class FgrManClienComponent implements OnInit {
     return null;
   }
 
-  validYear(): boolean {
-
-    let Cadena = this.formPost.controls['FEC_NAC'].value
-
-    let date = new Date().getTime() - new Date(Cadena).getTime();
-
-    // Convertir la diferencia de milisegundos a días
-    let dias = Math.floor(date / (1000 * 60 * 60 * 24));
-    // Convertir la diferencia en días a años
-    let years = Math.floor(dias / 365.25);
-
-    if (years < 18) {
-      return true
-
-    } else {
-      return false
-    }
-
-  }
-
   // Variables
   public formPost: FormGroup
   public formPost2: FormGroup
@@ -579,6 +563,7 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/form-validations.js');
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
+
 
 
   // SECCIÓN PROYECCIÓN DE DATOS
@@ -917,14 +902,17 @@ export class FgrManClienComponent implements OnInit {
 
   // ASIGNACIÓN DE VARIABLES Y FORMS
   Form() {
+    console.log('prueba');
+    console.log(this.formPost.value);
+    console.log(this.formPost.valid);
+    console.log(this.formPost.untouched);
+    console.log(this.formPost.getError);
+    console.log(this.formPost.controls);
 
     let Cadena = this.formPost.controls['FEC_NAC'].value
     let PruebaFecha = formatDate(new Date(Cadena), "dd/MM/yyyy", "en-US").toString()
     this.ente.Fec_Na2 = new Date(PruebaFecha)
     let CadenaFecha = Cadena.split("-")
-
-    console.log("bla:" + this.ente)
-
     /*
     this.ente.Lugna = new LugnaModel()
     this.ente.Pais = new PaisModel()
@@ -956,16 +944,9 @@ export class FgrManClienComponent implements OnInit {
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
 
-    console.log('prueba');
-    console.log(this.formPost.value);
 
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
 
-      console.log('prueba');
-      console.log(this.formPost.value);
-      console.log(this.formPost.valid);
-      console.log(this.formPost.getError);
-      console.log(this.formPost.controls);
       console.log(r);
 
       this.imprimirdef = r;
@@ -991,7 +972,7 @@ export class FgrManClienComponent implements OnInit {
     this.LlenarListas()
 
   }
-
+  
   public LlenarListas() {
     this.GetSucurs()
     this.GetPais()
@@ -1018,6 +999,30 @@ export class FgrManClienComponent implements OnInit {
     this.GetFuerc()
     this.GetRhoga()
     this.GetPeriod()
+  }
+  public Word()
+  {
+    this.wordService.generateWord(this.ente).then((blob: Blob) => {
+      
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'documento.docx';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
+  public PDF()
+  {
+    //this.pdfService.generatePDF(this.ente);
+    const element = this.elementoParaCaptura.nativeElement;
+
+    html2canvas(element).then((canvas) => 
+    {
+      const ImagenBiteada = canvas.toDataURL('image/jpeg');
+      this.pdfService.PDFCaptura(ImagenBiteada);
+    });
+    
   }
   public Form2() {
 
