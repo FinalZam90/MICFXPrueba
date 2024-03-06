@@ -130,6 +130,7 @@ export class FgrManClienComponent implements OnInit {
         NOM1_ENTE: new FormControl('',
           [
             Validators.required,
+  
             Validators.minLength(2)
           ]),
 
@@ -560,7 +561,15 @@ export class FgrManClienComponent implements OnInit {
     $.getScript('./assets/js/bs-custom-file-input.min.js');
   }
 
-  
+  mySelections: string[];
+
+changed() {
+  if (this.formPost.controls['FEC_NAC'].value.length < 3) {
+    this.mySelections = this.formPost.controls['FEC_NAC'].value;
+  } else {
+    this.formPost.controls['FEC_NAC'].setValue(this.mySelections);
+  }
+}
 
   // SECCIÓN PROYECCIÓN DE DATOS
   GetSucurs() {
@@ -933,9 +942,10 @@ export class FgrManClienComponent implements OnInit {
     this.ente.CURP = this.formPost.controls['CURP'].value
     this.ente.Nom_Com = this.ente.Nom_Ente1 + " " + this.ente.Nom_Ente2 + " " + this.ente.Ape_Ente1 + " " + this.ente.Ape_Ente2;
     let CadenaMsg = '';
-    
+
     this.EnteSer.Validacion(this.ente).subscribe((r) => {
       console.log(r);
+
       this.imprimirdef = r;
       if (this.imprimirdef.BAN == true) {
         $('#next-btn').prop('disabled', false);

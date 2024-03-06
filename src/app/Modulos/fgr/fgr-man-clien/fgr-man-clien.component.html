@@ -61,7 +61,7 @@
 		<div class="d-flex align-items-center gap-2">
 			<h6 class="mb-0">{{'Mantenimiento de Clientes' | uppercase}}</h6>
 			<button title="Download PDF" class="input-group-text"><i class="bx bxs-file-pdf"></i> </button>
-			<button title="Download Word" class="input-group-text"><i class="bx bxs-file-doc"></i> </button>		
+			<button title="Download Word" class="input-group-text"><i class="bx bxs-file-doc"></i> </button>
 		</div>
 
 
@@ -193,6 +193,61 @@
 
 									</div>
 								</div>
+
+								<div class="col-md-4">
+									<mat-form-field>
+										<mat-label>Nacionalidad</mat-label>
+
+										<mat-select formControlName="DES_NAC" (selectionChange)="changed()" multiple>
+
+											<mat-option [ngValue]="pais"
+												*ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</mat-option>
+											<mat-option>bla</mat-option>
+											<mat-option>bla</mat-option>
+											<mat-option>bla</mat-option>
+											<mat-option>bla</mat-option>
+											<mat-option>bla</mat-option>
+											<mat-option>bla</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</div>
+
+								<!--
+								<div class="col-md-4">
+									<label class="form-label">Nacionalidad</label>
+
+									<div class="input-group mb-3">
+
+										<label class="input-group-text" for="inputGroupSelect01">
+											<i class="bx bx-search"></i>
+										</label>
+
+										<select name="" id="" class="form-select" multiple>
+											<option [ngValue]="pais" *ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</option>										
+										</select>
+
+									</div>
+								</div>-->
+
+
+								<!--<mat-form-field>
+									<mat-label>Nacionalidad</mat-label>
+									<mat-select [formControl]="toppings" multiple>
+										<mat-select-trigger>
+											{{toppings.value?.[0] || ''}}
+											@if ((toppings.value?.length || 0) > 1) {
+											<span class="example-additional-selection">
+												(+{{(toppings.value?.length || 0) - 1}} {{toppings.value?.length === 2 ?
+												'other' : 'others'}})
+											</span>
+											}
+										</mat-select-trigger>
+										@for (topping of toppingList; track topping) {
+										<mat-option [ngValue]="pais" *ngFor="let pais of ente.Pais.Paises">{{pais.Des_Nac}}</mat-option>
+										}
+									</mat-select>
+								</mat-form-field>-->
+
 								<!--	
 								<div class="col-md-4">
 									<label class="form-label">Nacionalidad</label>
